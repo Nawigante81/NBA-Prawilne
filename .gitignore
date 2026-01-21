@@ -1,5 +1,15 @@
-﻿.venv/
+﻿# Python venv
+.venv/
 venv/
+env/
+ENV/
+
+# Python cache
 __pycache__/
 *.pyc
+
+# Node
 node_modules/
+
+# Playwright cache (opcjonalnie)
+.ms-playwright/
