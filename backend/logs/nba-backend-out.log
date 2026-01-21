@@ -1,0 +1,1501 @@
+2026-01-20 18:28:42 +00:00: [WARNING] Starting application with Supabase (Anon Key - limited permissions)
+2026-01-20 18:28:42 +00:00: [OK] Anti-bot scraping system loaded
+2026-01-20 18:28:42 +00:00: Automatic scraping on startup disabled. Use /api/scrape endpoints to trigger manually.
+2026-01-20 18:28:42 +00:00: [ERROR] Scheduler disabled - set ENABLE_SCHEDULER=true to enable
+2026-01-20 18:28:42 +00:00: INFO:     192.168.100.131:54080 - "GET /health HTTP/1.1" 200 OK
+2026-01-20 18:30:08 +00:00: [WARNING] Starting application with Supabase (Anon Key - limited permissions)
+2026-01-20 18:30:08 +00:00: [OK] Anti-bot scraping system loaded
+2026-01-20 18:30:08 +00:00: Automatic scraping on startup disabled. Use /api/scrape endpoints to trigger manually.
+2026-01-20 18:30:08 +00:00: [ERROR] Scheduler disabled - set ENABLE_SCHEDULER=true to enable
+2026-01-20 18:30:08 +00:00: INFO:     192.168.100.11:63628 - "GET /health HTTP/1.1" 200 OK
+2026-01-20 18:30:38 +00:00: INFO:     192.168.100.11:49312 - "GET /health HTTP/1.1" 200 OK
+2026-01-20 18:31:08 +00:00: INFO:     192.168.100.11:59802 - "GET /health HTTP/1.1" 200 OK
+2026-01-20 18:31:38 +00:00: INFO:     192.168.100.11:58247 - "GET /health HTTP/1.1" 200 OK
+2026-01-20 18:32:08 +00:00: INFO:     192.168.100.11:62771 - "GET /health HTTP/1.1" 200 OK
+2026-01-20 18:32:39 +00:00: INFO:     192.168.100.11:64263 - "GET /health HTTP/1.1" 200 OK
+2026-01-20 18:33:09 +00:00: INFO:     192.168.100.11:55666 - "GET /health HTTP/1.1" 200 OK
+2026-01-20 18:33:29 +00:00: INFO:     192.168.100.11:52269 - "GET /health HTTP/1.1" 200 OK
+2026-01-20 18:33:59 +00:00: INFO:     192.168.100.11:53308 - "GET /health HTTP/1.1" 200 OK
+2026-01-20 18:34:30 +00:00: INFO:     192.168.100.11:55836 - "GET /health HTTP/1.1" 200 OK
+2026-01-20 18:40:45 +00:00: INFO:     192.168.100.11:62204 - "GET /health HTTP/1.1" 200 OK
+2026-01-20 18:41:15 +00:00: INFO:     192.168.100.11:52767 - "GET /health HTTP/1.1" 200 OK
+2026-01-20 18:41:28 +00:00: INFO:     192.168.100.11:51459 - "GET /health HTTP/1.1" 200 OK
+2026-01-20 18:41:45 +00:00: INFO:     192.168.100.11:64525 - "GET /health HTTP/1.1" 200 OK
+2026-01-20 18:41:58 +00:00: INFO:     192.168.100.11:57176 - "GET /health HTTP/1.1" 200 OK
+2026-01-20 18:42:15 +00:00: INFO:     192.168.100.11:57532 - "GET /health HTTP/1.1" 200 OK
+2026-01-20 18:42:28 +00:00: INFO:     192.168.100.11:52783 - "GET /health HTTP/1.1" 200 OK
+2026-01-20 18:42:45 +00:00: INFO:     192.168.100.11:55980 - "GET /health HTTP/1.1" 200 OK
+2026-01-20 18:42:58 +00:00: INFO:     192.168.100.11:56638 - "GET /health HTTP/1.1" 200 OK
+2026-01-20 18:43:15 +00:00: INFO:     192.168.100.11:56739 - "GET /health HTTP/1.1" 200 OK
+2026-01-20 18:43:28 +00:00: INFO:     192.168.100.11:53645 - "GET /health HTTP/1.1" 200 OK
+2026-01-20 18:43:45 +00:00: INFO:     192.168.100.11:57382 - "GET /health HTTP/1.1" 200 OK
+2026-01-20 18:43:58 +00:00: INFO:     192.168.100.11:65455 - "GET /health HTTP/1.1" 200 OK
+2026-01-20 18:44:19 +00:00: INFO:     192.168.100.11:62718 - "GET /health HTTP/1.1" 200 OK
+2026-01-20 18:44:28 +00:00: INFO:     192.168.100.11:50097 - "GET /health HTTP/1.1" 200 OK
+2026-01-20 18:44:58 +00:00: INFO:     192.168.100.11:64229 - "GET /health HTTP/1.1" 200 OK
+2026-01-20 18:45:19 +00:00: INFO:     192.168.100.11:60003 - "GET /health HTTP/1.1" 200 OK
+2026-01-20 18:45:59 +00:00: INFO:     192.168.100.11:54580 - "GET /health HTTP/1.1" 200 OK
+2026-01-20 18:47:00 +00:00: INFO:     192.168.100.11:58456 - "GET /health HTTP/1.1" 200 OK
+2026-01-20 18:48:07 +00:00: INFO:     192.168.100.11:57046 - "GET /health HTTP/1.1" 200 OK
+2026-01-20 18:48:15 +00:00: INFO:     192.168.100.11:61943 - "GET /health HTTP/1.1" 200 OK
+2026-01-20 18:49:27 +00:00: INFO:     192.168.100.11:58708 - "GET /health HTTP/1.1" 200 OK
+2026-01-20 18:49:30 +00:00: INFO:     192.168.100.11:62648 - "GET /health HTTP/1.1" 200 OK
+2026-01-20 18:49:32 +00:00: INFO:     192.168.100.11:62648 - "GET /health HTTP/1.1" 200 OK
+2026-01-20 18:49:33 +00:00: INFO:     192.168.100.11:62648 - "GET /health HTTP/1.1" 200 OK
+2026-01-20 18:49:58 +00:00: INFO:     192.168.100.11:50260 - "GET /health HTTP/1.1" 200 OK
+2026-01-20 18:50:00 +00:00: INFO:     192.168.100.11:60915 - "GET /health HTTP/1.1" 200 OK
+2026-01-20 18:50:28 +00:00: INFO:     192.168.100.11:54816 - "GET /health HTTP/1.1" 200 OK
+2026-01-20 18:50:30 +00:00: INFO:     192.168.100.11:54207 - "GET /health HTTP/1.1" 200 OK
+2026-01-20 18:51:00 +00:00: INFO:     192.168.100.11:62722 - "GET /health HTTP/1.1" 200 OK
+2026-01-20 18:51:19 +00:00: INFO:     192.168.100.11:49217 - "GET /health HTTP/1.1" 200 OK
+2026-01-20 18:51:30 +00:00: INFO:     192.168.100.11:61943 - "GET /health HTTP/1.1" 200 OK
+2026-01-20 18:52:00 +00:00: INFO:     192.168.100.11:64427 - "GET /health HTTP/1.1" 200 OK
+2026-01-20 18:52:19 +00:00: INFO:     192.168.100.11:57611 - "GET /health HTTP/1.1" 200 OK
+2026-01-20 18:52:30 +00:00: INFO:     192.168.100.11:64299 - "GET /health HTTP/1.1" 200 OK
+2026-01-20 18:53:00 +00:00: INFO:     192.168.100.11:52743 - "GET /health HTTP/1.1" 200 OK
+2026-01-20 18:53:19 +00:00: INFO:     192.168.100.11:51782 - "GET /health HTTP/1.1" 200 OK
+2026-01-20 18:53:30 +00:00: INFO:     192.168.100.11:60789 - "GET /health HTTP/1.1" 200 OK
+2026-01-20 18:54:00 +00:00: INFO:     192.168.100.11:61943 - "GET /health HTTP/1.1" 200 OK
+2026-01-20 18:54:30 +00:00: INFO:     192.168.100.11:49901 - "GET /health HTTP/1.1" 200 OK
+2026-01-20 18:55:00 +00:00: INFO:     192.168.100.11:62632 - "GET /health HTTP/1.1" 200 OK
+2026-01-20 18:55:30 +00:00: INFO:     192.168.100.11:62129 - "GET /health HTTP/1.1" 200 OK
+2026-01-20 18:56:00 +00:00: INFO:     192.168.100.11:50244 - "GET /health HTTP/1.1" 200 OK
+2026-01-20 18:56:30 +00:00: INFO:     192.168.100.11:63633 - "GET /health HTTP/1.1" 200 OK
+2026-01-20 18:57:19 +00:00: INFO:     192.168.100.11:55472 - "GET /health HTTP/1.1" 200 OK
+2026-01-20 18:58:19 +00:00: INFO:     192.168.100.11:52995 - "GET /health HTTP/1.1" 200 OK
+2026-01-20 18:58:58 +00:00: INFO:     192.168.100.11:63817 - "GET /health HTTP/1.1" 200 OK
+2026-01-20 18:59:00 +00:00: INFO:     192.168.100.11:63817 - "GET /health HTTP/1.1" 200 OK
+2026-01-20 19:28:11 +00:00: INFO:     192.168.100.11:62925 - "GET / HTTP/1.1" 404 Not Found
+2026-01-20 19:28:11 +00:00: INFO:     192.168.100.11:62925 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+2026-01-20 19:37:15 +00:00: INFO:     192.168.100.11:63698 - "GET /health HTTP/1.1" 200 OK
+2026-01-20 19:37:45 +00:00: INFO:     192.168.100.11:52394 - "GET /health HTTP/1.1" 200 OK
+2026-01-20 19:38:02 +00:00: INFO:     192.168.100.11:55020 - "GET /health HTTP/1.1" 200 OK
+2026-01-20 19:38:02 +00:00: INFO:     192.168.100.11:55020 - "OPTIONS /api/games/today HTTP/1.1" 200 OK
+2026-01-20 19:38:02 +00:00: INFO:     192.168.100.11:51457 - "OPTIONS /api/games/today HTTP/1.1" 200 OK
+2026-01-20 19:38:02 +00:00: INFO:     192.168.100.11:51466 - "OPTIONS /api/teams HTTP/1.1" 200 OK
+2026-01-20 19:38:02 +00:00: INFO:     192.168.100.11:59051 - "OPTIONS /api/focus-teams/today?limit=5 HTTP/1.1" 200 OK
+2026-01-20 19:38:02 +00:00: INFO:     192.168.100.11:60251 - "OPTIONS /api/teams/analysis?include_betting=true HTTP/1.1" 200 OK
+2026-01-20 19:38:02 +00:00: INFO:     192.168.100.11:55020 - "GET /api/games/today HTTP/1.1" 401 Unauthorized
+2026-01-20 19:38:02 +00:00: INFO:     192.168.100.11:60251 - "GET /api/teams/analysis?include_betting=true HTTP/1.1" 401 Unauthorized
+2026-01-20 19:38:02 +00:00: INFO:     192.168.100.11:51466 - "GET /api/focus-teams/today?limit=5 HTTP/1.1" 401 Unauthorized
+2026-01-20 19:38:02 +00:00: INFO:     192.168.100.11:51457 - "GET /api/teams HTTP/1.1" 401 Unauthorized
+2026-01-20 19:38:02 +00:00: INFO:     192.168.100.11:55020 - "GET /api/games/today HTTP/1.1" 401 Unauthorized
+2026-01-20 19:38:15 +00:00: INFO:     192.168.100.11:59396 - "GET /health HTTP/1.1" 200 OK
+2026-01-20 19:38:32 +00:00: INFO:     192.168.100.11:64690 - "GET /health HTTP/1.1" 200 OK
+2026-01-20 19:38:33 +00:00: INFO:     192.168.100.11:64690 - "OPTIONS /api/reports?limit=20 HTTP/1.1" 200 OK
+2026-01-20 19:38:33 +00:00: INFO:     192.168.100.11:64690 - "GET /api/reports?limit=20 HTTP/1.1" 401 Unauthorized
+2026-01-20 19:38:34 +00:00: INFO:     192.168.100.11:64690 - "GET /api/games/today HTTP/1.1" 401 Unauthorized
+2026-01-20 19:38:34 +00:00: INFO:     192.168.100.11:65247 - "GET /api/teams/analysis?include_betting=true HTTP/1.1" 401 Unauthorized
+2026-01-20 19:38:34 +00:00: INFO:     192.168.100.11:60714 - "GET /api/teams HTTP/1.1" 401 Unauthorized
+2026-01-20 19:38:34 +00:00: INFO:     192.168.100.11:53735 - "GET /api/focus-teams/today?limit=5 HTTP/1.1" 401 Unauthorized
+2026-01-20 19:38:45 +00:00: INFO:     192.168.100.11:56259 - "GET /health HTTP/1.1" 200 OK
+2026-01-20 19:39:02 +00:00: INFO:     192.168.100.11:50569 - "GET /health HTTP/1.1" 200 OK
+2026-01-20 19:39:11 +00:00: INFO:     192.168.100.11:58051 - "GET /health HTTP/1.1" 200 OK
+2026-01-20 19:39:11 +00:00: INFO:     192.168.100.11:61946 - "GET /api/focus-teams/today?limit=5 HTTP/1.1" 401 Unauthorized
+2026-01-20 19:39:11 +00:00: INFO:     192.168.100.11:54434 - "GET /api/teams HTTP/1.1" 401 Unauthorized
+2026-01-20 19:39:11 +00:00: INFO:     192.168.100.11:59337 - "GET /api/teams/analysis?include_betting=true HTTP/1.1" 401 Unauthorized
+2026-01-20 19:39:11 +00:00: INFO:     192.168.100.11:60095 - "GET /api/games/today HTTP/1.1" 401 Unauthorized
+2026-01-20 19:39:12 +00:00: INFO:     192.168.100.11:60095 - "GET /api/games/today HTTP/1.1" 401 Unauthorized
+2026-01-20 19:39:15 +00:00: INFO:     192.168.100.11:54906 - "GET /health HTTP/1.1" 200 OK
+2026-01-20 19:39:16 +00:00: INFO:     192.168.100.11:60095 - "GET /health HTTP/1.1" 200 OK
+2026-01-20 19:39:17 +00:00: INFO:     192.168.100.11:60095 - "GET /health HTTP/1.1" 200 OK
+2026-01-20 19:39:26 +00:00: INFO:     192.168.100.11:57508 - "GET /api/games/today HTTP/1.1" 401 Unauthorized
+2026-01-20 19:39:26 +00:00: INFO:     192.168.100.11:55918 - "GET /api/teams HTTP/1.1" 401 Unauthorized
+2026-01-20 19:39:26 +00:00: INFO:     192.168.100.11:61946 - "GET /api/focus-teams/today?limit=5 HTTP/1.1" 401 Unauthorized
+2026-01-20 19:39:26 +00:00: INFO:     192.168.100.11:51518 - "GET /api/teams/analysis?include_betting=true HTTP/1.1" 401 Unauthorized
+2026-01-20 19:39:26 +00:00: INFO:     192.168.100.11:57508 - "GET /api/games/today HTTP/1.1" 401 Unauthorized
+2026-01-20 19:39:28 +00:00: INFO:     192.168.100.11:55918 - "GET /api/focus-teams/today?limit=5 HTTP/1.1" 401 Unauthorized
+2026-01-20 19:39:28 +00:00: INFO:     192.168.100.11:61946 - "GET /api/teams/analysis?include_betting=true HTTP/1.1" 401 Unauthorized
+2026-01-20 19:39:28 +00:00: INFO:     192.168.100.11:51518 - "GET /api/teams HTTP/1.1" 401 Unauthorized
+2026-01-20 19:39:28 +00:00: INFO:     192.168.100.11:57508 - "GET /api/games/today HTTP/1.1" 401 Unauthorized
+2026-01-20 19:39:28 +00:00: INFO:     192.168.100.11:51518 - "GET /api/games/today HTTP/1.1" 401 Unauthorized
+2026-01-20 19:39:41 +00:00: INFO:     192.168.100.11:51922 - "GET /health HTTP/1.1" 200 OK
+2026-01-20 19:39:45 +00:00: INFO:     192.168.100.11:59931 - "GET /health HTTP/1.1" 200 OK
+2026-01-20 19:39:57 +00:00: Shutting down application...
+2026-01-20 19:39:57 +00:00: Shutting down application...
+2026-01-21 11:11:06 +00:00: [WARNING] Starting application with Supabase (Anon Key - limited permissions)
+2026-01-21 11:11:06 +00:00: [OK] Anti-bot scraping system loaded
+2026-01-21 11:11:06 +00:00: Automatic scraping on startup disabled. Use /api/scrape endpoints to trigger manually.
+2026-01-21 11:11:06 +00:00: [ERROR] Scheduler disabled - set ENABLE_SCHEDULER=true to enable
+2026-01-21 11:11:06 +00:00: INFO:     127.0.0.1:38392 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 11:26:54 +00:00: INFO:     192.168.100.11:62117 - "GET / HTTP/1.1" 404 Not Found
+2026-01-21 11:26:54 +00:00: INFO:     192.168.100.11:62117 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+2026-01-21 11:27:32 +00:00: INFO:     192.168.100.131:42160 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 11:28:25 +00:00: Shutting down application...
+2026-01-21 11:28:25 +00:00: [WARNING] Starting application with Supabase (Anon Key - limited permissions)
+2026-01-21 11:28:25 +00:00: [OK] Anti-bot scraping system loaded
+2026-01-21 11:28:25 +00:00: Automatic scraping on startup disabled. Use /api/scrape endpoints to trigger manually.
+2026-01-21 11:28:25 +00:00: [ERROR] Scheduler disabled - set ENABLE_SCHEDULER=true to enable
+2026-01-21 11:28:25 +00:00: Shutting down application...
+2026-01-21 11:28:47 +00:00: [WARNING] Starting application with Supabase (Anon Key - limited permissions)
+2026-01-21 11:28:47 +00:00: [OK] Anti-bot scraping system loaded
+2026-01-21 11:28:47 +00:00: Automatic scraping on startup disabled. Use /api/scrape endpoints to trigger manually.
+2026-01-21 11:28:47 +00:00: [ERROR] Scheduler disabled - set ENABLE_SCHEDULER=true to enable
+2026-01-21 11:28:47 +00:00: Shutting down application...
+2026-01-21 11:28:47 +00:00: [WARNING] Starting application with Supabase (Anon Key - limited permissions)
+2026-01-21 11:28:47 +00:00: [OK] Anti-bot scraping system loaded
+2026-01-21 11:28:47 +00:00: Automatic scraping on startup disabled. Use /api/scrape endpoints to trigger manually.
+2026-01-21 11:28:47 +00:00: [ERROR] Scheduler disabled - set ENABLE_SCHEDULER=true to enable
+2026-01-21 11:28:47 +00:00: Shutting down application...
+2026-01-21 11:28:53 +00:00: [WARNING] Starting application with Supabase (Anon Key - limited permissions)
+2026-01-21 11:28:53 +00:00: [OK] Anti-bot scraping system loaded
+2026-01-21 11:28:53 +00:00: Automatic scraping on startup disabled. Use /api/scrape endpoints to trigger manually.
+2026-01-21 11:28:53 +00:00: [ERROR] Scheduler disabled - set ENABLE_SCHEDULER=true to enable
+2026-01-21 11:28:53 +00:00: INFO:     192.168.100.11:62962 - "OPTIONS /api/teams/analysis?include_betting=true HTTP/1.1" 200 OK
+2026-01-21 11:28:53 +00:00: [WARNING] Starting application with Supabase (Anon Key - limited permissions)
+2026-01-21 11:28:53 +00:00: [OK] Anti-bot scraping system loaded
+2026-01-21 11:28:53 +00:00: Automatic scraping on startup disabled. Use /api/scrape endpoints to trigger manually.
+2026-01-21 11:28:53 +00:00: [ERROR] Scheduler disabled - set ENABLE_SCHEDULER=true to enable
+2026-01-21 11:28:53 +00:00: INFO:     192.168.100.11:58028 - "OPTIONS /api/games/today HTTP/1.1" 200 OK
+2026-01-21 11:28:53 +00:00: INFO:     192.168.100.11:59403 - "OPTIONS /api/games/today HTTP/1.1" 200 OK
+2026-01-21 11:28:53 +00:00: INFO:     192.168.100.11:60623 - "OPTIONS /api/teams HTTP/1.1" 200 OK
+2026-01-21 11:28:53 +00:00: INFO:     192.168.100.11:53216 - "OPTIONS /api/focus-teams/today?limit=5 HTTP/1.1" 200 OK
+2026-01-21 11:28:53 +00:00: INFO:     192.168.100.11:62251 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 11:28:54 +00:00: INFO:     192.168.100.11:62962 - "GET /api/teams/analysis?include_betting=true HTTP/1.1" 401 Unauthorized
+2026-01-21 11:28:54 +00:00: INFO:     192.168.100.11:58028 - "GET /api/games/today HTTP/1.1" 401 Unauthorized
+2026-01-21 11:28:54 +00:00: INFO:     192.168.100.11:59403 - "GET /api/teams HTTP/1.1" 401 Unauthorized
+2026-01-21 11:28:54 +00:00: INFO:     192.168.100.11:60623 - "GET /api/focus-teams/today?limit=5 HTTP/1.1" 401 Unauthorized
+2026-01-21 11:28:54 +00:00: INFO:     192.168.100.11:58028 - "GET /api/games/today HTTP/1.1" 401 Unauthorized
+2026-01-21 11:29:00 +00:00: INFO:     192.168.100.11:49796 - "OPTIONS /api/games/today HTTP/1.1" 200 OK
+2026-01-21 11:29:00 +00:00: INFO:     192.168.100.11:62244 - "OPTIONS /api/teams/analysis?include_betting=true HTTP/1.1" 200 OK
+2026-01-21 11:29:00 +00:00: INFO:     192.168.100.11:57251 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 11:29:00 +00:00: INFO:     192.168.100.11:65171 - "OPTIONS /api/games/today HTTP/1.1" 200 OK
+2026-01-21 11:29:00 +00:00: INFO:     192.168.100.11:54590 - "OPTIONS /api/teams HTTP/1.1" 200 OK
+2026-01-21 11:29:00 +00:00: INFO:     192.168.100.11:56257 - "OPTIONS /api/focus-teams/today?limit=5 HTTP/1.1" 200 OK
+2026-01-21 11:29:01 +00:00: INFO:     192.168.100.11:65171 - "GET /api/teams HTTP/1.1" 401 Unauthorized
+2026-01-21 11:29:01 +00:00: INFO:     192.168.100.11:49796 - "GET /api/games/today HTTP/1.1" 401 Unauthorized
+2026-01-21 11:29:01 +00:00: INFO:     192.168.100.11:62244 - "GET /api/teams/analysis?include_betting=true HTTP/1.1" 401 Unauthorized
+2026-01-21 11:29:01 +00:00: INFO:     192.168.100.11:56257 - "GET /api/focus-teams/today?limit=5 HTTP/1.1" 401 Unauthorized
+2026-01-21 11:29:01 +00:00: INFO:     192.168.100.11:49796 - "GET /api/games/today HTTP/1.1" 401 Unauthorized
+2026-01-21 11:29:16 +00:00: INFO:     192.168.100.11:61173 - "GET /api/focus-teams/today?limit=5 HTTP/1.1" 200 OK
+2026-01-21 11:29:16 +00:00: INFO:     192.168.100.11:54202 - "GET /api/teams HTTP/1.1" 200 OK
+2026-01-21 11:29:16 +00:00: INFO:     192.168.100.11:53395 - "GET /api/games/today HTTP/1.1" 200 OK
+2026-01-21 11:29:16 +00:00: INFO:     192.168.100.11:53395 - "GET /api/games/today HTTP/1.1" 200 OK
+2026-01-21 11:29:23 +00:00: INFO:     192.168.100.11:52693 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 11:29:27 +00:00: INFO:     192.168.100.11:55596 - "GET /api/teams/analysis?include_betting=true HTTP/1.1" 500 Internal Server Error
+2026-01-21 11:29:30 +00:00: INFO:     192.168.100.11:55596 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 11:29:53 +00:00: INFO:     192.168.100.11:61944 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 11:30:00 +00:00: INFO:     192.168.100.11:53216 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 11:30:23 +00:00: INFO:     192.168.100.11:62805 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 11:30:30 +00:00: INFO:     192.168.100.11:62255 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 11:30:53 +00:00: INFO:     192.168.100.11:63597 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 11:31:00 +00:00: INFO:     192.168.100.11:55761 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 11:31:23 +00:00: INFO:     192.168.100.11:60285 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 11:31:30 +00:00: INFO:     192.168.100.11:63689 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 11:31:53 +00:00: INFO:     192.168.100.11:50694 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 11:32:00 +00:00: INFO:     192.168.100.11:57380 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 11:32:30 +00:00: INFO:     192.168.100.11:61943 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 11:33:00 +00:00: INFO:     192.168.100.11:57469 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 11:33:19 +00:00: INFO:     192.168.100.11:53219 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 11:33:30 +00:00: INFO:     192.168.100.11:60151 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 11:34:00 +00:00: INFO:     192.168.100.11:56686 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 11:34:30 +00:00: INFO:     192.168.100.11:65353 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 11:35:00 +00:00: INFO:     192.168.100.11:62951 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 11:35:30 +00:00: INFO:     192.168.100.11:59957 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 11:36:00 +00:00: INFO:     192.168.100.11:51839 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 11:36:30 +00:00: INFO:     192.168.100.11:51569 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 11:37:00 +00:00: INFO:     192.168.100.11:57950 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 11:37:18 +00:00: INFO:     192.168.100.11:59161 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 11:37:21 +00:00: INFO:     192.168.100.11:51656 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 11:37:22 +00:00: INFO:     192.168.100.11:49542 - "GET /api/focus-teams/today?limit=5 HTTP/1.1" 200 OK
+2026-01-21 11:37:22 +00:00: INFO:     192.168.100.11:59161 - "GET /api/games/today HTTP/1.1" 200 OK
+2026-01-21 11:37:22 +00:00: INFO:     192.168.100.11:61958 - "GET /api/teams HTTP/1.1" 200 OK
+2026-01-21 11:37:23 +00:00: INFO:     192.168.100.11:59161 - "GET /api/games/today HTTP/1.1" 200 OK
+2026-01-21 11:37:26 +00:00: INFO:     192.168.100.11:59161 - "OPTIONS /api/games/today HTTP/1.1" 200 OK
+2026-01-21 11:37:26 +00:00: INFO:     192.168.100.11:61958 - "OPTIONS /api/games/today HTTP/1.1" 200 OK
+2026-01-21 11:37:26 +00:00: INFO:     192.168.100.11:49542 - "OPTIONS /api/teams HTTP/1.1" 200 OK
+2026-01-21 11:37:26 +00:00: INFO:     192.168.100.11:51656 - "OPTIONS /api/focus-teams/today?limit=5 HTTP/1.1" 200 OK
+2026-01-21 11:37:26 +00:00: INFO:     192.168.100.11:65207 - "OPTIONS /api/teams/analysis?include_betting=true HTTP/1.1" 200 OK
+2026-01-21 11:37:26 +00:00: INFO:     192.168.100.11:58722 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 11:37:26 +00:00: INFO:     192.168.100.11:49542 - "GET /api/games/today HTTP/1.1" 200 OK
+2026-01-21 11:37:26 +00:00: INFO:     192.168.100.11:58722 - "GET /api/teams HTTP/1.1" 200 OK
+2026-01-21 11:37:26 +00:00: INFO:     192.168.100.11:65207 - "GET /api/focus-teams/today?limit=5 HTTP/1.1" 200 OK
+2026-01-21 11:37:26 +00:00: INFO:     192.168.100.11:51656 - "GET /api/games/today HTTP/1.1" 200 OK
+2026-01-21 11:37:34 +00:00: INFO:     192.168.100.11:59161 - "GET /api/teams/analysis?include_betting=true HTTP/1.1" 500 Internal Server Error
+2026-01-21 11:37:45 +00:00: INFO:     192.168.100.11:61973 - "OPTIONS /api/reports?limit=20 HTTP/1.1" 200 OK
+2026-01-21 11:37:46 +00:00: INFO:     192.168.100.11:61973 - "GET /api/reports?limit=20 HTTP/1.1" 200 OK
+2026-01-21 11:37:56 +00:00: INFO:     192.168.100.11:50088 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 11:37:56 +00:00: INFO:     192.168.100.11:61973 - "GET /api/teams/analysis?include_betting=true HTTP/1.1" 500 Internal Server Error
+2026-01-21 11:38:05 +00:00: INFO:     192.168.100.11:63755 - "OPTIONS /api/betting-recommendations HTTP/1.1" 200 OK
+2026-01-21 11:38:05 +00:00: INFO:     192.168.100.11:63755 - "GET /api/betting-recommendations HTTP/1.1" 200 OK
+2026-01-21 11:38:19 +00:00: INFO:     192.168.100.11:57310 - "GET /api/games/today HTTP/1.1" 200 OK
+2026-01-21 11:38:22 +00:00: INFO:     192.168.100.11:56994 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 11:38:26 +00:00: INFO:     192.168.100.11:54134 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 11:38:29 +00:00: INFO:     192.168.100.11:58070 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 11:38:29 +00:00: INFO:     192.168.100.11:61412 - "GET /api/teams/analysis?include_betting=true HTTP/1.1" 401 Unauthorized
+2026-01-21 11:38:29 +00:00: INFO:     192.168.100.11:59299 - "GET /api/teams HTTP/1.1" 401 Unauthorized
+2026-01-21 11:38:29 +00:00: INFO:     192.168.100.11:59464 - "GET /api/games/today HTTP/1.1" 401 Unauthorized
+2026-01-21 11:38:29 +00:00: INFO:     192.168.100.11:62439 - "GET /api/focus-teams/today?limit=5 HTTP/1.1" 401 Unauthorized
+2026-01-21 11:38:29 +00:00: INFO:     192.168.100.11:62439 - "GET /api/games/today HTTP/1.1" 401 Unauthorized
+2026-01-21 11:38:56 +00:00: INFO:     192.168.100.11:58363 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 11:38:58 +00:00: INFO:     192.168.100.11:54100 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 11:39:26 +00:00: INFO:     192.168.100.11:51679 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 11:39:28 +00:00: INFO:     192.168.100.11:51679 - "GET /api/betting-recommendations HTTP/1.1" 200 OK
+2026-01-21 11:39:29 +00:00: INFO:     192.168.100.11:63193 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 11:39:29 +00:00: INFO:     192.168.100.11:51679 - "GET /api/games/today HTTP/1.1" 200 OK
+2026-01-21 11:39:56 +00:00: INFO:     192.168.100.11:64116 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 11:39:59 +00:00: INFO:     192.168.100.11:61095 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 11:40:26 +00:00: INFO:     192.168.100.11:50731 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 11:40:29 +00:00: INFO:     192.168.100.11:49500 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 11:40:31 +00:00: INFO:     192.168.100.11:59227 - "OPTIONS /api/analytics/form?player_name=Zach+LaVine&games=15 HTTP/1.1" 200 OK
+2026-01-21 11:40:31 +00:00: INFO:     192.168.100.11:59227 - "GET /api/analytics/form?player_name=Zach+LaVine&games=15 HTTP/1.1" 200 OK
+2026-01-21 11:40:48 +00:00: INFO:     192.168.100.11:55153 - "OPTIONS /api/analytics/form?player_name=Zach+LaVine&games=50 HTTP/1.1" 200 OK
+2026-01-21 11:40:48 +00:00: INFO:     192.168.100.11:55153 - "GET /api/analytics/form?player_name=Zach+LaVine&games=50 HTTP/1.1" 200 OK
+2026-01-21 11:40:56 +00:00: INFO:     192.168.100.11:63512 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 11:40:59 +00:00: INFO:     192.168.100.11:57352 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 11:41:02 +00:00: INFO:     192.168.100.11:61943 - "OPTIONS /api/analytics/injury-impact?team=CHI&missing_player=Zach+LaVine&seasons_back=2 HTTP/1.1" 200 OK
+2026-01-21 11:41:03 +00:00: INFO:     192.168.100.11:61943 - "GET /api/analytics/injury-impact?team=CHI&missing_player=Zach+LaVine&seasons_back=2 HTTP/1.1" 200 OK
+2026-01-21 11:41:07 +00:00: INFO:     192.168.100.11:61943 - "OPTIONS /api/analytics/injury-impact?team=CHI&missing_player=Zach+LaVine&seasons_back=5 HTTP/1.1" 200 OK
+2026-01-21 11:41:08 +00:00: INFO:     192.168.100.11:61943 - "GET /api/analytics/injury-impact?team=CHI&missing_player=Zach+LaVine&seasons_back=5 HTTP/1.1" 200 OK
+2026-01-21 11:41:12 +00:00: INFO:     192.168.100.11:61943 - "GET /api/games/today HTTP/1.1" 200 OK
+2026-01-21 11:41:12 +00:00: INFO:     192.168.100.11:55172 - "GET /api/focus-teams/today?limit=5 HTTP/1.1" 200 OK
+2026-01-21 11:41:12 +00:00: INFO:     192.168.100.11:59560 - "GET /api/teams HTTP/1.1" 200 OK
+2026-01-21 11:41:20 +00:00: INFO:     192.168.100.11:57328 - "GET /api/teams/analysis?include_betting=true HTTP/1.1" 500 Internal Server Error
+2026-01-21 11:41:26 +00:00: INFO:     192.168.100.11:56765 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 11:41:29 +00:00: INFO:     192.168.100.11:54429 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 11:41:56 +00:00: INFO:     192.168.100.11:51735 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 11:42:19 +00:00: INFO:     192.168.100.11:65440 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 11:42:26 +00:00: INFO:     192.168.100.11:64175 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 11:42:56 +00:00: INFO:     192.168.100.11:61943 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 11:43:19 +00:00: INFO:     192.168.100.11:61229 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 11:43:25 +00:00: INFO:     192.168.100.11:49285 - "GET /api/reports?limit=20 HTTP/1.1" 200 OK
+2026-01-21 11:43:26 +00:00: INFO:     192.168.100.11:62898 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 11:43:36 +00:00: INFO:     192.168.100.11:49285 - "GET /api/teams/analysis?include_betting=true HTTP/1.1" 500 Internal Server Error
+2026-01-21 11:43:38 +00:00: INFO:     192.168.100.11:49285 - "GET /api/betting-recommendations HTTP/1.1" 200 OK
+2026-01-21 11:43:41 +00:00: INFO:     192.168.100.11:49285 - "GET /api/games/today HTTP/1.1" 200 OK
+2026-01-21 11:43:43 +00:00: INFO:     192.168.100.11:49285 - "OPTIONS /api/players?active=true&include_stats=true HTTP/1.1" 200 OK
+2026-01-21 11:43:43 +00:00: INFO:     192.168.100.11:49285 - "GET /api/players?active=true&include_stats=true HTTP/1.1" 200 OK
+2026-01-21 11:43:43 +00:00: INFO:     192.168.100.11:49285 - "GET /api/teams HTTP/1.1" 200 OK
+2026-01-21 11:43:56 +00:00: INFO:     192.168.100.11:59938 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 11:44:26 +00:00: INFO:     192.168.100.11:58694 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 11:44:56 +00:00: INFO:     192.168.100.11:60312 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 11:45:06 +00:00: INFO:     192.168.100.11:57093 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 11:45:09 +00:00: INFO:     192.168.100.11:57093 - "OPTIONS /api/games/today HTTP/1.1" 200 OK
+2026-01-21 11:45:09 +00:00: INFO:     192.168.100.11:57093 - "GET /api/games/today HTTP/1.1" 401 Unauthorized
+2026-01-21 11:45:26 +00:00: INFO:     192.168.100.11:63062 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 11:45:28 +00:00: INFO:     192.168.100.11:50105 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 11:45:56 +00:00: INFO:     192.168.100.11:50245 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 11:45:58 +00:00: INFO:     192.168.100.11:57909 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 11:46:05 +00:00: INFO:     192.168.100.131:47300 - "GET /api/games/today HTTP/1.1" 401 Unauthorized
+2026-01-21 11:46:21 +00:00: INFO:     192.168.100.131:54534 - "OPTIONS /api/games/today HTTP/1.1" 200 OK
+2026-01-21 11:46:28 +00:00: INFO:     192.168.100.11:51571 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 11:46:57 +00:00: INFO:     192.168.100.11:53984 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 11:47:00 +00:00: [WARNING] Starting application with Supabase (Anon Key - limited permissions)
+2026-01-21 11:47:00 +00:00: [OK] Anti-bot scraping system loaded
+2026-01-21 11:47:00 +00:00: Automatic scraping on startup disabled. Use /api/scrape endpoints to trigger manually.
+2026-01-21 11:47:00 +00:00: [ERROR] Scheduler disabled - set ENABLE_SCHEDULER=true to enable
+2026-01-21 11:47:00 +00:00: INFO:     192.168.100.11:57721 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 11:47:04 +00:00: [WARNING] Starting application with Supabase (Anon Key - limited permissions)
+2026-01-21 11:47:04 +00:00: [OK] Anti-bot scraping system loaded
+2026-01-21 11:47:04 +00:00: Automatic scraping on startup disabled. Use /api/scrape endpoints to trigger manually.
+2026-01-21 11:47:04 +00:00: [ERROR] Scheduler disabled - set ENABLE_SCHEDULER=true to enable
+2026-01-21 11:47:04 +00:00: INFO:     192.168.100.131:58604 - "GET /api/games/today HTTP/1.1" 401 Unauthorized
+2026-01-21 11:47:28 +00:00: INFO:     192.168.100.11:58646 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 11:47:58 +00:00: INFO:     192.168.100.11:65340 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 11:47:58 +00:00: INFO:     192.168.100.11:54493 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 11:48:28 +00:00: INFO:     192.168.100.11:65359 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 11:48:58 +00:00: INFO:     192.168.100.11:60048 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 11:48:59 +00:00: INFO:     192.168.100.11:52768 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 11:49:28 +00:00: INFO:     192.168.100.11:53216 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 11:49:58 +00:00: INFO:     192.168.100.11:63184 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 11:50:00 +00:00: INFO:     192.168.100.11:55686 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 11:50:28 +00:00: INFO:     192.168.100.11:60505 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 11:50:58 +00:00: INFO:     192.168.100.11:61234 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 11:51:28 +00:00: INFO:     192.168.100.11:52543 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 11:51:58 +00:00: INFO:     192.168.100.11:54648 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 11:52:28 +00:00: INFO:     192.168.100.11:61943 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 11:52:58 +00:00: INFO:     192.168.100.11:58690 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 11:53:28 +00:00: INFO:     192.168.100.11:51856 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 11:53:58 +00:00: INFO:     192.168.100.11:49821 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 11:54:28 +00:00: INFO:     192.168.100.11:55130 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 11:54:58 +00:00: INFO:     192.168.100.11:58286 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 11:55:28 +00:00: INFO:     192.168.100.11:61354 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 11:55:58 +00:00: INFO:     192.168.100.11:64223 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 11:56:28 +00:00: INFO:     192.168.100.11:61943 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 11:56:58 +00:00: INFO:     192.168.100.11:63610 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 11:57:28 +00:00: INFO:     192.168.100.11:50234 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 11:57:58 +00:00: INFO:     192.168.100.11:54154 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 11:58:28 +00:00: INFO:     192.168.100.11:49922 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 11:58:58 +00:00: INFO:     192.168.100.11:52324 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 11:59:28 +00:00: INFO:     192.168.100.11:54960 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 11:59:58 +00:00: INFO:     192.168.100.11:52563 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:00:28 +00:00: INFO:     192.168.100.11:54293 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:00:58 +00:00: INFO:     192.168.100.11:50609 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:01:28 +00:00: INFO:     192.168.100.11:59900 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:01:58 +00:00: INFO:     192.168.100.11:49913 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:02:28 +00:00: INFO:     192.168.100.11:57590 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:02:58 +00:00: INFO:     192.168.100.11:59283 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:03:28 +00:00: INFO:     192.168.100.11:54152 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:03:58 +00:00: INFO:     192.168.100.11:62257 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:04:28 +00:00: INFO:     192.168.100.11:56443 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:04:58 +00:00: INFO:     192.168.100.11:62928 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:05:28 +00:00: INFO:     192.168.100.11:49962 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:05:58 +00:00: INFO:     192.168.100.11:59719 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:06:28 +00:00: INFO:     192.168.100.11:57033 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:06:58 +00:00: INFO:     192.168.100.11:49712 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:07:01 +00:00: INFO:     192.168.100.11:49712 - "OPTIONS /api/games/today HTTP/1.1" 200 OK
+2026-01-21 12:07:01 +00:00: INFO:     192.168.100.11:49712 - "OPTIONS /api/games/today HTTP/1.1" 200 OK
+2026-01-21 12:07:01 +00:00: INFO:     192.168.100.11:56790 - "OPTIONS /api/teams HTTP/1.1" 200 OK
+2026-01-21 12:07:01 +00:00: INFO:     192.168.100.11:52321 - "OPTIONS /api/focus-teams/today?limit=5 HTTP/1.1" 200 OK
+2026-01-21 12:07:01 +00:00: INFO:     192.168.100.11:56119 - "OPTIONS /api/teams/analysis?include_betting=true HTTP/1.1" 200 OK
+2026-01-21 12:07:01 +00:00: INFO:     192.168.100.11:55368 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:07:01 +00:00: INFO:     192.168.100.11:56119 - "GET /api/teams/analysis?include_betting=true HTTP/1.1" 401 Unauthorized
+2026-01-21 12:07:01 +00:00: INFO:     192.168.100.11:56790 - "GET /api/teams HTTP/1.1" 401 Unauthorized
+2026-01-21 12:07:01 +00:00: INFO:     192.168.100.11:62190 - "GET /api/games/today HTTP/1.1" 401 Unauthorized
+2026-01-21 12:07:01 +00:00: INFO:     192.168.100.11:49712 - "GET /api/games/today HTTP/1.1" 401 Unauthorized
+2026-01-21 12:07:01 +00:00: INFO:     192.168.100.11:52321 - "GET /api/focus-teams/today?limit=5 HTTP/1.1" 401 Unauthorized
+2026-01-21 12:07:02 +00:00: INFO:     192.168.100.11:52321 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:07:02 +00:00: INFO:     192.168.100.11:52321 - "OPTIONS /api/games/today HTTP/1.1" 200 OK
+2026-01-21 12:07:02 +00:00: INFO:     192.168.100.11:49712 - "OPTIONS /api/games/today HTTP/1.1" 200 OK
+2026-01-21 12:07:02 +00:00: INFO:     192.168.100.11:62190 - "OPTIONS /api/teams HTTP/1.1" 200 OK
+2026-01-21 12:07:02 +00:00: INFO:     192.168.100.11:49712 - "OPTIONS /api/focus-teams/today?limit=5 HTTP/1.1" 200 OK
+2026-01-21 12:07:02 +00:00: INFO:     192.168.100.11:62190 - "OPTIONS /api/teams/analysis?include_betting=true HTTP/1.1" 200 OK
+2026-01-21 12:07:02 +00:00: INFO:     192.168.100.11:62190 - "GET /api/focus-teams/today?limit=5 HTTP/1.1" 401 Unauthorized
+2026-01-21 12:07:03 +00:00: INFO:     192.168.100.11:56119 - "GET /api/teams HTTP/1.1" 401 Unauthorized
+2026-01-21 12:07:03 +00:00: INFO:     192.168.100.11:49712 - "GET /api/teams/analysis?include_betting=true HTTP/1.1" 401 Unauthorized
+2026-01-21 12:07:03 +00:00: INFO:     192.168.100.11:52321 - "GET /api/games/today HTTP/1.1" 401 Unauthorized
+2026-01-21 12:07:03 +00:00: INFO:     192.168.100.11:56790 - "GET /api/games/today HTTP/1.1" 401 Unauthorized
+2026-01-21 12:07:23 +00:00: INFO:     192.168.100.11:52277 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:07:25 +00:00: INFO:     192.168.100.11:52277 - "OPTIONS /api/games/today HTTP/1.1" 200 OK
+2026-01-21 12:07:25 +00:00: INFO:     192.168.100.11:59270 - "OPTIONS /api/teams/analysis?include_betting=true HTTP/1.1" 200 OK
+2026-01-21 12:07:25 +00:00: INFO:     192.168.100.11:54606 - "OPTIONS /api/games/today HTTP/1.1" 200 OK
+2026-01-21 12:07:25 +00:00: INFO:     192.168.100.11:53260 - "OPTIONS /api/teams HTTP/1.1" 200 OK
+2026-01-21 12:07:25 +00:00: INFO:     192.168.100.11:57263 - "OPTIONS /api/focus-teams/today?limit=5 HTTP/1.1" 200 OK
+2026-01-21 12:07:25 +00:00: INFO:     192.168.100.11:64828 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:07:26 +00:00: INFO:     192.168.100.11:52277 - "GET /api/games/today HTTP/1.1" 200 OK
+2026-01-21 12:07:26 +00:00: INFO:     192.168.100.11:53260 - "GET /api/teams HTTP/1.1" 200 OK
+2026-01-21 12:07:26 +00:00: INFO:     192.168.100.11:54606 - "GET /api/focus-teams/today?limit=5 HTTP/1.1" 200 OK
+2026-01-21 12:07:26 +00:00: INFO:     192.168.100.11:52277 - "GET /api/games/today HTTP/1.1" 200 OK
+2026-01-21 12:07:26 +00:00: INFO:     192.168.100.11:52277 - "OPTIONS /api/games/today HTTP/1.1" 200 OK
+2026-01-21 12:07:26 +00:00: INFO:     192.168.100.11:54192 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:07:26 +00:00: INFO:     192.168.100.11:53260 - "OPTIONS /api/games/today HTTP/1.1" 200 OK
+2026-01-21 12:07:26 +00:00: INFO:     192.168.100.11:54606 - "OPTIONS /api/teams HTTP/1.1" 200 OK
+2026-01-21 12:07:26 +00:00: INFO:     192.168.100.11:64828 - "OPTIONS /api/focus-teams/today?limit=5 HTTP/1.1" 200 OK
+2026-01-21 12:07:26 +00:00: INFO:     192.168.100.11:59270 - "OPTIONS /api/teams/analysis?include_betting=true HTTP/1.1" 200 OK
+2026-01-21 12:07:27 +00:00: INFO:     192.168.100.11:53260 - "GET /api/teams HTTP/1.1" 200 OK
+2026-01-21 12:07:27 +00:00: INFO:     192.168.100.11:64828 - "GET /api/games/today HTTP/1.1" 200 OK
+2026-01-21 12:07:27 +00:00: INFO:     192.168.100.11:52277 - "GET /api/games/today HTTP/1.1" 200 OK
+2026-01-21 12:07:27 +00:00: INFO:     192.168.100.11:59270 - "GET /api/focus-teams/today?limit=5 HTTP/1.1" 200 OK
+2026-01-21 12:07:27 +00:00: INFO:     192.168.100.11:59270 - "OPTIONS /api/games/today HTTP/1.1" 200 OK
+2026-01-21 12:07:27 +00:00: INFO:     192.168.100.11:54192 - "OPTIONS /api/teams/analysis?include_betting=true HTTP/1.1" 200 OK
+2026-01-21 12:07:27 +00:00: INFO:     192.168.100.11:59446 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:07:27 +00:00: INFO:     192.168.100.11:52277 - "OPTIONS /api/games/today HTTP/1.1" 200 OK
+2026-01-21 12:07:27 +00:00: INFO:     192.168.100.11:64828 - "OPTIONS /api/teams HTTP/1.1" 200 OK
+2026-01-21 12:07:27 +00:00: INFO:     192.168.100.11:53260 - "OPTIONS /api/focus-teams/today?limit=5 HTTP/1.1" 200 OK
+2026-01-21 12:07:28 +00:00: INFO:     192.168.100.11:52277 - "GET /api/focus-teams/today?limit=5 HTTP/1.1" 200 OK
+2026-01-21 12:07:28 +00:00: INFO:     192.168.100.11:53260 - "GET /api/games/today HTTP/1.1" 200 OK
+2026-01-21 12:07:28 +00:00: INFO:     192.168.100.11:59270 - "GET /api/games/today HTTP/1.1" 200 OK
+2026-01-21 12:07:28 +00:00: INFO:     192.168.100.11:64828 - "GET /api/teams HTTP/1.1" 200 OK
+2026-01-21 12:07:33 +00:00: INFO:     192.168.100.11:57783 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:07:38 +00:00: INFO:     192.168.100.11:52790 - "GET /api/teams HTTP/1.1" 200 OK
+2026-01-21 12:07:38 +00:00: INFO:     192.168.100.11:60065 - "GET /api/focus-teams/today?limit=5 HTTP/1.1" 200 OK
+2026-01-21 12:07:41 +00:00: INFO:     192.168.100.11:64089 - "GET /api/games/today HTTP/1.1" 200 OK
+2026-01-21 12:07:41 +00:00: INFO:     192.168.100.11:64089 - "GET /api/games/today HTTP/1.1" 200 OK
+2026-01-21 12:07:43 +00:00: INFO:     192.168.100.11:54192 - "GET /api/teams/analysis?include_betting=true HTTP/1.1" 200 OK
+2026-01-21 12:07:45 +00:00: INFO:     192.168.100.11:54192 - "OPTIONS /api/players?active=true&include_stats=true HTTP/1.1" 200 OK
+2026-01-21 12:07:45 +00:00: INFO:     192.168.100.11:54192 - "GET /api/players?active=true&include_stats=true HTTP/1.1" 200 OK
+2026-01-21 12:07:45 +00:00: INFO:     192.168.100.11:54192 - "GET /api/teams HTTP/1.1" 200 OK
+2026-01-21 12:07:49 +00:00: INFO:     192.168.100.11:54192 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:07:54 +00:00: INFO:     192.168.100.11:64089 - "GET /api/teams/analysis?include_betting=true HTTP/1.1" 200 OK
+2026-01-21 12:07:57 +00:00: INFO:     192.168.100.11:64089 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:08:03 +00:00: INFO:     192.168.100.11:54317 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:08:27 +00:00: INFO:     192.168.100.11:55913 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:08:33 +00:00: INFO:     192.168.100.11:54196 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:08:51 +00:00: INFO:     192.168.100.11:53216 - "GET /api/games/today HTTP/1.1" 200 OK
+2026-01-21 12:08:51 +00:00: INFO:     192.168.100.11:56709 - "GET /api/players?active=true&include_stats=true HTTP/1.1" 200 OK
+2026-01-21 12:08:51 +00:00: INFO:     192.168.100.11:56709 - "GET /api/teams HTTP/1.1" 200 OK
+2026-01-21 12:08:57 +00:00: INFO:     192.168.100.11:63688 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:09:02 +00:00: INFO:     192.168.100.11:63688 - "OPTIONS /api/players?team=BKN&active=true&include_stats=true HTTP/1.1" 200 OK
+2026-01-21 12:09:02 +00:00: INFO:     192.168.100.11:63688 - "GET /api/players?team=BKN&active=true&include_stats=true HTTP/1.1" 200 OK
+2026-01-21 12:09:03 +00:00: INFO:     192.168.100.11:63688 - "GET /api/teams HTTP/1.1" 200 OK
+2026-01-21 12:09:03 +00:00: INFO:     192.168.100.11:55151 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:09:26 +00:00: INFO:     192.168.100.11:63756 - "OPTIONS /api/players?team=BKN&position=PG&active=true&include_stats=true HTTP/1.1" 200 OK
+2026-01-21 12:09:27 +00:00: INFO:     192.168.100.11:63756 - "GET /api/players?team=BKN&position=PG&active=true&include_stats=true HTTP/1.1" 200 OK
+2026-01-21 12:09:27 +00:00: INFO:     192.168.100.11:63756 - "GET /api/teams HTTP/1.1" 200 OK
+2026-01-21 12:09:27 +00:00: INFO:     192.168.100.11:63756 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:09:28 +00:00: INFO:     192.168.100.11:63756 - "OPTIONS /api/players?position=PG&active=true&include_stats=true HTTP/1.1" 200 OK
+2026-01-21 12:09:28 +00:00: INFO:     192.168.100.11:63756 - "GET /api/players?position=PG&active=true&include_stats=true HTTP/1.1" 200 OK
+2026-01-21 12:09:28 +00:00: INFO:     192.168.100.11:63756 - "GET /api/teams HTTP/1.1" 200 OK
+2026-01-21 12:09:30 +00:00: INFO:     192.168.100.11:63756 - "GET /api/players?active=true&include_stats=true HTTP/1.1" 200 OK
+2026-01-21 12:09:30 +00:00: INFO:     192.168.100.11:63756 - "GET /api/teams HTTP/1.1" 200 OK
+2026-01-21 12:09:32 +00:00: INFO:     192.168.100.11:63756 - "OPTIONS /api/teams/CHI/players HTTP/1.1" 200 OK
+2026-01-21 12:09:32 +00:00: INFO:     192.168.100.11:51639 - "OPTIONS /api/bulls-analysis HTTP/1.1" 200 OK
+2026-01-21 12:09:33 +00:00: INFO:     192.168.100.11:51639 - "GET /api/teams/CHI/players HTTP/1.1" 200 OK
+2026-01-21 12:09:33 +00:00: INFO:     192.168.100.11:54115 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:09:33 +00:00: INFO:     192.168.100.11:63756 - "GET /api/bulls-analysis HTTP/1.1" 200 OK
+2026-01-21 12:09:41 +00:00: INFO:     192.168.100.11:58909 - "OPTIONS /api/analytics/matchup/team?team=CHI&opponent=LAL&seasons_back=3 HTTP/1.1" 200 OK
+2026-01-21 12:09:42 +00:00: INFO:     192.168.100.11:58909 - "GET /api/analytics/matchup/team?team=CHI&opponent=LAL&seasons_back=3 HTTP/1.1" 200 OK
+2026-01-21 12:09:43 +00:00: INFO:     192.168.100.11:58909 - "GET /api/players?active=true&include_stats=true HTTP/1.1" 200 OK
+2026-01-21 12:09:43 +00:00: INFO:     192.168.100.11:58909 - "GET /api/teams HTTP/1.1" 200 OK
+2026-01-21 12:09:44 +00:00: INFO:     192.168.100.11:58909 - "GET /api/games/today HTTP/1.1" 200 OK
+2026-01-21 12:09:50 +00:00: INFO:     192.168.100.11:61346 - "GET /api/games/today HTTP/1.1" 200 OK
+2026-01-21 12:09:57 +00:00: INFO:     192.168.100.11:54975 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:10:03 +00:00: INFO:     192.168.100.11:59806 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:10:27 +00:00: INFO:     192.168.100.11:54652 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:10:33 +00:00: INFO:     192.168.100.11:50720 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:10:37 +00:00: INFO:     192.168.100.11:60754 - "GET /api/teams/analysis?include_betting=true HTTP/1.1" 200 OK
+2026-01-21 12:10:53 +00:00: INFO:     192.168.100.11:61158 - "GET /api/players?active=true&include_stats=true HTTP/1.1" 200 OK
+2026-01-21 12:10:53 +00:00: INFO:     192.168.100.11:61158 - "GET /api/teams HTTP/1.1" 200 OK
+2026-01-21 12:10:57 +00:00: INFO:     192.168.100.11:61158 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:11:04 +00:00: INFO:     192.168.100.11:60287 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:11:04 +00:00: INFO:     192.168.100.11:58046 - "GET /api/teams HTTP/1.1" 401 Unauthorized
+2026-01-21 12:11:04 +00:00: INFO:     192.168.100.11:65241 - "GET /api/focus-teams/today?limit=5 HTTP/1.1" 401 Unauthorized
+2026-01-21 12:11:04 +00:00: INFO:     192.168.100.11:60287 - "GET /api/teams/analysis?include_betting=true HTTP/1.1" 401 Unauthorized
+2026-01-21 12:11:04 +00:00: INFO:     192.168.100.11:61943 - "GET /api/games/today HTTP/1.1" 401 Unauthorized
+2026-01-21 12:11:05 +00:00: INFO:     192.168.100.11:61943 - "GET /api/games/today HTTP/1.1" 401 Unauthorized
+2026-01-21 12:11:08 +00:00: INFO:     192.168.100.11:61943 - "GET /api/games/today HTTP/1.1" 200 OK
+2026-01-21 12:11:08 +00:00: INFO:     192.168.100.11:60287 - "GET /api/teams HTTP/1.1" 200 OK
+2026-01-21 12:11:08 +00:00: INFO:     192.168.100.11:65241 - "GET /api/focus-teams/today?limit=5 HTTP/1.1" 200 OK
+2026-01-21 12:11:08 +00:00: INFO:     192.168.100.11:61943 - "GET /api/games/today HTTP/1.1" 200 OK
+2026-01-21 12:11:16 +00:00: INFO:     192.168.100.11:58046 - "GET /api/teams/analysis?include_betting=true HTTP/1.1" 200 OK
+2026-01-21 12:11:28 +00:00: INFO:     192.168.100.11:55450 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:11:32 +00:00: INFO:     192.168.100.11:64724 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:11:34 +00:00: INFO:     192.168.100.11:64724 - "OPTIONS /api/reports?limit=20 HTTP/1.1" 200 OK
+2026-01-21 12:11:35 +00:00: INFO:     192.168.100.11:64724 - "GET /api/reports?limit=20 HTTP/1.1" 200 OK
+2026-01-21 12:11:44 +00:00: INFO:     192.168.100.11:64724 - "GET /api/teams/analysis?include_betting=true HTTP/1.1" 200 OK
+2026-01-21 12:11:58 +00:00: INFO:     192.168.100.11:56726 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:12:02 +00:00: INFO:     192.168.100.11:56725 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:12:10 +00:00: INFO:     192.168.100.11:58837 - "OPTIONS /api/betting-recommendations HTTP/1.1" 200 OK
+2026-01-21 12:12:11 +00:00: INFO:     192.168.100.11:58837 - "GET /api/betting-recommendations HTTP/1.1" 200 OK
+2026-01-21 12:12:21 +00:00: INFO:     192.168.100.11:53374 - "GET /api/games/today HTTP/1.1" 200 OK
+2026-01-21 12:12:28 +00:00: INFO:     192.168.100.11:61990 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:12:30 +00:00: INFO:     192.168.100.11:61990 - "GET /api/games/today HTTP/1.1" 200 OK
+2026-01-21 12:12:32 +00:00: INFO:     192.168.100.11:61990 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:12:32 +00:00: INFO:     192.168.100.11:61990 - "OPTIONS /api/players?active=true&include_stats=true HTTP/1.1" 200 OK
+2026-01-21 12:12:33 +00:00: INFO:     192.168.100.11:61990 - "GET /api/players?active=true&include_stats=true HTTP/1.1" 200 OK
+2026-01-21 12:12:33 +00:00: INFO:     192.168.100.11:61990 - "GET /api/teams HTTP/1.1" 200 OK
+2026-01-21 12:12:40 +00:00: INFO:     192.168.100.11:52753 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:12:57 +00:00: INFO:     192.168.100.11:59489 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:13:03 +00:00: INFO:     192.168.100.11:63389 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:13:27 +00:00: INFO:     192.168.100.11:50223 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:13:33 +00:00: INFO:     192.168.100.11:60314 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:13:57 +00:00: INFO:     192.168.100.11:56906 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:14:19 +00:00: INFO:     192.168.100.11:53216 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:14:27 +00:00: INFO:     192.168.100.11:53659 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:14:57 +00:00: INFO:     192.168.100.11:58119 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:15:19 +00:00: INFO:     192.168.100.11:53960 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:15:27 +00:00: INFO:     192.168.100.11:65141 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:15:57 +00:00: INFO:     192.168.100.11:60837 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:16:19 +00:00: INFO:     192.168.100.11:54345 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:16:27 +00:00: INFO:     192.168.100.11:56679 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:16:58 +00:00: INFO:     192.168.100.11:57189 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:17:19 +00:00: INFO:     192.168.100.11:49364 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:17:28 +00:00: INFO:     192.168.100.11:64946 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:18:19 +00:00: INFO:     192.168.100.11:58597 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:19:19 +00:00: INFO:     192.168.100.11:56634 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:20:19 +00:00: INFO:     192.168.100.11:63901 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:21:19 +00:00: INFO:     192.168.100.11:56547 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:25:36 +00:00: INFO:     192.168.100.52:45378 - "OPTIONS /api/focus-teams/today?limit=5 HTTP/1.1" 200 OK
+2026-01-21 12:25:36 +00:00: INFO:     192.168.100.52:45388 - "OPTIONS /api/teams/analysis?include_betting=true HTTP/1.1" 200 OK
+2026-01-21 12:25:36 +00:00: INFO:     192.168.100.52:45378 - "OPTIONS /api/games/today HTTP/1.1" 200 OK
+2026-01-21 12:25:36 +00:00: INFO:     192.168.100.52:45378 - "OPTIONS /api/teams HTTP/1.1" 200 OK
+2026-01-21 12:25:36 +00:00: INFO:     192.168.100.52:45388 - "OPTIONS /api/games/today HTTP/1.1" 200 OK
+2026-01-21 12:25:36 +00:00: INFO:     192.168.100.52:45400 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:25:37 +00:00: INFO:     192.168.100.52:45400 - "GET /api/teams HTTP/1.1" 200 OK
+2026-01-21 12:25:37 +00:00: INFO:     192.168.100.52:45378 - "GET /api/games/today HTTP/1.1" 200 OK
+2026-01-21 12:25:37 +00:00: INFO:     192.168.100.52:45388 - "GET /api/focus-teams/today?limit=5 HTTP/1.1" 200 OK
+2026-01-21 12:25:38 +00:00: INFO:     192.168.100.52:45378 - "GET /api/games/today HTTP/1.1" 200 OK
+2026-01-21 12:25:51 +00:00: INFO:     192.168.100.52:43416 - "OPTIONS /api/players?active=true&include_stats=true HTTP/1.1" 200 OK
+2026-01-21 12:25:52 +00:00: INFO:     192.168.100.52:43416 - "GET /api/players?active=true&include_stats=true HTTP/1.1" 200 OK
+2026-01-21 12:25:52 +00:00: INFO:     192.168.100.52:43416 - "GET /api/teams HTTP/1.1" 200 OK
+2026-01-21 12:25:54 +00:00: INFO:     192.168.100.52:45408 - "GET /api/teams/analysis?include_betting=true HTTP/1.1" 200 OK
+2026-01-21 12:26:00 +00:00: INFO:     192.168.100.52:43424 - "OPTIONS /api/games/today HTTP/1.1" 200 OK
+2026-01-21 12:26:00 +00:00: INFO:     192.168.100.52:43426 - "OPTIONS /api/games/today HTTP/1.1" 200 OK
+2026-01-21 12:26:00 +00:00: INFO:     192.168.100.52:43442 - "OPTIONS /api/focus-teams/today?limit=5 HTTP/1.1" 200 OK
+2026-01-21 12:26:00 +00:00: INFO:     192.168.100.52:43448 - "OPTIONS /api/teams HTTP/1.1" 200 OK
+2026-01-21 12:26:00 +00:00: INFO:     192.168.100.52:43462 - "OPTIONS /api/teams/analysis?include_betting=true HTTP/1.1" 200 OK
+2026-01-21 12:26:00 +00:00: INFO:     192.168.100.52:43468 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:26:00 +00:00: INFO:     192.168.100.52:43426 - "GET /api/teams HTTP/1.1" 200 OK
+2026-01-21 12:26:00 +00:00: INFO:     192.168.100.52:43468 - "GET /api/games/today HTTP/1.1" 200 OK
+2026-01-21 12:26:00 +00:00: INFO:     192.168.100.52:43448 - "GET /api/games/today HTTP/1.1" 200 OK
+2026-01-21 12:26:00 +00:00: INFO:     192.168.100.52:43462 - "GET /api/focus-teams/today?limit=5 HTTP/1.1" 200 OK
+2026-01-21 12:26:08 +00:00: INFO:     192.168.100.52:54024 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:26:10 +00:00: INFO:     192.168.100.52:43442 - "GET /api/teams/analysis?include_betting=true HTTP/1.1" 200 OK
+2026-01-21 12:26:10 +00:00: INFO:     192.168.100.52:43442 - "GET /api/games/today HTTP/1.1" 200 OK
+2026-01-21 12:26:10 +00:00: INFO:     192.168.100.52:54042 - "GET /api/teams HTTP/1.1" 200 OK
+2026-01-21 12:26:10 +00:00: INFO:     192.168.100.52:54024 - "GET /api/focus-teams/today?limit=5 HTTP/1.1" 200 OK
+2026-01-21 12:26:10 +00:00: INFO:     192.168.100.52:43442 - "GET /api/games/today HTTP/1.1" 200 OK
+2026-01-21 12:26:18 +00:00: INFO:     192.168.100.52:54026 - "GET /api/teams/analysis?include_betting=true HTTP/1.1" 200 OK
+2026-01-21 12:26:21 +00:00: INFO:     192.168.100.52:54026 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:26:24 +00:00: INFO:     192.168.100.52:54026 - "OPTIONS /api/games/today HTTP/1.1" 200 OK
+2026-01-21 12:26:24 +00:00: INFO:     192.168.100.52:37502 - "OPTIONS /api/games/today HTTP/1.1" 200 OK
+2026-01-21 12:26:24 +00:00: INFO:     192.168.100.52:37506 - "OPTIONS /api/focus-teams/today?limit=5 HTTP/1.1" 200 OK
+2026-01-21 12:26:24 +00:00: INFO:     192.168.100.52:37520 - "OPTIONS /api/teams HTTP/1.1" 200 OK
+2026-01-21 12:26:24 +00:00: INFO:     192.168.100.52:37524 - "OPTIONS /api/teams/analysis?include_betting=true HTTP/1.1" 200 OK
+2026-01-21 12:26:24 +00:00: INFO:     192.168.100.52:54026 - "GET /api/games/today HTTP/1.1" 200 OK
+2026-01-21 12:26:24 +00:00: INFO:     192.168.100.52:37524 - "GET /api/focus-teams/today?limit=5 HTTP/1.1" 200 OK
+2026-01-21 12:26:24 +00:00: INFO:     192.168.100.52:37506 - "GET /api/teams HTTP/1.1" 200 OK
+2026-01-21 12:26:24 +00:00: INFO:     192.168.100.52:54026 - "GET /api/games/today HTTP/1.1" 200 OK
+2026-01-21 12:26:32 +00:00: INFO:     192.168.100.52:37520 - "GET /api/teams/analysis?include_betting=true HTTP/1.1" 200 OK
+2026-01-21 12:26:37 +00:00: INFO:     192.168.100.52:37520 - "OPTIONS /api/reports?limit=20 HTTP/1.1" 200 OK
+2026-01-21 12:26:37 +00:00: INFO:     192.168.100.52:37520 - "GET /api/reports?limit=20 HTTP/1.1" 200 OK
+2026-01-21 12:26:47 +00:00: INFO:     192.168.100.52:37520 - "GET /api/teams/analysis?include_betting=true HTTP/1.1" 200 OK
+2026-01-21 12:26:51 +00:00: INFO:     192.168.100.52:37520 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:26:57 +00:00: INFO:     192.168.100.52:37902 - "OPTIONS /api/betting-recommendations HTTP/1.1" 200 OK
+2026-01-21 12:26:57 +00:00: INFO:     192.168.100.52:37902 - "GET /api/betting-recommendations HTTP/1.1" 200 OK
+2026-01-21 12:27:13 +00:00: INFO:     192.168.100.52:35358 - "GET /api/games/today HTTP/1.1" 200 OK
+2026-01-21 12:27:21 +00:00: INFO:     192.168.100.52:56726 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:27:27 +00:00: INFO:     192.168.100.52:56734 - "OPTIONS /api/players?active=true&include_stats=true HTTP/1.1" 200 OK
+2026-01-21 12:27:28 +00:00: INFO:     192.168.100.52:56734 - "GET /api/players?active=true&include_stats=true HTTP/1.1" 200 OK
+2026-01-21 12:27:28 +00:00: INFO:     192.168.100.52:56734 - "GET /api/teams HTTP/1.1" 200 OK
+2026-01-21 12:27:45 +00:00: INFO:     192.168.100.52:49146 - "OPTIONS /api/analytics/injury-impact?team=CHI&missing_player=Zach+LaVine&seasons_back=2 HTTP/1.1" 200 OK
+2026-01-21 12:27:45 +00:00: INFO:     192.168.100.52:49146 - "GET /api/analytics/injury-impact?team=CHI&missing_player=Zach+LaVine&seasons_back=2 HTTP/1.1" 200 OK
+2026-01-21 12:27:47 +00:00: INFO:     192.168.100.52:49154 - "OPTIONS /api/bulls-analysis HTTP/1.1" 200 OK
+2026-01-21 12:27:47 +00:00: INFO:     192.168.100.52:49146 - "OPTIONS /api/teams/CHI/players HTTP/1.1" 200 OK
+2026-01-21 12:27:48 +00:00: INFO:     192.168.100.52:49154 - "GET /api/teams/CHI/players HTTP/1.1" 200 OK
+2026-01-21 12:27:48 +00:00: INFO:     192.168.100.52:49146 - "GET /api/bulls-analysis HTTP/1.1" 200 OK
+2026-01-21 12:27:51 +00:00: INFO:     192.168.100.52:49146 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:27:54 +00:00: INFO:     192.168.100.52:43058 - "GET /api/games/today HTTP/1.1" 200 OK
+2026-01-21 12:27:54 +00:00: INFO:     192.168.100.52:49146 - "GET /api/teams/CHI/players HTTP/1.1" 200 OK
+2026-01-21 12:27:55 +00:00: INFO:     192.168.100.52:43068 - "GET /api/bulls-analysis HTTP/1.1" 200 OK
+2026-01-21 12:27:58 +00:00: INFO:     192.168.100.52:43068 - "GET /api/players?active=true&include_stats=true HTTP/1.1" 200 OK
+2026-01-21 12:27:58 +00:00: INFO:     192.168.100.52:43068 - "GET /api/teams HTTP/1.1" 200 OK
+2026-01-21 12:28:21 +00:00: INFO:     192.168.100.52:52752 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:28:29 +00:00: INFO:     192.168.100.52:52800 - "GET /api/teams HTTP/1.1" 200 OK
+2026-01-21 12:28:29 +00:00: INFO:     192.168.100.52:52760 - "GET /api/games/today HTTP/1.1" 200 OK
+2026-01-21 12:28:29 +00:00: INFO:     192.168.100.52:52792 - "GET /api/focus-teams/today?limit=5 HTTP/1.1" 200 OK
+2026-01-21 12:28:40 +00:00: INFO:     192.168.100.52:52776 - "GET /api/teams/analysis?include_betting=true HTTP/1.1" 200 OK
+2026-01-21 12:28:51 +00:00: INFO:     192.168.100.52:51738 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:29:21 +00:00: INFO:     192.168.100.52:36432 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:29:35 +00:00: INFO:     192.168.100.52:36748 - "GET /api/focus-teams/today?limit=5 HTTP/1.1" 200 OK
+2026-01-21 12:29:35 +00:00: INFO:     192.168.100.52:36734 - "GET /api/games/today HTTP/1.1" 200 OK
+2026-01-21 12:29:35 +00:00: INFO:     192.168.100.52:36736 - "GET /api/teams HTTP/1.1" 200 OK
+2026-01-21 12:29:35 +00:00: INFO:     192.168.100.52:36736 - "GET /api/games/today HTTP/1.1" 200 OK
+2026-01-21 12:29:42 +00:00: INFO:     192.168.100.52:36738 - "GET /api/teams/analysis?include_betting=true HTTP/1.1" 200 OK
+2026-01-21 12:29:51 +00:00: INFO:     192.168.100.52:34842 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:30:21 +00:00: INFO:     192.168.100.52:39734 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:30:51 +00:00: INFO:     192.168.100.52:41522 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:31:21 +00:00: INFO:     192.168.100.52:57570 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:31:48 +00:00: INFO:     192.168.100.52:43022 - "GET /api/players?active=true HTTP/1.1" 200 OK
+2026-01-21 12:31:51 +00:00: INFO:     192.168.100.52:43022 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:32:21 +00:00: INFO:     192.168.100.52:39930 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:32:51 +00:00: INFO:     192.168.100.52:38274 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:33:21 +00:00: [WARNING] Starting application with Supabase (Anon Key - limited permissions)
+2026-01-21 12:33:21 +00:00: [OK] Anti-bot scraping system loaded
+2026-01-21 12:33:21 +00:00: Automatic scraping on startup disabled. Use /api/scrape endpoints to trigger manually.
+2026-01-21 12:33:21 +00:00: [ERROR] Scheduler disabled - set ENABLE_SCHEDULER=true to enable
+2026-01-21 12:33:21 +00:00: INFO:     192.168.100.52:53952 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:33:34 +00:00: [WARNING] Starting application with Supabase (Anon Key - limited permissions)
+2026-01-21 12:33:34 +00:00: [OK] Anti-bot scraping system loaded
+2026-01-21 12:33:34 +00:00: Automatic scraping on startup disabled. Use /api/scrape endpoints to trigger manually.
+2026-01-21 12:33:34 +00:00: [ERROR] Scheduler disabled - set ENABLE_SCHEDULER=true to enable
+2026-01-21 12:33:34 +00:00: Shutting down application...
+2026-01-21 12:33:34 +00:00: Shutting down application...
+2026-01-21 12:33:40 +00:00: [OK] Starting application with Supabase (Service Role)
+2026-01-21 12:33:40 +00:00: [OK] Anti-bot scraping system loaded
+2026-01-21 12:33:40 +00:00: Automatic scraping on startup disabled. Use /api/scrape endpoints to trigger manually.
+2026-01-21 12:33:40 +00:00: [ERROR] Scheduler disabled - set ENABLE_SCHEDULER=true to enable
+2026-01-21 12:33:40 +00:00: INFO:     192.168.100.52:56970 - "GET /api/players?active=true HTTP/1.1" 200 OK
+2026-01-21 12:33:51 +00:00: [OK] Starting application with Supabase (Service Role)
+2026-01-21 12:33:51 +00:00: [OK] Anti-bot scraping system loaded
+2026-01-21 12:33:51 +00:00: Automatic scraping on startup disabled. Use /api/scrape endpoints to trigger manually.
+2026-01-21 12:33:51 +00:00: [ERROR] Scheduler disabled - set ENABLE_SCHEDULER=true to enable
+2026-01-21 12:33:51 +00:00: INFO:     192.168.100.52:37904 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:34:21 +00:00: INFO:     192.168.100.52:33998 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:34:51 +00:00: INFO:     192.168.100.52:59590 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:35:21 +00:00: INFO:     192.168.100.52:58196 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:35:51 +00:00: INFO:     192.168.100.52:45790 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:36:08 +00:00: INFO:     192.168.100.52:49032 - "GET /api/players?active=true&include_stats=true HTTP/1.1" 401 Unauthorized
+2026-01-21 12:36:11 +00:00: INFO:     192.168.100.52:49032 - "GET /api/games/today HTTP/1.1" 401 Unauthorized
+2026-01-21 12:36:11 +00:00: INFO:     192.168.100.52:54094 - "GET /api/players?active=true&include_stats=true HTTP/1.1" 401 Unauthorized
+2026-01-21 12:36:16 +00:00: INFO:     192.168.100.52:54096 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:36:17 +00:00: INFO:     192.168.100.52:54110 - "GET /api/teams/analysis?include_betting=true HTTP/1.1" 401 Unauthorized
+2026-01-21 12:36:17 +00:00: INFO:     192.168.100.52:54096 - "GET /api/games/today HTTP/1.1" 401 Unauthorized
+2026-01-21 12:36:17 +00:00: INFO:     192.168.100.52:54114 - "GET /api/focus-teams/today?limit=5 HTTP/1.1" 401 Unauthorized
+2026-01-21 12:36:17 +00:00: INFO:     192.168.100.52:54108 - "GET /api/teams HTTP/1.1" 401 Unauthorized
+2026-01-21 12:36:17 +00:00: INFO:     192.168.100.52:54108 - "GET /api/games/today HTTP/1.1" 401 Unauthorized
+2026-01-21 12:36:20 +00:00: INFO:     192.168.100.52:54110 - "GET /api/teams/analysis?include_betting=true HTTP/1.1" 401 Unauthorized
+2026-01-21 12:36:20 +00:00: INFO:     192.168.100.52:54108 - "GET /api/games/today HTTP/1.1" 401 Unauthorized
+2026-01-21 12:36:20 +00:00: INFO:     192.168.100.52:54114 - "GET /api/focus-teams/today?limit=5 HTTP/1.1" 401 Unauthorized
+2026-01-21 12:36:20 +00:00: INFO:     192.168.100.52:54096 - "GET /api/teams HTTP/1.1" 401 Unauthorized
+2026-01-21 12:36:20 +00:00: INFO:     192.168.100.52:54108 - "GET /api/games/today HTTP/1.1" 401 Unauthorized
+2026-01-21 12:36:46 +00:00: INFO:     192.168.100.52:53122 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:37:17 +00:00: INFO:     192.168.100.52:56410 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:37:25 +00:00: Shutting down application...
+2026-01-21 12:37:25 +00:00: Shutting down application...
+2026-01-21 12:44:53 +00:00: [OK] Starting application with Supabase (Service Role)
+2026-01-21 12:44:53 +00:00: [OK] Anti-bot scraping system loaded
+2026-01-21 12:44:53 +00:00: Automatic scraping on startup enabled (background task).
+2026-01-21 12:44:53 +00:00: [OK] Scheduler enabled and running
+2026-01-21 12:44:53 +00:00: [OK] Background scraping task started
+2026-01-21 12:44:53 +00:00: [2026-01-21T06:44:45.184359] Starting full scrape...
+2026-01-21 12:44:53 +00:00: [2026-01-21T06:44:45.192040] Starting full scrape...
+2026-01-21 12:44:53 +00:00: Fetched 30 teams
+2026-01-21 12:44:53 +00:00: Fetched 30 teams
+2026-01-21 12:44:53 +00:00: Fetched odds for 7 games
+2026-01-21 12:44:53 +00:00: Fetched odds for 7 games
+2026-01-21 12:44:53 +00:00: INFO:     192.168.100.52:50824 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:44:57 +00:00: INFO:     192.168.100.52:50824 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:44:59 +00:00: INFO:     192.168.100.52:50824 - "OPTIONS /api/games/today HTTP/1.1" 200 OK
+2026-01-21 12:45:18 +00:00: [OK] Starting application with Supabase (Service Role)
+2026-01-21 12:45:18 +00:00: [OK] Anti-bot scraping system loaded
+2026-01-21 12:45:18 +00:00: Automatic scraping on startup enabled (background task).
+2026-01-21 12:45:18 +00:00: [OK] Scheduler enabled and running
+2026-01-21 12:45:18 +00:00: [OK] Background scraping task started
+2026-01-21 12:45:18 +00:00: [2026-01-21T06:44:45.177736] Starting full scrape...
+2026-01-21 12:45:18 +00:00: [2026-01-21T06:44:45.186022] Starting full scrape...
+2026-01-21 12:45:18 +00:00: Fetched 30 teams
+2026-01-21 12:45:18 +00:00: Fetched 30 teams
+2026-01-21 12:45:18 +00:00: Fetched odds for 7 games
+2026-01-21 12:45:18 +00:00: Fetched odds for 7 games
+2026-01-21 12:45:18 +00:00: INFO:     192.168.100.52:54434 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:45:23 +00:00: INFO:     192.168.100.52:54434 - "OPTIONS /api/focus-teams/today?limit=5 HTTP/1.1" 200 OK
+2026-01-21 12:45:23 +00:00: INFO:     192.168.100.52:41476 - "OPTIONS /api/teams HTTP/1.1" 200 OK
+2026-01-21 12:45:23 +00:00: INFO:     192.168.100.52:41490 - "OPTIONS /api/games/today HTTP/1.1" 200 OK
+2026-01-21 12:45:23 +00:00: INFO:     192.168.100.52:41496 - "OPTIONS /api/games/today HTTP/1.1" 200 OK
+2026-01-21 12:45:23 +00:00: INFO:     192.168.100.52:41492 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:45:23 +00:00: INFO:     192.168.100.52:41510 - "OPTIONS /api/teams/analysis?include_betting=true HTTP/1.1" 200 OK
+2026-01-21 12:45:23 +00:00: INFO:     192.168.100.52:41496 - "GET /api/games/today HTTP/1.1" 200 OK
+2026-01-21 12:45:23 +00:00: INFO:     192.168.100.52:41492 - "GET /api/teams HTTP/1.1" 200 OK
+2026-01-21 12:45:23 +00:00: INFO:     192.168.100.52:41492 - "GET /api/games/today HTTP/1.1" 200 OK
+2026-01-21 12:45:24 +00:00: INFO:     192.168.100.52:41510 - "GET /api/focus-teams/today?limit=5 HTTP/1.1" 200 OK
+2026-01-21 12:45:26 +00:00: INFO:     192.168.100.52:41510 - "OPTIONS /api/players?active=true&include_stats=true HTTP/1.1" 200 OK
+2026-01-21 12:45:26 +00:00: INFO:     192.168.100.52:41510 - "GET /api/players?active=true&include_stats=true HTTP/1.1" 200 OK
+2026-01-21 12:45:27 +00:00: INFO:     192.168.100.52:41510 - "GET /api/teams HTTP/1.1" 200 OK
+2026-01-21 12:45:34 +00:00: INFO:     192.168.100.52:39758 - "GET /api/games/today HTTP/1.1" 200 OK
+2026-01-21 12:45:34 +00:00: INFO:     192.168.100.52:39768 - "OPTIONS /api/odds/abfb5e607faa42b472bd17ec495475d2 HTTP/1.1" 200 OK
+2026-01-21 12:45:34 +00:00: INFO:     192.168.100.52:39776 - "OPTIONS /api/odds/7903c7ddc480ddb5283a60ccbff4c31d HTTP/1.1" 200 OK
+2026-01-21 12:45:34 +00:00: INFO:     192.168.100.52:39790 - "OPTIONS /api/odds/7a6dce2087cb5ed530983a64686714ea HTTP/1.1" 200 OK
+2026-01-21 12:45:34 +00:00: INFO:     192.168.100.52:39758 - "OPTIONS /api/odds/78825d24fa81f64509d9f720f7f1c2bf HTTP/1.1" 200 OK
+2026-01-21 12:45:34 +00:00: INFO:     192.168.100.52:39810 - "OPTIONS /api/odds/2fff26d23c77372d82f9d5b1f3fc6d96 HTTP/1.1" 200 OK
+2026-01-21 12:45:34 +00:00: INFO:     192.168.100.52:39798 - "OPTIONS /api/odds/98c3423f08777d4b20922a767ac9d848 HTTP/1.1" 200 OK
+2026-01-21 12:45:34 +00:00: INFO:     192.168.100.52:39812 - "OPTIONS /api/odds/5a7446000e1739b011c606a7e4e2f4ec HTTP/1.1" 200 OK
+2026-01-21 12:45:35 +00:00: INFO:     192.168.100.52:39812 - "GET /api/odds/abfb5e607faa42b472bd17ec495475d2 HTTP/1.1" 200 OK
+2026-01-21 12:45:35 +00:00: INFO:     192.168.100.52:39758 - "GET /api/odds/7a6dce2087cb5ed530983a64686714ea HTTP/1.1" 200 OK
+2026-01-21 12:45:35 +00:00: INFO:     192.168.100.52:39810 - "GET /api/odds/7903c7ddc480ddb5283a60ccbff4c31d HTTP/1.1" 200 OK
+2026-01-21 12:45:35 +00:00: INFO:     192.168.100.52:39776 - "GET /api/odds/2fff26d23c77372d82f9d5b1f3fc6d96 HTTP/1.1" 200 OK
+2026-01-21 12:45:35 +00:00: INFO:     192.168.100.52:39790 - "GET /api/odds/98c3423f08777d4b20922a767ac9d848 HTTP/1.1" 200 OK
+2026-01-21 12:45:35 +00:00: INFO:     192.168.100.52:39768 - "GET /api/odds/5a7446000e1739b011c606a7e4e2f4ec HTTP/1.1" 200 OK
+2026-01-21 12:45:35 +00:00: INFO:     192.168.100.52:39798 - "GET /api/odds/78825d24fa81f64509d9f720f7f1c2bf HTTP/1.1" 200 OK
+2026-01-21 12:45:42 +00:00: INFO:     192.168.100.52:41490 - "GET /api/teams/analysis?include_betting=true HTTP/1.1" 200 OK
+2026-01-21 12:45:42 +00:00: INFO:     192.168.100.52:41490 - "GET /api/odds/78825d24fa81f64509d9f720f7f1c2bf HTTP/1.1" 200 OK
+2026-01-21 12:45:42 +00:00: INFO:     192.168.100.52:35866 - "GET /api/odds/2fff26d23c77372d82f9d5b1f3fc6d96 HTTP/1.1" 200 OK
+2026-01-21 12:45:42 +00:00: INFO:     192.168.100.52:35856 - "GET /api/odds/98c3423f08777d4b20922a767ac9d848 HTTP/1.1" 200 OK
+2026-01-21 12:45:42 +00:00: INFO:     192.168.100.52:35830 - "GET /api/odds/7903c7ddc480ddb5283a60ccbff4c31d HTTP/1.1" 200 OK
+2026-01-21 12:45:42 +00:00: INFO:     192.168.100.52:35846 - "GET /api/odds/7a6dce2087cb5ed530983a64686714ea HTTP/1.1" 200 OK
+2026-01-21 12:45:42 +00:00: INFO:     192.168.100.52:35828 - "GET /api/odds/abfb5e607faa42b472bd17ec495475d2 HTTP/1.1" 200 OK
+2026-01-21 12:45:42 +00:00: INFO:     192.168.100.52:35876 - "GET /api/odds/5a7446000e1739b011c606a7e4e2f4ec HTTP/1.1" 200 OK
+2026-01-21 12:45:48 +00:00: INFO:     192.168.100.52:35882 - "OPTIONS /api/betting-recommendations HTTP/1.1" 200 OK
+2026-01-21 12:45:49 +00:00: INFO:     192.168.100.52:35882 - "GET /api/betting-recommendations HTTP/1.1" 200 OK
+2026-01-21 12:45:53 +00:00: INFO:     192.168.100.52:35882 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:45:58 +00:00: INFO:     192.168.100.52:35158 - "OPTIONS /api/bulls-analysis HTTP/1.1" 200 OK
+2026-01-21 12:45:58 +00:00: INFO:     192.168.100.52:35162 - "OPTIONS /api/teams/CHI/players HTTP/1.1" 200 OK
+2026-01-21 12:45:58 +00:00: INFO:     192.168.100.52:35162 - "GET /api/teams/CHI/players HTTP/1.1" 200 OK
+2026-01-21 12:45:59 +00:00: INFO:     192.168.100.52:35158 - "GET /api/bulls-analysis HTTP/1.1" 200 OK
+2026-01-21 12:46:16 +00:00: INFO:     192.168.100.52:39644 - "OPTIONS /api/reports?limit=20 HTTP/1.1" 200 OK
+2026-01-21 12:46:16 +00:00: INFO:     192.168.100.52:39644 - "GET /api/reports?limit=20 HTTP/1.1" 200 OK
+2026-01-21 12:46:23 +00:00: INFO:     192.168.100.52:46112 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:46:39 +00:00: INFO:     192.168.100.52:47730 - "OPTIONS /api/reports/800am HTTP/1.1" 200 OK
+2026-01-21 12:46:39 +00:00: INFO:     192.168.100.52:47730 - "OPTIONS /api/reports/1100am HTTP/1.1" 200 OK
+2026-01-21 12:46:39 +00:00: INFO:     192.168.100.52:47736 - "OPTIONS /api/reports/750am HTTP/1.1" 200 OK
+2026-01-21 12:46:39 +00:00: INFO:     192.168.100.52:47730 - "GET /api/reports/1100am HTTP/1.1" 200 OK
+2026-01-21 12:46:39 +00:00: INFO:     192.168.100.52:47736 - "GET /api/reports/800am HTTP/1.1" 200 OK
+2026-01-21 12:46:39 +00:00: INFO:     192.168.100.52:47746 - "GET /api/reports/750am HTTP/1.1" 200 OK
+2026-01-21 12:46:40 +00:00: INFO:     192.168.100.52:47746 - "GET /api/reports?limit=20 HTTP/1.1" 200 OK
+2026-01-21 12:46:53 +00:00: INFO:     192.168.100.52:52740 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:47:01 +00:00: INFO:     192.168.100.52:56228 - "GET /api/teams HTTP/1.1" 200 OK
+2026-01-21 12:47:01 +00:00: INFO:     192.168.100.52:56224 - "GET /api/games/today HTTP/1.1" 200 OK
+2026-01-21 12:47:02 +00:00: INFO:     192.168.100.52:56234 - "GET /api/focus-teams/today?limit=5 HTTP/1.1" 200 OK
+2026-01-21 12:47:11 +00:00: INFO:     192.168.100.52:56208 - "GET /api/teams/analysis?include_betting=true HTTP/1.1" 200 OK
+2026-01-21 12:47:12 +00:00: INFO:     192.168.100.52:56208 - "GET /api/odds/98c3423f08777d4b20922a767ac9d848 HTTP/1.1" 200 OK
+2026-01-21 12:47:12 +00:00: INFO:     192.168.100.52:59244 - "GET /api/odds/abfb5e607faa42b472bd17ec495475d2 HTTP/1.1" 200 OK
+2026-01-21 12:47:12 +00:00: INFO:     192.168.100.52:59232 - "GET /api/odds/7903c7ddc480ddb5283a60ccbff4c31d HTTP/1.1" 200 OK
+2026-01-21 12:47:12 +00:00: INFO:     192.168.100.52:59208 - "GET /api/odds/78825d24fa81f64509d9f720f7f1c2bf HTTP/1.1" 200 OK
+2026-01-21 12:47:12 +00:00: INFO:     192.168.100.52:59220 - "GET /api/odds/2fff26d23c77372d82f9d5b1f3fc6d96 HTTP/1.1" 200 OK
+2026-01-21 12:47:12 +00:00: INFO:     192.168.100.52:59254 - "GET /api/odds/7a6dce2087cb5ed530983a64686714ea HTTP/1.1" 200 OK
+2026-01-21 12:47:12 +00:00: INFO:     192.168.100.52:59242 - "GET /api/odds/5a7446000e1739b011c606a7e4e2f4ec HTTP/1.1" 200 OK
+2026-01-21 12:47:23 +00:00: INFO:     192.168.100.52:58896 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:47:34 +00:00: INFO:     192.168.100.52:53328 - "GET /api/games/today HTTP/1.1" 200 OK
+2026-01-21 12:47:35 +00:00: INFO:     192.168.100.52:53344 - "GET /api/odds/5a7446000e1739b011c606a7e4e2f4ec HTTP/1.1" 200 OK
+2026-01-21 12:47:35 +00:00: INFO:     192.168.100.52:53334 - "GET /api/odds/7a6dce2087cb5ed530983a64686714ea HTTP/1.1" 200 OK
+2026-01-21 12:47:35 +00:00: INFO:     192.168.100.52:53336 - "GET /api/odds/78825d24fa81f64509d9f720f7f1c2bf HTTP/1.1" 200 OK
+2026-01-21 12:47:35 +00:00: INFO:     192.168.100.52:53328 - "GET /api/odds/2fff26d23c77372d82f9d5b1f3fc6d96 HTTP/1.1" 200 OK
+2026-01-21 12:47:35 +00:00: INFO:     192.168.100.52:53354 - "GET /api/odds/abfb5e607faa42b472bd17ec495475d2 HTTP/1.1" 200 OK
+2026-01-21 12:47:35 +00:00: INFO:     192.168.100.52:53374 - "GET /api/odds/7903c7ddc480ddb5283a60ccbff4c31d HTTP/1.1" 200 OK
+2026-01-21 12:47:35 +00:00: INFO:     192.168.100.52:53368 - "GET /api/odds/98c3423f08777d4b20922a767ac9d848 HTTP/1.1" 200 OK
+2026-01-21 12:47:40 +00:00: INFO:     192.168.100.52:53368 - "GET /api/players?active=true&include_stats=true HTTP/1.1" 200 OK
+2026-01-21 12:47:40 +00:00: INFO:     192.168.100.52:53368 - "GET /api/teams HTTP/1.1" 200 OK
+2026-01-21 12:47:41 +00:00: INFO:     192.168.100.52:53368 - "OPTIONS /api/players/0255ce9c-57c6-4e6f-9f7b-9936cfebedf8 HTTP/1.1" 200 OK
+2026-01-21 12:47:42 +00:00: INFO:     192.168.100.52:53368 - "GET /api/players/0255ce9c-57c6-4e6f-9f7b-9936cfebedf8 HTTP/1.1" 200 OK
+2026-01-21 12:47:49 +00:00: INFO:     192.168.100.52:39496 - "GET /api/betting-recommendations HTTP/1.1" 200 OK
+2026-01-21 12:47:53 +00:00: INFO:     192.168.100.52:39496 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:48:10 +00:00: INFO:     192.168.100.52:48456 - "GET /api/games/today HTTP/1.1" 200 OK
+2026-01-21 12:48:11 +00:00: INFO:     192.168.100.52:48456 - "GET /api/odds/78825d24fa81f64509d9f720f7f1c2bf HTTP/1.1" 200 OK
+2026-01-21 12:48:11 +00:00: INFO:     192.168.100.52:46070 - "GET /api/odds/2fff26d23c77372d82f9d5b1f3fc6d96 HTTP/1.1" 200 OK
+2026-01-21 12:48:11 +00:00: INFO:     192.168.100.52:46062 - "GET /api/odds/7903c7ddc480ddb5283a60ccbff4c31d HTTP/1.1" 200 OK
+2026-01-21 12:48:11 +00:00: INFO:     192.168.100.52:46042 - "GET /api/odds/abfb5e607faa42b472bd17ec495475d2 HTTP/1.1" 200 OK
+2026-01-21 12:48:11 +00:00: INFO:     192.168.100.52:46046 - "GET /api/odds/7a6dce2087cb5ed530983a64686714ea HTTP/1.1" 200 OK
+2026-01-21 12:48:11 +00:00: INFO:     192.168.100.52:46084 - "GET /api/odds/98c3423f08777d4b20922a767ac9d848 HTTP/1.1" 200 OK
+2026-01-21 12:48:11 +00:00: INFO:     192.168.100.52:46056 - "GET /api/odds/5a7446000e1739b011c606a7e4e2f4ec HTTP/1.1" 200 OK
+2026-01-21 12:48:11 +00:00: INFO:     192.168.100.52:46098 - "GET /api/reports?limit=20 HTTP/1.1" 200 OK
+2026-01-21 12:48:23 +00:00: INFO:     192.168.100.52:46098 - "GET /api/teams/analysis?include_betting=true HTTP/1.1" 200 OK
+2026-01-21 12:48:23 +00:00: INFO:     192.168.100.52:46098 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:48:52 +00:00: INFO:     192.168.100.52:46954 - "GET /api/teams/CHI/players HTTP/1.1" 200 OK
+2026-01-21 12:48:53 +00:00: INFO:     192.168.100.52:46954 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:48:53 +00:00: INFO:     192.168.100.52:46964 - "GET /api/bulls-analysis HTTP/1.1" 200 OK
+2026-01-21 12:49:23 +00:00: INFO:     192.168.100.52:36382 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:49:53 +00:00: [2026-01-21T06:49:45.289262] Starting roster scrape for season 2025...
+2026-01-21 12:49:53 +00:00: [2026-01-21T06:49:45.290171] Starting roster scrape for season 2025...
+2026-01-21 12:49:53 +00:00: [1/33] Scraping roster for BKN...
+2026-01-21 12:49:53 +00:00: [1/33] Scraping roster for BKN...
+2026-01-21 12:49:53 +00:00: Failed to fetch roster for BKN: Client error '404 Not Found' for url 'https://www.basketball-reference.com/teams/BKN/2025.html'
+2026-01-21 12:49:53 +00:00: For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404
+2026-01-21 12:49:53 +00:00: Failed to fetch roster for BKN: Client error '404 Not Found' for url 'https://www.basketball-reference.com/teams/BKN/2025.html'
+2026-01-21 12:49:53 +00:00: For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404
+2026-01-21 12:49:53 +00:00: [2/33] Scraping roster for PHX...
+2026-01-21 12:49:53 +00:00: [2/33] Scraping roster for PHX...
+2026-01-21 12:49:53 +00:00: Found 20 players for PHO
+2026-01-21 12:49:53 +00:00: Found 20 players for PHO
+2026-01-21 12:49:53 +00:00: Players saved: 20 success, 0 errors
+2026-01-21 12:49:53 +00:00: Players saved: 20 success, 0 errors
+2026-01-21 12:49:53 +00:00: [3/33] Scraping roster for NOP...
+2026-01-21 12:49:53 +00:00: [3/33] Scraping roster for NOP...
+2026-01-21 12:49:53 +00:00: Found 25 players for NOP
+2026-01-21 12:49:53 +00:00: Found 25 players for NOP
+2026-01-21 12:49:53 +00:00: INFO:     192.168.100.52:39448 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:50:23 +00:00: [2026-01-21T06:49:45.016955] Starting roster scrape for season 2025...
+2026-01-21 12:50:23 +00:00: [2026-01-21T06:49:45.229051] Starting roster scrape for season 2025...
+2026-01-21 12:50:23 +00:00: [1/33] Scraping roster for BKN...
+2026-01-21 12:50:23 +00:00: [1/33] Scraping roster for BKN...
+2026-01-21 12:50:23 +00:00: Failed to fetch roster for BKN: Client error '404 Not Found' for url 'https://www.basketball-reference.com/teams/BKN/2025.html'
+2026-01-21 12:50:23 +00:00: For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404
+2026-01-21 12:50:23 +00:00: Failed to fetch roster for BKN: Client error '404 Not Found' for url 'https://www.basketball-reference.com/teams/BKN/2025.html'
+2026-01-21 12:50:23 +00:00: For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404
+2026-01-21 12:50:23 +00:00: [2/33] Scraping roster for PHX...
+2026-01-21 12:50:23 +00:00: [2/33] Scraping roster for PHX...
+2026-01-21 12:50:23 +00:00: Found 20 players for PHO
+2026-01-21 12:50:23 +00:00: Found 20 players for PHO
+2026-01-21 12:50:23 +00:00: Players saved: 20 success, 0 errors
+2026-01-21 12:50:23 +00:00: Players saved: 20 success, 0 errors
+2026-01-21 12:50:23 +00:00: [3/33] Scraping roster for NOP...
+2026-01-21 12:50:23 +00:00: [3/33] Scraping roster for NOP...
+2026-01-21 12:50:23 +00:00: Found 25 players for NOP
+2026-01-21 12:50:23 +00:00: Found 25 players for NOP
+2026-01-21 12:50:23 +00:00: Players saved: 25 success, 0 errors
+2026-01-21 12:50:23 +00:00: Players saved: 25 success, 0 errors
+2026-01-21 12:50:23 +00:00: [4/33] Scraping roster for MIN...
+2026-01-21 12:50:23 +00:00: [4/33] Scraping roster for MIN...
+2026-01-21 12:50:23 +00:00: Found 20 players for MIN
+2026-01-21 12:50:23 +00:00: Found 20 players for MIN
+2026-01-21 12:50:23 +00:00: Players saved: 20 success, 0 errors
+2026-01-21 12:50:23 +00:00: Players saved: 20 success, 0 errors
+2026-01-21 12:50:23 +00:00: [5/33] Scraping roster for DAL...
+2026-01-21 12:50:23 +00:00: [5/33] Scraping roster for DAL...
+2026-01-21 12:50:23 +00:00: Found 24 players for DAL
+2026-01-21 12:50:23 +00:00: Found 24 players for DAL
+2026-01-21 12:50:23 +00:00: Players saved: 24 success, 0 errors
+2026-01-21 12:50:23 +00:00: Players saved: 24 success, 0 errors
+2026-01-21 12:50:23 +00:00: [6/33] Scraping roster for UTA...
+2026-01-21 12:50:23 +00:00: [6/33] Scraping roster for UTA...
+2026-01-21 12:50:23 +00:00: Found 20 players for UTA
+2026-01-21 12:50:23 +00:00: Found 20 players for UTA
+2026-01-21 12:50:23 +00:00: Players saved: 20 success, 0 errors
+2026-01-21 12:50:23 +00:00: Players saved: 20 success, 0 errors
+2026-01-21 12:50:23 +00:00: [7/33] Scraping roster for WAS...
+2026-01-21 12:50:23 +00:00: [7/33] Scraping roster for WAS...
+2026-01-21 12:50:23 +00:00: Found 24 players for WAS
+2026-01-21 12:50:23 +00:00: Found 24 players for WAS
+2026-01-21 12:50:23 +00:00: Players saved: 24 success, 0 errors
+2026-01-21 12:50:23 +00:00: Players saved: 24 success, 0 errors
+2026-01-21 12:50:23 +00:00: [8/33] Scraping roster for DEN...
+2026-01-21 12:50:23 +00:00: [8/33] Scraping roster for DEN...
+2026-01-21 12:50:23 +00:00: Found 17 players for DEN
+2026-01-21 12:50:23 +00:00: Found 17 players for DEN
+2026-01-21 12:50:23 +00:00: INFO:     192.168.100.52:36014 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:50:50 +00:00: Players saved: 25 success, 0 errors
+2026-01-21 12:50:50 +00:00: Players saved: 25 success, 0 errors
+2026-01-21 12:50:50 +00:00: [4/33] Scraping roster for MIN...
+2026-01-21 12:50:50 +00:00: [4/33] Scraping roster for MIN...
+2026-01-21 12:50:50 +00:00: Found 20 players for MIN
+2026-01-21 12:50:50 +00:00: Found 20 players for MIN
+2026-01-21 12:50:50 +00:00: Players saved: 20 success, 0 errors
+2026-01-21 12:50:50 +00:00: Players saved: 20 success, 0 errors
+2026-01-21 12:50:50 +00:00: [5/33] Scraping roster for DAL...
+2026-01-21 12:50:50 +00:00: [5/33] Scraping roster for DAL...
+2026-01-21 12:50:50 +00:00: Found 24 players for DAL
+2026-01-21 12:50:50 +00:00: Found 24 players for DAL
+2026-01-21 12:50:50 +00:00: Players saved: 24 success, 0 errors
+2026-01-21 12:50:50 +00:00: Players saved: 24 success, 0 errors
+2026-01-21 12:50:50 +00:00: [6/33] Scraping roster for UTA...
+2026-01-21 12:50:50 +00:00: [6/33] Scraping roster for UTA...
+2026-01-21 12:50:50 +00:00: Found 20 players for UTA
+2026-01-21 12:50:50 +00:00: Found 20 players for UTA
+2026-01-21 12:50:50 +00:00: Players saved: 20 success, 0 errors
+2026-01-21 12:50:50 +00:00: Players saved: 20 success, 0 errors
+2026-01-21 12:50:50 +00:00: [7/33] Scraping roster for WAS...
+2026-01-21 12:50:50 +00:00: [7/33] Scraping roster for WAS...
+2026-01-21 12:50:50 +00:00: Found 24 players for WAS
+2026-01-21 12:50:50 +00:00: Found 24 players for WAS
+2026-01-21 12:50:50 +00:00: Players saved: 24 success, 0 errors
+2026-01-21 12:50:50 +00:00: Players saved: 24 success, 0 errors
+2026-01-21 12:50:50 +00:00: [8/33] Scraping roster for DEN...
+2026-01-21 12:50:50 +00:00: [8/33] Scraping roster for DEN...
+2026-01-21 12:50:50 +00:00: Found 17 players for DEN
+2026-01-21 12:50:50 +00:00: Found 17 players for DEN
+2026-01-21 12:50:50 +00:00: Players saved: 17 success, 0 errors
+2026-01-21 12:50:50 +00:00: Players saved: 17 success, 0 errors
+2026-01-21 12:50:50 +00:00: [9/33] Skipping roster scrape for NOH (historical abbreviation)
+2026-01-21 12:50:50 +00:00: [10/33] Scraping roster for DET...
+2026-01-21 12:50:50 +00:00: [9/33] Skipping roster scrape for NOH (historical abbreviation)
+2026-01-21 12:50:50 +00:00: [10/33] Scraping roster for DET...
+2026-01-21 12:50:50 +00:00: Found 21 players for DET
+2026-01-21 12:50:50 +00:00: Found 21 players for DET
+2026-01-21 12:50:50 +00:00: Players saved: 21 success, 0 errors
+2026-01-21 12:50:50 +00:00: Players saved: 21 success, 0 errors
+2026-01-21 12:50:50 +00:00: [11/33] Scraping roster for GSW...
+2026-01-21 12:50:50 +00:00: [11/33] Scraping roster for GSW...
+2026-01-21 12:50:50 +00:00: Found 23 players for GSW
+2026-01-21 12:50:50 +00:00: Failed to fetch roster for GSW: Client error '429 Too Many Requests' for url 'https://www.basketball-reference.com/teams/GSW/2025.html'
+2026-01-21 12:50:50 +00:00: For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-01-21 12:50:50 +00:00: [12/33] Scraping roster for NYK...
+2026-01-21 12:50:50 +00:00: Failed to fetch roster for NYK: Client error '429 Too Many Requests' for url 'https://www.basketball-reference.com/teams/NYK/2025.html'
+2026-01-21 12:50:50 +00:00: For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-01-21 12:50:50 +00:00: [13/33] Scraping roster for OKC...
+2026-01-21 12:50:50 +00:00: Failed to fetch roster for OKC: Client error '429 Too Many Requests' for url 'https://www.basketball-reference.com/teams/OKC/2025.html'
+2026-01-21 12:50:50 +00:00: For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-01-21 12:50:50 +00:00: Players saved: 23 success, 0 errors
+2026-01-21 12:50:50 +00:00: [14/33] Scraping roster for HOU...
+2026-01-21 12:50:50 +00:00: [12/33] Scraping roster for NYK...
+2026-01-21 12:50:50 +00:00: Failed to fetch roster for HOU: Client error '429 Too Many Requests' for url 'https://www.basketball-reference.com/teams/HOU/2025.html'
+2026-01-21 12:50:50 +00:00: For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-01-21 12:50:50 +00:00: Failed to fetch roster for NYK: Client error '429 Too Many Requests' for url 'https://www.basketball-reference.com/teams/NYK/2025.html'
+2026-01-21 12:50:50 +00:00: For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-01-21 12:50:50 +00:00: [15/33] Scraping roster for ORL...
+2026-01-21 12:50:50 +00:00: [13/33] Scraping roster for OKC...
+2026-01-21 12:50:50 +00:00: Failed to fetch roster for ORL: Client error '429 Too Many Requests' for url 'https://www.basketball-reference.com/teams/ORL/2025.html'
+2026-01-21 12:50:50 +00:00: For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-01-21 12:50:50 +00:00: Failed to fetch roster for OKC: Client error '429 Too Many Requests' for url 'https://www.basketball-reference.com/teams/OKC/2025.html'
+2026-01-21 12:50:50 +00:00: For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-01-21 12:50:50 +00:00: [16/33] Scraping roster for IND...
+2026-01-21 12:50:50 +00:00: [14/33] Scraping roster for HOU...
+2026-01-21 12:50:50 +00:00: Failed to fetch roster for IND: Client error '429 Too Many Requests' for url 'https://www.basketball-reference.com/teams/IND/2025.html'
+2026-01-21 12:50:50 +00:00: For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-01-21 12:50:50 +00:00: Failed to fetch roster for HOU: Client error '429 Too Many Requests' for url 'https://www.basketball-reference.com/teams/HOU/2025.html'
+2026-01-21 12:50:50 +00:00: For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-01-21 12:50:50 +00:00: [17/33] Scraping roster for ATL...
+2026-01-21 12:50:50 +00:00: [15/33] Scraping roster for ORL...
+2026-01-21 12:50:50 +00:00: Failed to fetch roster for ATL: Client error '429 Too Many Requests' for url 'https://www.basketball-reference.com/teams/ATL/2025.html'
+2026-01-21 12:50:50 +00:00: For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-01-21 12:50:50 +00:00: Failed to fetch roster for ORL: Client error '429 Too Many Requests' for url 'https://www.basketball-reference.com/teams/ORL/2025.html'
+2026-01-21 12:50:50 +00:00: For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-01-21 12:50:50 +00:00: [18/33] Scraping roster for PHI...
+2026-01-21 12:50:50 +00:00: [16/33] Scraping roster for IND...
+2026-01-21 12:50:50 +00:00: Failed to fetch roster for PHI: Client error '429 Too Many Requests' for url 'https://www.basketball-reference.com/teams/PHI/2025.html'
+2026-01-21 12:50:50 +00:00: For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-01-21 12:50:50 +00:00: Failed to fetch roster for IND: Client error '429 Too Many Requests' for url 'https://www.basketball-reference.com/teams/IND/2025.html'
+2026-01-21 12:50:50 +00:00: For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-01-21 12:50:50 +00:00: [19/33] Scraping roster for BOS...
+2026-01-21 12:50:50 +00:00: [17/33] Scraping roster for ATL...
+2026-01-21 12:50:50 +00:00: Failed to fetch roster for BOS: Client error '429 Too Many Requests' for url 'https://www.basketball-reference.com/teams/BOS/2025.html'
+2026-01-21 12:50:50 +00:00: For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-01-21 12:50:50 +00:00: Failed to fetch roster for ATL: Client error '429 Too Many Requests' for url 'https://www.basketball-reference.com/teams/ATL/2025.html'
+2026-01-21 12:50:50 +00:00: For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-01-21 12:50:50 +00:00: [20/33] Scraping roster for LAC...
+2026-01-21 12:50:50 +00:00: [18/33] Scraping roster for PHI...
+2026-01-21 12:50:50 +00:00: Failed to fetch roster for LAC: Client error '429 Too Many Requests' for url 'https://www.basketball-reference.com/teams/LAC/2025.html'
+2026-01-21 12:50:50 +00:00: For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-01-21 12:50:50 +00:00: Failed to fetch roster for PHI: Client error '429 Too Many Requests' for url 'https://www.basketball-reference.com/teams/PHI/2025.html'
+2026-01-21 12:50:50 +00:00: For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-01-21 12:50:50 +00:00: [21/33] Scraping roster for PHO...
+2026-01-21 12:50:50 +00:00: [19/33] Scraping roster for BOS...
+2026-01-21 12:50:50 +00:00: Failed to fetch roster for PHO: Client error '429 Too Many Requests' for url 'https://www.basketball-reference.com/teams/PHO/2025.html'
+2026-01-21 12:50:50 +00:00: For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-01-21 12:50:50 +00:00: Failed to fetch roster for BOS: Client error '429 Too Many Requests' for url 'https://www.basketball-reference.com/teams/BOS/2025.html'
+2026-01-21 12:50:50 +00:00: For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-01-21 12:50:50 +00:00: [22/33] Skipping roster scrape for NJN (historical abbreviation)
+2026-01-21 12:50:50 +00:00: [23/33] Scraping roster for LAL...
+2026-01-21 12:50:50 +00:00: [20/33] Scraping roster for LAC...
+2026-01-21 12:50:50 +00:00: Failed to fetch roster for LAL: Client error '429 Too Many Requests' for url 'https://www.basketball-reference.com/teams/LAL/2025.html'
+2026-01-21 12:50:50 +00:00: For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-01-21 12:50:50 +00:00: Failed to fetch roster for LAC: Client error '429 Too Many Requests' for url 'https://www.basketball-reference.com/teams/LAC/2025.html'
+2026-01-21 12:50:50 +00:00: For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-01-21 12:50:50 +00:00: [24/33] Scraping roster for CHA...
+2026-01-21 12:50:50 +00:00: [21/33] Scraping roster for PHO...
+2026-01-21 12:50:50 +00:00: Failed to fetch roster for CHA: Client error '429 Too Many Requests' for url 'https://www.basketball-reference.com/teams/CHA/2025.html'
+2026-01-21 12:50:50 +00:00: For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-01-21 12:50:50 +00:00: Failed to fetch roster for PHO: Client error '429 Too Many Requests' for url 'https://www.basketball-reference.com/teams/PHO/2025.html'
+2026-01-21 12:50:50 +00:00: For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-01-21 12:50:50 +00:00: [25/33] Scraping roster for POR...
+2026-01-21 12:50:50 +00:00: [22/33] Skipping roster scrape for NJN (historical abbreviation)
+2026-01-21 12:50:50 +00:00: [23/33] Scraping roster for LAL...
+2026-01-21 12:50:50 +00:00: Failed to fetch roster for POR: Client error '429 Too Many Requests' for url 'https://www.basketball-reference.com/teams/POR/2025.html'
+2026-01-21 12:50:50 +00:00: For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-01-21 12:50:50 +00:00: Failed to fetch roster for LAL: Client error '429 Too Many Requests' for url 'https://www.basketball-reference.com/teams/LAL/2025.html'
+2026-01-21 12:50:50 +00:00: For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-01-21 12:50:50 +00:00: [26/33] Scraping roster for MEM...
+2026-01-21 12:50:50 +00:00: [24/33] Scraping roster for CHA...
+2026-01-21 12:50:53 +00:00: Players saved: 17 success, 0 errors
+2026-01-21 12:50:53 +00:00: Players saved: 17 success, 0 errors
+2026-01-21 12:50:53 +00:00: [9/33] Skipping roster scrape for NOH (historical abbreviation)
+2026-01-21 12:50:53 +00:00: [10/33] Scraping roster for DET...
+2026-01-21 12:50:53 +00:00: [9/33] Skipping roster scrape for NOH (historical abbreviation)
+2026-01-21 12:50:53 +00:00: [10/33] Scraping roster for DET...
+2026-01-21 12:50:53 +00:00: Found 21 players for DET
+2026-01-21 12:50:53 +00:00: Found 21 players for DET
+2026-01-21 12:50:53 +00:00: Players saved: 21 success, 0 errors
+2026-01-21 12:50:53 +00:00: Players saved: 21 success, 0 errors
+2026-01-21 12:50:53 +00:00: [11/33] Scraping roster for GSW...
+2026-01-21 12:50:53 +00:00: [11/33] Scraping roster for GSW...
+2026-01-21 12:50:53 +00:00: Found 23 players for GSW
+2026-01-21 12:50:53 +00:00: Found 23 players for GSW
+2026-01-21 12:50:53 +00:00: Players saved: 23 success, 0 errors
+2026-01-21 12:50:53 +00:00: Players saved: 23 success, 0 errors
+2026-01-21 12:50:53 +00:00: [12/33] Scraping roster for NYK...
+2026-01-21 12:50:53 +00:00: [12/33] Scraping roster for NYK...
+2026-01-21 12:50:53 +00:00: Failed to fetch roster for NYK: Client error '429 Too Many Requests' for url 'https://www.basketball-reference.com/teams/NYK/2025.html'
+2026-01-21 12:50:53 +00:00: For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-01-21 12:50:53 +00:00: Failed to fetch roster for NYK: Client error '429 Too Many Requests' for url 'https://www.basketball-reference.com/teams/NYK/2025.html'
+2026-01-21 12:50:53 +00:00: For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-01-21 12:50:53 +00:00: [13/33] Scraping roster for OKC...
+2026-01-21 12:50:53 +00:00: [13/33] Scraping roster for OKC...
+2026-01-21 12:50:53 +00:00: Failed to fetch roster for OKC: Client error '429 Too Many Requests' for url 'https://www.basketball-reference.com/teams/OKC/2025.html'
+2026-01-21 12:50:53 +00:00: For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-01-21 12:50:53 +00:00: Failed to fetch roster for OKC: Client error '429 Too Many Requests' for url 'https://www.basketball-reference.com/teams/OKC/2025.html'
+2026-01-21 12:50:53 +00:00: For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-01-21 12:50:53 +00:00: [14/33] Scraping roster for HOU...
+2026-01-21 12:50:53 +00:00: [14/33] Scraping roster for HOU...
+2026-01-21 12:50:53 +00:00: Failed to fetch roster for HOU: Client error '429 Too Many Requests' for url 'https://www.basketball-reference.com/teams/HOU/2025.html'
+2026-01-21 12:50:53 +00:00: For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-01-21 12:50:53 +00:00: Failed to fetch roster for HOU: Client error '429 Too Many Requests' for url 'https://www.basketball-reference.com/teams/HOU/2025.html'
+2026-01-21 12:50:53 +00:00: For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-01-21 12:50:53 +00:00: [15/33] Scraping roster for ORL...
+2026-01-21 12:50:53 +00:00: [15/33] Scraping roster for ORL...
+2026-01-21 12:50:53 +00:00: Failed to fetch roster for ORL: Client error '429 Too Many Requests' for url 'https://www.basketball-reference.com/teams/ORL/2025.html'
+2026-01-21 12:50:53 +00:00: For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-01-21 12:50:53 +00:00: Failed to fetch roster for ORL: Client error '429 Too Many Requests' for url 'https://www.basketball-reference.com/teams/ORL/2025.html'
+2026-01-21 12:50:53 +00:00: For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-01-21 12:50:53 +00:00: [16/33] Scraping roster for IND...
+2026-01-21 12:50:53 +00:00: [16/33] Scraping roster for IND...
+2026-01-21 12:50:53 +00:00: Failed to fetch roster for IND: Client error '429 Too Many Requests' for url 'https://www.basketball-reference.com/teams/IND/2025.html'
+2026-01-21 12:50:53 +00:00: For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-01-21 12:50:53 +00:00: Failed to fetch roster for IND: Client error '429 Too Many Requests' for url 'https://www.basketball-reference.com/teams/IND/2025.html'
+2026-01-21 12:50:53 +00:00: For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-01-21 12:50:53 +00:00: [17/33] Scraping roster for ATL...
+2026-01-21 12:50:53 +00:00: [17/33] Scraping roster for ATL...
+2026-01-21 12:50:53 +00:00: Failed to fetch roster for ATL: Client error '429 Too Many Requests' for url 'https://www.basketball-reference.com/teams/ATL/2025.html'
+2026-01-21 12:50:53 +00:00: For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-01-21 12:50:53 +00:00: Failed to fetch roster for ATL: Client error '429 Too Many Requests' for url 'https://www.basketball-reference.com/teams/ATL/2025.html'
+2026-01-21 12:50:53 +00:00: For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-01-21 12:50:53 +00:00: [18/33] Scraping roster for PHI...
+2026-01-21 12:50:53 +00:00: [18/33] Scraping roster for PHI...
+2026-01-21 12:50:53 +00:00: Failed to fetch roster for PHI: Client error '429 Too Many Requests' for url 'https://www.basketball-reference.com/teams/PHI/2025.html'
+2026-01-21 12:50:53 +00:00: For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-01-21 12:50:53 +00:00: Failed to fetch roster for PHI: Client error '429 Too Many Requests' for url 'https://www.basketball-reference.com/teams/PHI/2025.html'
+2026-01-21 12:50:53 +00:00: For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-01-21 12:50:53 +00:00: [19/33] Scraping roster for BOS...
+2026-01-21 12:50:53 +00:00: [19/33] Scraping roster for BOS...
+2026-01-21 12:50:53 +00:00: Failed to fetch roster for BOS: Client error '429 Too Many Requests' for url 'https://www.basketball-reference.com/teams/BOS/2025.html'
+2026-01-21 12:50:53 +00:00: For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-01-21 12:50:53 +00:00: Failed to fetch roster for BOS: Client error '429 Too Many Requests' for url 'https://www.basketball-reference.com/teams/BOS/2025.html'
+2026-01-21 12:50:53 +00:00: For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-01-21 12:50:53 +00:00: [20/33] Scraping roster for LAC...
+2026-01-21 12:50:53 +00:00: [20/33] Scraping roster for LAC...
+2026-01-21 12:50:53 +00:00: Failed to fetch roster for LAC: Client error '429 Too Many Requests' for url 'https://www.basketball-reference.com/teams/LAC/2025.html'
+2026-01-21 12:50:53 +00:00: For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-01-21 12:50:53 +00:00: Failed to fetch roster for LAC: Client error '429 Too Many Requests' for url 'https://www.basketball-reference.com/teams/LAC/2025.html'
+2026-01-21 12:50:53 +00:00: For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-01-21 12:50:53 +00:00: [21/33] Scraping roster for PHO...
+2026-01-21 12:50:53 +00:00: [21/33] Scraping roster for PHO...
+2026-01-21 12:50:53 +00:00: Failed to fetch roster for PHO: Client error '429 Too Many Requests' for url 'https://www.basketball-reference.com/teams/PHO/2025.html'
+2026-01-21 12:50:53 +00:00: For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-01-21 12:50:53 +00:00: Failed to fetch roster for PHO: Client error '429 Too Many Requests' for url 'https://www.basketball-reference.com/teams/PHO/2025.html'
+2026-01-21 12:50:53 +00:00: For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-01-21 12:50:53 +00:00: [22/33] Skipping roster scrape for NJN (historical abbreviation)
+2026-01-21 12:50:53 +00:00: [23/33] Scraping roster for LAL...
+2026-01-21 12:50:53 +00:00: [22/33] Skipping roster scrape for NJN (historical abbreviation)
+2026-01-21 12:50:53 +00:00: [23/33] Scraping roster for LAL...
+2026-01-21 12:50:53 +00:00: Failed to fetch roster for LAL: Client error '429 Too Many Requests' for url 'https://www.basketball-reference.com/teams/LAL/2025.html'
+2026-01-21 12:50:53 +00:00: For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-01-21 12:50:53 +00:00: Failed to fetch roster for LAL: Client error '429 Too Many Requests' for url 'https://www.basketball-reference.com/teams/LAL/2025.html'
+2026-01-21 12:50:53 +00:00: For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-01-21 12:50:53 +00:00: [24/33] Scraping roster for CHA...
+2026-01-21 12:50:53 +00:00: [24/33] Scraping roster for CHA...
+2026-01-21 12:50:53 +00:00: Failed to fetch roster for CHA: Client error '429 Too Many Requests' for url 'https://www.basketball-reference.com/teams/CHA/2025.html'
+2026-01-21 12:50:53 +00:00: For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-01-21 12:50:53 +00:00: Failed to fetch roster for CHA: Client error '429 Too Many Requests' for url 'https://www.basketball-reference.com/teams/CHA/2025.html'
+2026-01-21 12:50:53 +00:00: For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-01-21 12:50:53 +00:00: [25/33] Scraping roster for POR...
+2026-01-21 12:50:53 +00:00: [25/33] Scraping roster for POR...
+2026-01-21 12:50:53 +00:00: Failed to fetch roster for POR: Client error '429 Too Many Requests' for url 'https://www.basketball-reference.com/teams/POR/2025.html'
+2026-01-21 12:50:53 +00:00: For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-01-21 12:50:53 +00:00: Failed to fetch roster for POR: Client error '429 Too Many Requests' for url 'https://www.basketball-reference.com/teams/POR/2025.html'
+2026-01-21 12:50:53 +00:00: For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-01-21 12:50:53 +00:00: INFO:     192.168.100.52:33074 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:51:23 +00:00: Failed to fetch roster for MEM: Client error '429 Too Many Requests' for url 'https://www.basketball-reference.com/teams/MEM/2025.html'
+2026-01-21 12:51:23 +00:00: For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-01-21 12:51:23 +00:00: Failed to fetch roster for CHA: Client error '429 Too Many Requests' for url 'https://www.basketball-reference.com/teams/CHA/2025.html'
+2026-01-21 12:51:23 +00:00: For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-01-21 12:51:23 +00:00: [27/33] Scraping roster for CHI...
+2026-01-21 12:51:23 +00:00: [25/33] Scraping roster for POR...
+2026-01-21 12:51:23 +00:00: Failed to fetch roster for CHI: Client error '429 Too Many Requests' for url 'https://www.basketball-reference.com/teams/CHI/2025.html'
+2026-01-21 12:51:23 +00:00: For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-01-21 12:51:23 +00:00: Failed to fetch roster for POR: Client error '429 Too Many Requests' for url 'https://www.basketball-reference.com/teams/POR/2025.html'
+2026-01-21 12:51:23 +00:00: For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-01-21 12:51:23 +00:00: [28/33] Scraping roster for SAC...
+2026-01-21 12:51:23 +00:00: [26/33] Scraping roster for MEM...
+2026-01-21 12:51:23 +00:00: Failed to fetch roster for SAC: Client error '429 Too Many Requests' for url 'https://www.basketball-reference.com/teams/SAC/2025.html'
+2026-01-21 12:51:23 +00:00: For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-01-21 12:51:23 +00:00: Failed to fetch roster for MEM: Client error '429 Too Many Requests' for url 'https://www.basketball-reference.com/teams/MEM/2025.html'
+2026-01-21 12:51:23 +00:00: For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-01-21 12:51:23 +00:00: [29/33] Scraping roster for MIA...
+2026-01-21 12:51:23 +00:00: [27/33] Scraping roster for CHI...
+2026-01-21 12:51:23 +00:00: Failed to fetch roster for CHI: Client error '429 Too Many Requests' for url 'https://www.basketball-reference.com/teams/CHI/2025.html'
+2026-01-21 12:51:23 +00:00: For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-01-21 12:51:23 +00:00: Failed to fetch roster for MIA: Client error '429 Too Many Requests' for url 'https://www.basketball-reference.com/teams/MIA/2025.html'
+2026-01-21 12:51:23 +00:00: For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-01-21 12:51:23 +00:00: [28/33] Scraping roster for SAC...
+2026-01-21 12:51:23 +00:00: [30/33] Scraping roster for SAS...
+2026-01-21 12:51:23 +00:00: Failed to fetch roster for SAC: Client error '429 Too Many Requests' for url 'https://www.basketball-reference.com/teams/SAC/2025.html'
+2026-01-21 12:51:23 +00:00: For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-01-21 12:51:23 +00:00: Failed to fetch roster for SAS: Client error '429 Too Many Requests' for url 'https://www.basketball-reference.com/teams/SAS/2025.html'
+2026-01-21 12:51:23 +00:00: For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-01-21 12:51:23 +00:00: [29/33] Scraping roster for MIA...
+2026-01-21 12:51:23 +00:00: [31/33] Scraping roster for MIL...
+2026-01-21 12:51:23 +00:00: Failed to fetch roster for MIA: Client error '429 Too Many Requests' for url 'https://www.basketball-reference.com/teams/MIA/2025.html'
+2026-01-21 12:51:23 +00:00: For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-01-21 12:51:23 +00:00: Failed to fetch roster for MIL: Client error '429 Too Many Requests' for url 'https://www.basketball-reference.com/teams/MIL/2025.html'
+2026-01-21 12:51:23 +00:00: For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-01-21 12:51:23 +00:00: [30/33] Scraping roster for SAS...
+2026-01-21 12:51:23 +00:00: [32/33] Scraping roster for TOR...
+2026-01-21 12:51:23 +00:00: Failed to fetch roster for TOR: Client error '429 Too Many Requests' for url 'https://www.basketball-reference.com/teams/TOR/2025.html'
+2026-01-21 12:51:23 +00:00: For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-01-21 12:51:23 +00:00: Failed to fetch roster for SAS: Client error '429 Too Many Requests' for url 'https://www.basketball-reference.com/teams/SAS/2025.html'
+2026-01-21 12:51:23 +00:00: For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-01-21 12:51:23 +00:00: [33/33] Scraping roster for CLE...
+2026-01-21 12:51:23 +00:00: [31/33] Scraping roster for MIL...
+2026-01-21 12:51:23 +00:00: Failed to fetch roster for MIL: Client error '429 Too Many Requests' for url 'https://www.basketball-reference.com/teams/MIL/2025.html'
+2026-01-21 12:51:23 +00:00: For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-01-21 12:51:23 +00:00: Failed to fetch roster for CLE: Client error '429 Too Many Requests' for url 'https://www.basketball-reference.com/teams/CLE/2025.html'
+2026-01-21 12:51:23 +00:00: For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-01-21 12:51:23 +00:00: [32/33] Scraping roster for TOR...
+2026-01-21 12:51:23 +00:00: [2026-01-21T06:51:01.989962] Roster scrape completed: 171 players from 33 teams
+2026-01-21 12:51:23 +00:00: Failed to fetch roster for TOR: Client error '429 Too Many Requests' for url 'https://www.basketball-reference.com/teams/TOR/2025.html'
+2026-01-21 12:51:23 +00:00: For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-01-21 12:51:23 +00:00: [33/33] Scraping roster for CLE...
+2026-01-21 12:51:23 +00:00: Failed to fetch roster for CLE: Client error '429 Too Many Requests' for url 'https://www.basketball-reference.com/teams/CLE/2025.html'
+2026-01-21 12:51:23 +00:00: For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-01-21 12:51:23 +00:00: [2026-01-21T06:51:04.391533] Full scrape completed successfully
+2026-01-21 12:51:23 +00:00: [2026-01-21T06:51:05.209390] Roster scrape completed: 194 players from 33 teams
+2026-01-21 12:51:23 +00:00: [2026-01-21T06:51:07.371788] Full scrape completed successfully
+2026-01-21 12:51:23 +00:00: INFO:     192.168.100.52:35872 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:51:52 +00:00: [26/33] Scraping roster for MEM...
+2026-01-21 12:51:52 +00:00: [26/33] Scraping roster for MEM...
+2026-01-21 12:51:52 +00:00: Failed to fetch roster for MEM: Client error '429 Too Many Requests' for url 'https://www.basketball-reference.com/teams/MEM/2025.html'
+2026-01-21 12:51:52 +00:00: For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-01-21 12:51:52 +00:00: Failed to fetch roster for MEM: Client error '429 Too Many Requests' for url 'https://www.basketball-reference.com/teams/MEM/2025.html'
+2026-01-21 12:51:52 +00:00: For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-01-21 12:51:52 +00:00: [27/33] Scraping roster for CHI...
+2026-01-21 12:51:52 +00:00: [27/33] Scraping roster for CHI...
+2026-01-21 12:51:52 +00:00: Failed to fetch roster for CHI: Client error '429 Too Many Requests' for url 'https://www.basketball-reference.com/teams/CHI/2025.html'
+2026-01-21 12:51:52 +00:00: For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-01-21 12:51:52 +00:00: Failed to fetch roster for CHI: Client error '429 Too Many Requests' for url 'https://www.basketball-reference.com/teams/CHI/2025.html'
+2026-01-21 12:51:52 +00:00: For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-01-21 12:51:52 +00:00: [28/33] Scraping roster for SAC...
+2026-01-21 12:51:52 +00:00: [28/33] Scraping roster for SAC...
+2026-01-21 12:51:52 +00:00: Failed to fetch roster for SAC: Client error '429 Too Many Requests' for url 'https://www.basketball-reference.com/teams/SAC/2025.html'
+2026-01-21 12:51:52 +00:00: For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-01-21 12:51:52 +00:00: Failed to fetch roster for SAC: Client error '429 Too Many Requests' for url 'https://www.basketball-reference.com/teams/SAC/2025.html'
+2026-01-21 12:51:52 +00:00: For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-01-21 12:51:52 +00:00: [29/33] Scraping roster for MIA...
+2026-01-21 12:51:52 +00:00: [29/33] Scraping roster for MIA...
+2026-01-21 12:51:52 +00:00: Failed to fetch roster for MIA: Client error '429 Too Many Requests' for url 'https://www.basketball-reference.com/teams/MIA/2025.html'
+2026-01-21 12:51:52 +00:00: For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-01-21 12:51:52 +00:00: Failed to fetch roster for MIA: Client error '429 Too Many Requests' for url 'https://www.basketball-reference.com/teams/MIA/2025.html'
+2026-01-21 12:51:52 +00:00: For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-01-21 12:51:52 +00:00: [30/33] Scraping roster for SAS...
+2026-01-21 12:51:52 +00:00: [30/33] Scraping roster for SAS...
+2026-01-21 12:51:52 +00:00: Failed to fetch roster for SAS: Client error '429 Too Many Requests' for url 'https://www.basketball-reference.com/teams/SAS/2025.html'
+2026-01-21 12:51:52 +00:00: For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-01-21 12:51:52 +00:00: Failed to fetch roster for SAS: Client error '429 Too Many Requests' for url 'https://www.basketball-reference.com/teams/SAS/2025.html'
+2026-01-21 12:51:52 +00:00: For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-01-21 12:51:52 +00:00: [31/33] Scraping roster for MIL...
+2026-01-21 12:51:52 +00:00: [31/33] Scraping roster for MIL...
+2026-01-21 12:51:52 +00:00: Failed to fetch roster for MIL: Client error '429 Too Many Requests' for url 'https://www.basketball-reference.com/teams/MIL/2025.html'
+2026-01-21 12:51:52 +00:00: For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-01-21 12:51:52 +00:00: Failed to fetch roster for MIL: Client error '429 Too Many Requests' for url 'https://www.basketball-reference.com/teams/MIL/2025.html'
+2026-01-21 12:51:52 +00:00: For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-01-21 12:51:52 +00:00: [32/33] Scraping roster for TOR...
+2026-01-21 12:51:52 +00:00: [32/33] Scraping roster for TOR...
+2026-01-21 12:51:52 +00:00: Failed to fetch roster for TOR: Client error '429 Too Many Requests' for url 'https://www.basketball-reference.com/teams/TOR/2025.html'
+2026-01-21 12:51:52 +00:00: For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-01-21 12:51:52 +00:00: Failed to fetch roster for TOR: Client error '429 Too Many Requests' for url 'https://www.basketball-reference.com/teams/TOR/2025.html'
+2026-01-21 12:51:52 +00:00: For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-01-21 12:51:52 +00:00: [33/33] Scraping roster for CLE...
+2026-01-21 12:51:52 +00:00: [33/33] Scraping roster for CLE...
+2026-01-21 12:51:52 +00:00: Failed to fetch roster for CLE: Client error '429 Too Many Requests' for url 'https://www.basketball-reference.com/teams/CLE/2025.html'
+2026-01-21 12:51:52 +00:00: For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-01-21 12:51:52 +00:00: Failed to fetch roster for CLE: Client error '429 Too Many Requests' for url 'https://www.basketball-reference.com/teams/CLE/2025.html'
+2026-01-21 12:51:52 +00:00: For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-01-21 12:51:52 +00:00: [2026-01-21T06:51:06.489986] Roster scrape completed: 194 players from 33 teams
+2026-01-21 12:51:52 +00:00: [2026-01-21T06:51:06.493565] Roster scrape completed: 194 players from 33 teams
+2026-01-21 12:51:52 +00:00: [2026-01-21T06:51:08.574818] Full scrape completed successfully
+2026-01-21 12:51:52 +00:00: INFO:     192.168.100.52:53666 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:51:52 +00:00: INFO:     192.168.100.52:53654 - "GET /api/teams HTTP/1.1" 200 OK
+2026-01-21 12:51:52 +00:00: INFO:     192.168.100.52:53676 - "GET /api/games/today HTTP/1.1" 200 OK
+2026-01-21 12:51:53 +00:00: INFO:     192.168.100.52:53676 - "GET /api/games/today HTTP/1.1" 200 OK
+2026-01-21 12:51:53 +00:00: INFO:     192.168.100.52:53648 - "GET /api/focus-teams/today?limit=5 HTTP/1.1" 200 OK
+2026-01-21 12:52:00 +00:00: INFO:     192.168.100.52:53648 - "GET /api/teams/CHI/players HTTP/1.1" 200 OK
+2026-01-21 12:52:01 +00:00: INFO:     192.168.100.52:53676 - "GET /api/bulls-analysis HTTP/1.1" 200 OK
+2026-01-21 12:52:04 +00:00: INFO:     192.168.100.52:53634 - "GET /api/teams/analysis?include_betting=true HTTP/1.1" 200 OK
+2026-01-21 12:52:04 +00:00: INFO:     192.168.100.52:53648 - "GET /api/odds/7a6dce2087cb5ed530983a64686714ea HTTP/1.1" 200 OK
+2026-01-21 12:52:04 +00:00: INFO:     192.168.100.52:53676 - "GET /api/odds/abfb5e607faa42b472bd17ec495475d2 HTTP/1.1" 200 OK
+2026-01-21 12:52:04 +00:00: INFO:     192.168.100.52:51682 - "GET /api/odds/2fff26d23c77372d82f9d5b1f3fc6d96 HTTP/1.1" 200 OK
+2026-01-21 12:52:04 +00:00: INFO:     192.168.100.52:51684 - "GET /api/odds/98c3423f08777d4b20922a767ac9d848 HTTP/1.1" 200 OK
+2026-01-21 12:52:04 +00:00: INFO:     192.168.100.52:51698 - "GET /api/odds/7903c7ddc480ddb5283a60ccbff4c31d HTTP/1.1" 200 OK
+2026-01-21 12:52:04 +00:00: INFO:     192.168.100.52:51706 - "GET /api/odds/5a7446000e1739b011c606a7e4e2f4ec HTTP/1.1" 200 OK
+2026-01-21 12:52:04 +00:00: INFO:     192.168.100.52:53634 - "GET /api/odds/78825d24fa81f64509d9f720f7f1c2bf HTTP/1.1" 200 OK
+2026-01-21 12:52:12 +00:00: INFO:     192.168.100.52:41672 - "GET /api/players?active=true&include_stats=true HTTP/1.1" 200 OK
+2026-01-21 12:52:13 +00:00: INFO:     192.168.100.52:41672 - "GET /api/teams HTTP/1.1" 200 OK
+2026-01-21 12:52:14 +00:00: INFO:     192.168.100.52:41672 - "GET /api/games/today HTTP/1.1" 200 OK
+2026-01-21 12:52:15 +00:00: INFO:     192.168.100.52:41672 - "GET /api/odds/78825d24fa81f64509d9f720f7f1c2bf HTTP/1.1" 200 OK
+2026-01-21 12:52:15 +00:00: INFO:     192.168.100.52:41722 - "GET /api/odds/2fff26d23c77372d82f9d5b1f3fc6d96 HTTP/1.1" 200 OK
+2026-01-21 12:52:15 +00:00: INFO:     192.168.100.52:41678 - "GET /api/odds/abfb5e607faa42b472bd17ec495475d2 HTTP/1.1" 200 OK
+2026-01-21 12:52:15 +00:00: INFO:     192.168.100.52:41708 - "GET /api/odds/7a6dce2087cb5ed530983a64686714ea HTTP/1.1" 200 OK
+2026-01-21 12:52:15 +00:00: INFO:     192.168.100.52:41732 - "GET /api/odds/5a7446000e1739b011c606a7e4e2f4ec HTTP/1.1" 200 OK
+2026-01-21 12:52:15 +00:00: INFO:     192.168.100.52:41690 - "GET /api/odds/7903c7ddc480ddb5283a60ccbff4c31d HTTP/1.1" 200 OK
+2026-01-21 12:52:15 +00:00: INFO:     192.168.100.52:41698 - "GET /api/odds/98c3423f08777d4b20922a767ac9d848 HTTP/1.1" 200 OK
+2026-01-21 12:52:16 +00:00: INFO:     192.168.100.52:41698 - "GET /api/betting-recommendations HTTP/1.1" 200 OK
+2026-01-21 12:52:22 +00:00: INFO:     192.168.100.52:55304 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:52:25 +00:00: INFO:     192.168.100.52:41698 - "GET /api/teams/analysis?include_betting=true HTTP/1.1" 200 OK
+2026-01-21 12:52:26 +00:00: INFO:     192.168.100.52:41698 - "GET /api/reports?limit=20 HTTP/1.1" 200 OK
+2026-01-21 12:52:40 +00:00: INFO:     192.168.100.52:39452 - "GET /api/teams HTTP/1.1" 200 OK
+2026-01-21 12:52:40 +00:00: INFO:     192.168.100.52:39456 - "GET /api/games/today HTTP/1.1" 200 OK
+2026-01-21 12:52:40 +00:00: INFO:     192.168.100.52:39490 - "GET /api/focus-teams/today?limit=5 HTTP/1.1" 200 OK
+2026-01-21 12:52:48 +00:00: INFO:     192.168.100.52:39454 - "GET /api/teams/analysis?include_betting=true HTTP/1.1" 200 OK
+2026-01-21 12:52:48 +00:00: INFO:     192.168.100.52:39358 - "GET /api/odds/7903c7ddc480ddb5283a60ccbff4c31d HTTP/1.1" 200 OK
+2026-01-21 12:52:48 +00:00: INFO:     192.168.100.52:39368 - "GET /api/odds/abfb5e607faa42b472bd17ec495475d2 HTTP/1.1" 200 OK
+2026-01-21 12:52:48 +00:00: INFO:     192.168.100.52:39370 - "GET /api/odds/98c3423f08777d4b20922a767ac9d848 HTTP/1.1" 200 OK
+2026-01-21 12:52:48 +00:00: INFO:     192.168.100.52:39356 - "GET /api/odds/7a6dce2087cb5ed530983a64686714ea HTTP/1.1" 200 OK
+2026-01-21 12:52:48 +00:00: INFO:     192.168.100.52:39396 - "GET /api/odds/78825d24fa81f64509d9f720f7f1c2bf HTTP/1.1" 200 OK
+2026-01-21 12:52:48 +00:00: INFO:     192.168.100.52:39398 - "GET /api/odds/2fff26d23c77372d82f9d5b1f3fc6d96 HTTP/1.1" 200 OK
+2026-01-21 12:52:48 +00:00: INFO:     192.168.100.52:39454 - "GET /api/odds/5a7446000e1739b011c606a7e4e2f4ec HTTP/1.1" 200 OK
+2026-01-21 12:52:52 +00:00: [2026-01-21T06:52:50.092083] Full scrape completed successfully
+2026-01-21 12:52:52 +00:00: INFO:     192.168.100.52:39454 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:53:22 +00:00: INFO:     192.168.100.52:51830 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:53:52 +00:00: INFO:     192.168.100.52:45952 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:54:01 +00:00: INFO:     192.168.100.52:39512 - "OPTIONS /api/games/today HTTP/1.1" 200 OK
+2026-01-21 12:54:01 +00:00: INFO:     192.168.100.52:39526 - "OPTIONS /api/teams HTTP/1.1" 200 OK
+2026-01-21 12:54:01 +00:00: INFO:     192.168.100.52:39550 - "OPTIONS /api/games/today HTTP/1.1" 200 OK
+2026-01-21 12:54:01 +00:00: INFO:     192.168.100.52:39542 - "OPTIONS /api/teams/analysis?include_betting=true HTTP/1.1" 200 OK
+2026-01-21 12:54:01 +00:00: INFO:     192.168.100.52:39552 - "OPTIONS /api/focus-teams/today?limit=5 HTTP/1.1" 200 OK
+2026-01-21 12:54:01 +00:00: INFO:     192.168.100.52:39548 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:54:01 +00:00: INFO:     192.168.100.52:39548 - "GET /api/games/today HTTP/1.1" 401 Unauthorized
+2026-01-21 12:54:01 +00:00: INFO:     192.168.100.52:39550 - "GET /api/teams/analysis?include_betting=true HTTP/1.1" 401 Unauthorized
+2026-01-21 12:54:01 +00:00: INFO:     192.168.100.52:39552 - "GET /api/teams HTTP/1.1" 401 Unauthorized
+2026-01-21 12:54:01 +00:00: INFO:     192.168.100.52:39542 - "GET /api/focus-teams/today?limit=5 HTTP/1.1" 401 Unauthorized
+2026-01-21 12:54:01 +00:00: INFO:     192.168.100.52:39550 - "GET /api/games/today HTTP/1.1" 401 Unauthorized
+2026-01-21 12:54:07 +00:00: INFO:     192.168.100.52:39560 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:54:17 +00:00: INFO:     192.168.100.52:41856 - "GET /api/teams HTTP/1.1" 200 OK
+2026-01-21 12:54:17 +00:00: INFO:     192.168.100.52:41842 - "GET /api/games/today HTTP/1.1" 200 OK
+2026-01-21 12:54:17 +00:00: INFO:     192.168.100.52:41842 - "GET /api/games/today HTTP/1.1" 200 OK
+2026-01-21 12:54:18 +00:00: INFO:     192.168.100.52:41878 - "GET /api/focus-teams/today?limit=5 HTTP/1.1" 200 OK
+2026-01-21 12:54:22 +00:00: INFO:     192.168.100.52:41878 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:54:31 +00:00: INFO:     192.168.100.52:41436 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:54:36 +00:00: INFO:     192.168.100.52:41870 - "GET /api/teams/analysis?include_betting=true HTTP/1.1" 200 OK
+2026-01-21 12:54:36 +00:00: INFO:     192.168.100.52:41446 - "OPTIONS /api/odds/2fff26d23c77372d82f9d5b1f3fc6d96 HTTP/1.1" 200 OK
+2026-01-21 12:54:36 +00:00: INFO:     192.168.100.52:41460 - "OPTIONS /api/odds/abfb5e607faa42b472bd17ec495475d2 HTTP/1.1" 200 OK
+2026-01-21 12:54:36 +00:00: INFO:     192.168.100.52:41472 - "OPTIONS /api/odds/7903c7ddc480ddb5283a60ccbff4c31d HTTP/1.1" 200 OK
+2026-01-21 12:54:36 +00:00: INFO:     192.168.100.52:41476 - "OPTIONS /api/odds/7a6dce2087cb5ed530983a64686714ea HTTP/1.1" 200 OK
+2026-01-21 12:54:36 +00:00: INFO:     192.168.100.52:41478 - "OPTIONS /api/odds/98c3423f08777d4b20922a767ac9d848 HTTP/1.1" 200 OK
+2026-01-21 12:54:36 +00:00: INFO:     192.168.100.52:41480 - "OPTIONS /api/odds/5a7446000e1739b011c606a7e4e2f4ec HTTP/1.1" 200 OK
+2026-01-21 12:54:36 +00:00: INFO:     192.168.100.52:41870 - "OPTIONS /api/odds/78825d24fa81f64509d9f720f7f1c2bf HTTP/1.1" 200 OK
+2026-01-21 12:54:36 +00:00: INFO:     192.168.100.52:41870 - "GET /api/odds/2fff26d23c77372d82f9d5b1f3fc6d96 HTTP/1.1" 401 Unauthorized
+2026-01-21 12:54:36 +00:00: INFO:     192.168.100.52:41870 - "GET /api/odds/abfb5e607faa42b472bd17ec495475d2 HTTP/1.1" 401 Unauthorized
+2026-01-21 12:54:36 +00:00: INFO:     192.168.100.52:41480 - "GET /api/odds/7a6dce2087cb5ed530983a64686714ea HTTP/1.1" 401 Unauthorized
+2026-01-21 12:54:36 +00:00: INFO:     192.168.100.52:41870 - "GET /api/odds/7903c7ddc480ddb5283a60ccbff4c31d HTTP/1.1" 401 Unauthorized
+2026-01-21 12:54:36 +00:00: INFO:     192.168.100.52:41480 - "GET /api/odds/98c3423f08777d4b20922a767ac9d848 HTTP/1.1" 401 Unauthorized
+2026-01-21 12:54:36 +00:00: INFO:     192.168.100.52:41870 - "GET /api/odds/5a7446000e1739b011c606a7e4e2f4ec HTTP/1.1" 401 Unauthorized
+2026-01-21 12:54:36 +00:00: INFO:     192.168.100.52:41870 - "GET /api/odds/78825d24fa81f64509d9f720f7f1c2bf HTTP/1.1" 401 Unauthorized
+2026-01-21 12:54:52 +00:00: INFO:     192.168.100.52:59486 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:55:01 +00:00: INFO:     192.168.100.52:56396 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:55:22 +00:00: INFO:     192.168.100.52:38696 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:55:31 +00:00: INFO:     192.168.100.52:58612 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:56:01 +00:00: INFO:     192.168.100.52:57062 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:56:19 +00:00: INFO:     192.168.100.52:49138 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:56:31 +00:00: INFO:     192.168.100.52:56068 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:57:01 +00:00: INFO:     192.168.100.52:34616 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:57:19 +00:00: INFO:     192.168.100.52:53584 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:57:31 +00:00: INFO:     192.168.100.52:33840 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:58:19 +00:00: INFO:     192.168.100.52:39298 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:58:19 +00:00: INFO:     192.168.100.52:39298 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:59:19 +00:00: INFO:     192.168.100.52:32788 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:59:30 +00:00: INFO:     192.168.100.52:42660 - "OPTIONS /api/games/today HTTP/1.1" 200 OK
+2026-01-21 12:59:30 +00:00: INFO:     192.168.100.52:42676 - "OPTIONS /api/teams HTTP/1.1" 200 OK
+2026-01-21 12:59:30 +00:00: INFO:     192.168.100.52:42658 - "OPTIONS /api/teams/analysis?include_betting=true HTTP/1.1" 200 OK
+2026-01-21 12:59:30 +00:00: INFO:     192.168.100.52:42710 - "OPTIONS /api/focus-teams/today?limit=5 HTTP/1.1" 200 OK
+2026-01-21 12:59:30 +00:00: INFO:     192.168.100.52:42704 - "OPTIONS /api/games/today HTTP/1.1" 200 OK
+2026-01-21 12:59:30 +00:00: INFO:     192.168.100.52:42688 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 12:59:31 +00:00: INFO:     192.168.100.52:42658 - "GET /api/teams HTTP/1.1" 401 Unauthorized
+2026-01-21 12:59:31 +00:00: INFO:     192.168.100.52:42704 - "GET /api/games/today HTTP/1.1" 401 Unauthorized
+2026-01-21 12:59:31 +00:00: INFO:     192.168.100.52:42710 - "GET /api/teams/analysis?include_betting=true HTTP/1.1" 401 Unauthorized
+2026-01-21 12:59:31 +00:00: INFO:     192.168.100.52:42688 - "GET /api/games/today HTTP/1.1" 401 Unauthorized
+2026-01-21 12:59:31 +00:00: INFO:     192.168.100.52:42676 - "GET /api/focus-teams/today?limit=5 HTTP/1.1" 401 Unauthorized
+2026-01-21 12:59:33 +00:00: INFO:     192.168.100.52:42658 - "GET /api/games/today HTTP/1.1" 200 OK
+2026-01-21 12:59:33 +00:00: INFO:     192.168.100.52:42688 - "GET /api/teams HTTP/1.1" 200 OK
+2026-01-21 12:59:33 +00:00: INFO:     192.168.100.52:42676 - "GET /api/games/today HTTP/1.1" 200 OK
+2026-01-21 12:59:34 +00:00: INFO:     192.168.100.52:42704 - "GET /api/focus-teams/today?limit=5 HTTP/1.1" 200 OK
+2026-01-21 12:59:46 +00:00: INFO:     192.168.100.52:42710 - "GET /api/teams/analysis?include_betting=true HTTP/1.1" 200 OK
+2026-01-21 12:59:46 +00:00: INFO:     192.168.100.52:42710 - "OPTIONS /api/odds/78825d24fa81f64509d9f720f7f1c2bf HTTP/1.1" 200 OK
+2026-01-21 12:59:46 +00:00: INFO:     192.168.100.52:41168 - "OPTIONS /api/odds/abfb5e607faa42b472bd17ec495475d2 HTTP/1.1" 200 OK
+2026-01-21 12:59:46 +00:00: INFO:     192.168.100.52:42710 - "OPTIONS /api/odds/2fff26d23c77372d82f9d5b1f3fc6d96 HTTP/1.1" 200 OK
+2026-01-21 12:59:46 +00:00: INFO:     192.168.100.52:42710 - "OPTIONS /api/odds/7903c7ddc480ddb5283a60ccbff4c31d HTTP/1.1" 200 OK
+2026-01-21 12:59:46 +00:00: INFO:     192.168.100.52:42710 - "OPTIONS /api/odds/7a6dce2087cb5ed530983a64686714ea HTTP/1.1" 200 OK
+2026-01-21 12:59:46 +00:00: INFO:     192.168.100.52:42710 - "OPTIONS /api/odds/5a7446000e1739b011c606a7e4e2f4ec HTTP/1.1" 200 OK
+2026-01-21 12:59:46 +00:00: INFO:     192.168.100.52:42710 - "OPTIONS /api/odds/98c3423f08777d4b20922a767ac9d848 HTTP/1.1" 200 OK
+2026-01-21 12:59:47 +00:00: INFO:     192.168.100.52:42710 - "GET /api/odds/abfb5e607faa42b472bd17ec495475d2 HTTP/1.1" 200 OK
+2026-01-21 12:59:47 +00:00: INFO:     192.168.100.52:41218 - "GET /api/odds/5a7446000e1739b011c606a7e4e2f4ec HTTP/1.1" 200 OK
+2026-01-21 12:59:47 +00:00: INFO:     192.168.100.52:41224 - "GET /api/odds/98c3423f08777d4b20922a767ac9d848 HTTP/1.1" 200 OK
+2026-01-21 12:59:47 +00:00: INFO:     192.168.100.52:41194 - "GET /api/odds/7a6dce2087cb5ed530983a64686714ea HTTP/1.1" 200 OK
+2026-01-21 12:59:47 +00:00: INFO:     192.168.100.52:41168 - "GET /api/odds/78825d24fa81f64509d9f720f7f1c2bf HTTP/1.1" 200 OK
+2026-01-21 12:59:47 +00:00: INFO:     192.168.100.52:41182 - "GET /api/odds/2fff26d23c77372d82f9d5b1f3fc6d96 HTTP/1.1" 200 OK
+2026-01-21 12:59:47 +00:00: INFO:     192.168.100.52:41202 - "GET /api/odds/7903c7ddc480ddb5283a60ccbff4c31d HTTP/1.1" 200 OK
+2026-01-21 13:00:00 +00:00: INFO:     192.168.100.52:42506 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 13:00:01 +00:00: INFO:     192.168.100.52:42506 - "GET /api/games/today HTTP/1.1" 200 OK
+2026-01-21 13:00:02 +00:00: INFO:     192.168.100.52:42552 - "GET /api/odds/5a7446000e1739b011c606a7e4e2f4ec HTTP/1.1" 200 OK
+2026-01-21 13:00:02 +00:00: INFO:     192.168.100.52:42544 - "GET /api/odds/7a6dce2087cb5ed530983a64686714ea HTTP/1.1" 200 OK
+2026-01-21 13:00:02 +00:00: INFO:     192.168.100.52:42522 - "GET /api/odds/abfb5e607faa42b472bd17ec495475d2 HTTP/1.1" 200 OK
+2026-01-21 13:00:02 +00:00: INFO:     192.168.100.52:42524 - "GET /api/odds/2fff26d23c77372d82f9d5b1f3fc6d96 HTTP/1.1" 200 OK
+2026-01-21 13:00:02 +00:00: INFO:     192.168.100.52:42530 - "GET /api/odds/7903c7ddc480ddb5283a60ccbff4c31d HTTP/1.1" 200 OK
+2026-01-21 13:00:02 +00:00: INFO:     192.168.100.52:42506 - "GET /api/odds/78825d24fa81f64509d9f720f7f1c2bf HTTP/1.1" 200 OK
+2026-01-21 13:00:02 +00:00: INFO:     192.168.100.52:42568 - "GET /api/odds/98c3423f08777d4b20922a767ac9d848 HTTP/1.1" 200 OK
+2026-01-21 13:00:19 +00:00: INFO:     192.168.100.52:47980 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 13:00:30 +00:00: INFO:     192.168.100.52:55688 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 13:00:32 +00:00: INFO:     192.168.100.52:55688 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 13:00:34 +00:00: INFO:     192.168.100.52:55688 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 13:00:38 +00:00: INFO:     192.168.100.52:55688 - "GET /api/games/today HTTP/1.1" 200 OK
+2026-01-21 13:00:38 +00:00: INFO:     192.168.100.52:39444 - "GET /api/teams HTTP/1.1" 200 OK
+2026-01-21 13:00:38 +00:00: INFO:     192.168.100.52:39444 - "GET /api/games/today HTTP/1.1" 200 OK
+2026-01-21 13:00:38 +00:00: INFO:     192.168.100.52:39470 - "GET /api/focus-teams/today?limit=5 HTTP/1.1" 200 OK
+2026-01-21 13:00:47 +00:00: INFO:     192.168.100.52:39458 - "GET /api/teams/analysis?include_betting=true HTTP/1.1" 200 OK
+2026-01-21 13:01:28 +00:00: INFO:     192.168.100.52:51220 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 13:01:29 +00:00: INFO:     192.168.100.52:51222 - "GET /api/games/today HTTP/1.1" 200 OK
+2026-01-21 13:01:29 +00:00: INFO:     192.168.100.52:51274 - "GET /api/teams HTTP/1.1" 200 OK
+2026-01-21 13:01:29 +00:00: INFO:     192.168.100.52:51222 - "GET /api/games/today HTTP/1.1" 200 OK
+2026-01-21 13:01:29 +00:00: INFO:     192.168.100.52:51248 - "GET /api/focus-teams/today?limit=5 HTTP/1.1" 200 OK
+2026-01-21 13:01:39 +00:00: INFO:     192.168.100.52:51262 - "GET /api/teams/analysis?include_betting=true HTTP/1.1" 200 OK
+2026-01-21 13:12:57 +00:00: INFO:     192.168.100.52:34060 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 13:13:27 +00:00: INFO:     192.168.100.52:49736 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 13:13:57 +00:00: INFO:     192.168.100.52:58038 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 13:14:26 +00:00: INFO:     192.168.100.52:53306 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 13:14:56 +00:00: INFO:     192.168.100.52:45066 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 13:15:26 +00:00: INFO:     192.168.100.52:52338 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 13:15:56 +00:00: INFO:     192.168.100.52:49724 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 13:16:09 +00:00: INFO:     192.168.100.52:38548 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 13:16:24 +00:00: INFO:     192.168.100.52:42872 - "GET / HTTP/1.1" 404 Not Found
+2026-01-21 13:16:26 +00:00: INFO:     192.168.100.52:42872 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 13:16:29 +00:00: INFO:     192.168.100.52:42872 - "GET / HTTP/1.1" 404 Not Found
+2026-01-21 13:16:32 +00:00: INFO:     192.168.100.52:42872 - "GET / HTTP/1.1" 404 Not Found
+2026-01-21 13:16:36 +00:00: INFO:     192.168.100.52:42872 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 13:16:56 +00:00: INFO:     192.168.100.52:45028 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 13:17:26 +00:00: INFO:     192.168.100.52:55056 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 13:17:36 +00:00: INFO:     192.168.100.52:35302 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 13:18:06 +00:00: INFO:     192.168.100.52:54418 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 13:18:36 +00:00: INFO:     192.168.100.52:46086 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 13:18:44 +00:00: INFO:     192.168.100.52:33166 - "OPTIONS /api/games/today HTTP/1.1" 200 OK
+2026-01-21 13:18:44 +00:00: INFO:     192.168.100.52:33164 - "OPTIONS /api/teams HTTP/1.1" 200 OK
+2026-01-21 13:18:44 +00:00: INFO:     192.168.100.52:33184 - "OPTIONS /api/focus-teams/today?limit=5 HTTP/1.1" 200 OK
+2026-01-21 13:18:44 +00:00: INFO:     192.168.100.52:33180 - "OPTIONS /api/games/today HTTP/1.1" 200 OK
+2026-01-21 13:18:44 +00:00: INFO:     192.168.100.52:33188 - "OPTIONS /api/teams/analysis?include_betting=true HTTP/1.1" 200 OK
+2026-01-21 13:18:44 +00:00: INFO:     192.168.100.52:33180 - "GET /api/teams HTTP/1.1" 200 OK
+2026-01-21 13:18:44 +00:00: INFO:     192.168.100.52:33188 - "GET /api/games/today HTTP/1.1" 200 OK
+2026-01-21 13:18:45 +00:00: INFO:     192.168.100.52:33188 - "GET /api/games/today HTTP/1.1" 200 OK
+2026-01-21 13:18:45 +00:00: INFO:     192.168.100.52:33164 - "GET /api/focus-teams/today?limit=5 HTTP/1.1" 200 OK
+2026-01-21 13:19:03 +00:00: INFO:     192.168.100.52:33184 - "GET /api/teams/analysis?include_betting=true HTTP/1.1" 200 OK
+2026-01-21 13:19:03 +00:00: INFO:     192.168.100.52:45958 - "OPTIONS /api/odds/78825d24fa81f64509d9f720f7f1c2bf HTTP/1.1" 200 OK
+2026-01-21 13:19:03 +00:00: INFO:     192.168.100.52:45964 - "OPTIONS /api/odds/98c3423f08777d4b20922a767ac9d848 HTTP/1.1" 200 OK
+2026-01-21 13:19:03 +00:00: INFO:     192.168.100.52:45978 - "OPTIONS /api/odds/7a6dce2087cb5ed530983a64686714ea HTTP/1.1" 200 OK
+2026-01-21 13:19:03 +00:00: INFO:     192.168.100.52:45990 - "OPTIONS /api/odds/7903c7ddc480ddb5283a60ccbff4c31d HTTP/1.1" 200 OK
+2026-01-21 13:19:03 +00:00: INFO:     192.168.100.52:45992 - "OPTIONS /api/odds/abfb5e607faa42b472bd17ec495475d2 HTTP/1.1" 200 OK
+2026-01-21 13:19:03 +00:00: INFO:     192.168.100.52:45996 - "OPTIONS /api/odds/5a7446000e1739b011c606a7e4e2f4ec HTTP/1.1" 200 OK
+2026-01-21 13:19:03 +00:00: INFO:     192.168.100.52:33184 - "OPTIONS /api/odds/2fff26d23c77372d82f9d5b1f3fc6d96 HTTP/1.1" 200 OK
+2026-01-21 13:19:04 +00:00: INFO:     192.168.100.52:33184 - "GET /api/odds/98c3423f08777d4b20922a767ac9d848 HTTP/1.1" 200 OK
+2026-01-21 13:19:04 +00:00: INFO:     192.168.100.52:45992 - "GET /api/odds/7a6dce2087cb5ed530983a64686714ea HTTP/1.1" 200 OK
+2026-01-21 13:19:04 +00:00: INFO:     192.168.100.52:45996 - "GET /api/odds/78825d24fa81f64509d9f720f7f1c2bf HTTP/1.1" 200 OK
+2026-01-21 13:19:04 +00:00: INFO:     192.168.100.52:45964 - "GET /api/odds/2fff26d23c77372d82f9d5b1f3fc6d96 HTTP/1.1" 200 OK
+2026-01-21 13:19:04 +00:00: INFO:     192.168.100.52:45958 - "GET /api/odds/5a7446000e1739b011c606a7e4e2f4ec HTTP/1.1" 200 OK
+2026-01-21 13:19:04 +00:00: INFO:     192.168.100.52:45990 - "GET /api/odds/7903c7ddc480ddb5283a60ccbff4c31d HTTP/1.1" 200 OK
+2026-01-21 13:19:04 +00:00: INFO:     192.168.100.52:45978 - "GET /api/odds/abfb5e607faa42b472bd17ec495475d2 HTTP/1.1" 200 OK
+2026-01-21 13:19:06 +00:00: INFO:     192.168.100.52:45978 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 13:19:32 +00:00: INFO:     192.168.100.52:43266 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 13:19:32 +00:00: INFO:     192.168.100.52:43266 - "GET / HTTP/1.1" 404 Not Found
+2026-01-21 13:19:35 +00:00: INFO:     192.168.100.52:43266 - "GET / HTTP/1.1" 404 Not Found
+2026-01-21 13:19:36 +00:00: INFO:     192.168.100.52:43266 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 13:20:06 +00:00: INFO:     192.168.100.52:40518 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 13:20:36 +00:00: INFO:     192.168.100.52:47936 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 13:21:06 +00:00: INFO:     192.168.100.52:54304 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 13:21:36 +00:00: INFO:     192.168.100.52:51342 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 13:22:06 +00:00: INFO:     192.168.100.52:40722 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 13:22:36 +00:00: INFO:     192.168.100.52:47896 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 13:23:06 +00:00: INFO:     192.168.100.52:46424 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 13:23:36 +00:00: INFO:     192.168.100.52:53396 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 13:23:36 +00:00: INFO:     192.168.100.52:53396 - "OPTIONS /api/games/today HTTP/1.1" 200 OK
+2026-01-21 13:23:36 +00:00: INFO:     192.168.100.52:53412 - "OPTIONS /api/teams HTTP/1.1" 200 OK
+2026-01-21 13:23:36 +00:00: INFO:     192.168.100.52:53418 - "OPTIONS /api/games/today HTTP/1.1" 200 OK
+2026-01-21 13:23:36 +00:00: INFO:     192.168.100.52:53434 - "OPTIONS /api/teams/analysis?include_betting=true HTTP/1.1" 200 OK
+2026-01-21 13:23:36 +00:00: INFO:     192.168.100.52:53442 - "OPTIONS /api/focus-teams/today?limit=5 HTTP/1.1" 200 OK
+2026-01-21 13:23:36 +00:00: INFO:     192.168.100.52:53434 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 13:23:37 +00:00: INFO:     192.168.100.52:53442 - "GET /api/games/today HTTP/1.1" 200 OK
+2026-01-21 13:23:38 +00:00: INFO:     192.168.100.52:53418 - "GET /api/teams HTTP/1.1" 200 OK
+2026-01-21 13:23:38 +00:00: INFO:     192.168.100.52:53434 - "GET /api/games/today HTTP/1.1" 200 OK
+2026-01-21 13:23:38 +00:00: INFO:     192.168.100.52:53396 - "GET /api/focus-teams/today?limit=5 HTTP/1.1" 200 OK
+2026-01-21 13:23:53 +00:00: INFO:     192.168.100.52:44450 - "OPTIONS /api/reports?limit=20 HTTP/1.1" 200 OK
+2026-01-21 13:23:53 +00:00: INFO:     192.168.100.52:44450 - "GET /api/reports?limit=20 HTTP/1.1" 200 OK
+2026-01-21 13:23:54 +00:00: INFO:     192.168.100.52:44450 - "OPTIONS /api/betting-recommendations HTTP/1.1" 200 OK
+2026-01-21 13:23:55 +00:00: INFO:     192.168.100.52:44450 - "GET /api/betting-recommendations HTTP/1.1" 200 OK
+2026-01-21 13:23:55 +00:00: INFO:     192.168.100.52:53412 - "GET /api/teams/analysis?include_betting=true HTTP/1.1" 200 OK
+2026-01-21 13:23:56 +00:00: INFO:     192.168.100.52:44476 - "GET /api/odds/98c3423f08777d4b20922a767ac9d848 HTTP/1.1" 200 OK
+2026-01-21 13:23:56 +00:00: INFO:     192.168.100.52:44454 - "GET /api/odds/abfb5e607faa42b472bd17ec495475d2 HTTP/1.1" 200 OK
+2026-01-21 13:23:56 +00:00: INFO:     192.168.100.52:44450 - "GET /api/odds/78825d24fa81f64509d9f720f7f1c2bf HTTP/1.1" 200 OK
+2026-01-21 13:23:56 +00:00: INFO:     192.168.100.52:44472 - "GET /api/odds/7a6dce2087cb5ed530983a64686714ea HTTP/1.1" 200 OK
+2026-01-21 13:23:56 +00:00: INFO:     192.168.100.52:44510 - "GET /api/games/today HTTP/1.1" 200 OK
+2026-01-21 13:23:56 +00:00: INFO:     192.168.100.52:44484 - "GET /api/odds/7903c7ddc480ddb5283a60ccbff4c31d HTTP/1.1" 200 OK
+2026-01-21 13:23:56 +00:00: INFO:     192.168.100.52:44522 - "GET /api/teams HTTP/1.1" 200 OK
+2026-01-21 13:23:56 +00:00: INFO:     192.168.100.52:44494 - "GET /api/odds/5a7446000e1739b011c606a7e4e2f4ec HTTP/1.1" 200 OK
+2026-01-21 13:23:56 +00:00: INFO:     192.168.100.52:44468 - "GET /api/odds/2fff26d23c77372d82f9d5b1f3fc6d96 HTTP/1.1" 200 OK
+2026-01-21 13:23:57 +00:00: INFO:     192.168.100.52:44526 - "GET /api/focus-teams/today?limit=5 HTTP/1.1" 200 OK
+2026-01-21 13:24:05 +00:00: INFO:     192.168.100.52:53412 - "GET /api/teams/analysis?include_betting=true HTTP/1.1" 200 OK
+2026-01-21 13:24:06 +00:00: INFO:     192.168.100.52:58180 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 13:24:13 +00:00: INFO:     192.168.100.52:53412 - "GET /api/teams/analysis?include_betting=true HTTP/1.1" 200 OK
+2026-01-21 13:24:21 +00:00: INFO:     192.168.100.52:53412 - "GET /api/teams/analysis?include_betting=true HTTP/1.1" 200 OK
+2026-01-21 13:24:21 +00:00: INFO:     192.168.100.52:59306 - "GET /api/odds/5a7446000e1739b011c606a7e4e2f4ec HTTP/1.1" 200 OK
+2026-01-21 13:24:21 +00:00: INFO:     192.168.100.52:59300 - "GET /api/odds/2fff26d23c77372d82f9d5b1f3fc6d96 HTTP/1.1" 200 OK
+2026-01-21 13:24:21 +00:00: INFO:     192.168.100.52:53412 - "GET /api/odds/78825d24fa81f64509d9f720f7f1c2bf HTTP/1.1" 200 OK
+2026-01-21 13:24:21 +00:00: INFO:     192.168.100.52:59278 - "GET /api/odds/abfb5e607faa42b472bd17ec495475d2 HTTP/1.1" 200 OK
+2026-01-21 13:24:21 +00:00: INFO:     192.168.100.52:59322 - "GET /api/odds/7903c7ddc480ddb5283a60ccbff4c31d HTTP/1.1" 200 OK
+2026-01-21 13:24:21 +00:00: INFO:     192.168.100.52:59286 - "GET /api/odds/98c3423f08777d4b20922a767ac9d848 HTTP/1.1" 200 OK
+2026-01-21 13:24:21 +00:00: INFO:     192.168.100.52:59288 - "GET /api/odds/7a6dce2087cb5ed530983a64686714ea HTTP/1.1" 200 OK
+2026-01-21 13:24:36 +00:00: INFO:     192.168.100.52:58526 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 13:25:06 +00:00: INFO:     192.168.100.52:51042 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 13:25:31 +00:00: INFO:     192.168.100.52:40634 - "OPTIONS /api/teams HTTP/1.1" 200 OK
+2026-01-21 13:25:31 +00:00: INFO:     192.168.100.52:40628 - "OPTIONS /api/games/today HTTP/1.1" 200 OK
+2026-01-21 13:25:31 +00:00: INFO:     192.168.100.52:40650 - "OPTIONS /api/games/today HTTP/1.1" 200 OK
+2026-01-21 13:25:31 +00:00: INFO:     192.168.100.52:40670 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 13:25:31 +00:00: INFO:     192.168.100.52:40626 - "OPTIONS /api/focus-teams/today?limit=5 HTTP/1.1" 200 OK
+2026-01-21 13:25:31 +00:00: INFO:     192.168.100.52:40654 - "OPTIONS /api/teams/analysis?include_betting=true HTTP/1.1" 200 OK
+2026-01-21 13:25:32 +00:00: INFO:     192.168.100.52:40650 - "GET /api/teams HTTP/1.1" 200 OK
+2026-01-21 13:25:32 +00:00: INFO:     192.168.100.52:40654 - "GET /api/games/today HTTP/1.1" 200 OK
+2026-01-21 13:25:32 +00:00: INFO:     192.168.100.52:40634 - "GET /api/games/today HTTP/1.1" 200 OK
+2026-01-21 13:25:33 +00:00: INFO:     192.168.100.52:40628 - "GET /api/focus-teams/today?limit=5 HTTP/1.1" 200 OK
+2026-01-21 13:25:41 +00:00: INFO:     192.168.100.52:40626 - "GET /api/teams/analysis?include_betting=true HTTP/1.1" 200 OK
+2026-01-21 13:25:42 +00:00: INFO:     192.168.100.52:43826 - "GET /api/odds/78825d24fa81f64509d9f720f7f1c2bf HTTP/1.1" 200 OK
+2026-01-21 13:25:42 +00:00: INFO:     192.168.100.52:40626 - "GET /api/odds/abfb5e607faa42b472bd17ec495475d2 HTTP/1.1" 200 OK
+2026-01-21 13:25:42 +00:00: INFO:     192.168.100.52:43810 - "GET /api/odds/98c3423f08777d4b20922a767ac9d848 HTTP/1.1" 200 OK
+2026-01-21 13:25:42 +00:00: INFO:     192.168.100.52:43806 - "GET /api/odds/2fff26d23c77372d82f9d5b1f3fc6d96 HTTP/1.1" 200 OK
+2026-01-21 13:25:42 +00:00: INFO:     192.168.100.52:43788 - "GET /api/odds/7a6dce2087cb5ed530983a64686714ea HTTP/1.1" 200 OK
+2026-01-21 13:25:42 +00:00: INFO:     192.168.100.52:43786 - "GET /api/odds/7903c7ddc480ddb5283a60ccbff4c31d HTTP/1.1" 200 OK
+2026-01-21 13:25:42 +00:00: INFO:     192.168.100.52:43830 - "GET /api/odds/5a7446000e1739b011c606a7e4e2f4ec HTTP/1.1" 200 OK
+2026-01-21 13:26:01 +00:00: INFO:     192.168.100.52:34966 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 13:26:31 +00:00: INFO:     192.168.100.52:38582 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 13:26:46 +00:00: INFO:     192.168.100.52:49584 - "OPTIONS /api/focus-teams/today?limit=5 HTTP/1.1" 200 OK
+2026-01-21 13:26:46 +00:00: INFO:     192.168.100.52:49590 - "OPTIONS /api/games/today HTTP/1.1" 200 OK
+2026-01-21 13:26:46 +00:00: INFO:     192.168.100.52:49606 - "OPTIONS /api/teams HTTP/1.1" 200 OK
+2026-01-21 13:26:46 +00:00: INFO:     192.168.100.52:49610 - "OPTIONS /api/games/today HTTP/1.1" 200 OK
+2026-01-21 13:26:46 +00:00: INFO:     192.168.100.52:49618 - "OPTIONS /api/teams/analysis?include_betting=true HTTP/1.1" 200 OK
+2026-01-21 13:26:46 +00:00: INFO:     192.168.100.52:49626 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 13:26:46 +00:00: INFO:     192.168.100.52:49606 - "GET /api/games/today HTTP/1.1" 200 OK
+2026-01-21 13:26:46 +00:00: INFO:     192.168.100.52:49610 - "GET /api/teams HTTP/1.1" 200 OK
+2026-01-21 13:26:46 +00:00: INFO:     192.168.100.52:49590 - "GET /api/games/today HTTP/1.1" 200 OK
+2026-01-21 13:26:47 +00:00: INFO:     192.168.100.52:49626 - "GET /api/focus-teams/today?limit=5 HTTP/1.1" 200 OK
+2026-01-21 13:26:57 +00:00: INFO:     192.168.100.52:49618 - "GET /api/teams/analysis?include_betting=true HTTP/1.1" 200 OK
+2026-01-21 13:26:57 +00:00: INFO:     192.168.100.52:43186 - "GET /api/odds/7a6dce2087cb5ed530983a64686714ea HTTP/1.1" 200 OK
+2026-01-21 13:26:57 +00:00: INFO:     192.168.100.52:43160 - "GET /api/odds/78825d24fa81f64509d9f720f7f1c2bf HTTP/1.1" 200 OK
+2026-01-21 13:26:57 +00:00: INFO:     192.168.100.52:43188 - "GET /api/odds/7903c7ddc480ddb5283a60ccbff4c31d HTTP/1.1" 200 OK
+2026-01-21 13:26:57 +00:00: INFO:     192.168.100.52:49618 - "GET /api/odds/2fff26d23c77372d82f9d5b1f3fc6d96 HTTP/1.1" 200 OK
+2026-01-21 13:26:58 +00:00: INFO:     192.168.100.52:43162 - "GET /api/odds/98c3423f08777d4b20922a767ac9d848 HTTP/1.1" 200 OK
+2026-01-21 13:26:58 +00:00: INFO:     192.168.100.52:43172 - "GET /api/odds/abfb5e607faa42b472bd17ec495475d2 HTTP/1.1" 200 OK
+2026-01-21 13:26:58 +00:00: INFO:     192.168.100.52:43190 - "GET /api/odds/5a7446000e1739b011c606a7e4e2f4ec HTTP/1.1" 200 OK
+2026-01-21 13:27:16 +00:00: INFO:     192.168.100.52:42904 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 13:27:46 +00:00: INFO:     192.168.100.52:37092 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 13:28:16 +00:00: INFO:     192.168.100.52:43900 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 13:28:46 +00:00: INFO:     192.168.100.52:43836 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 13:28:51 +00:00: INFO:     192.168.100.52:49194 - "OPTIONS /api/teams/analysis?include_betting=true HTTP/1.1" 200 OK
+2026-01-21 13:28:51 +00:00: INFO:     192.168.100.52:49202 - "OPTIONS /api/games/today HTTP/1.1" 200 OK
+2026-01-21 13:28:51 +00:00: INFO:     192.168.100.52:49206 - "OPTIONS /api/games/today HTTP/1.1" 200 OK
+2026-01-21 13:28:51 +00:00: INFO:     192.168.100.52:49192 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 13:28:51 +00:00: INFO:     192.168.100.52:49202 - "OPTIONS /api/focus-teams/today?limit=5 HTTP/1.1" 200 OK
+2026-01-21 13:28:51 +00:00: INFO:     192.168.100.52:49220 - "OPTIONS /api/teams HTTP/1.1" 200 OK
+2026-01-21 13:28:52 +00:00: INFO:     192.168.100.52:49194 - "GET /api/focus-teams/today?limit=5 HTTP/1.1" 401 Unauthorized
+2026-01-21 13:28:52 +00:00: INFO:     192.168.100.52:49192 - "GET /api/teams/analysis?include_betting=true HTTP/1.1" 401 Unauthorized
+2026-01-21 13:28:52 +00:00: INFO:     192.168.100.52:49202 - "GET /api/games/today HTTP/1.1" 401 Unauthorized
+2026-01-21 13:28:52 +00:00: INFO:     192.168.100.52:49220 - "GET /api/games/today HTTP/1.1" 401 Unauthorized
+2026-01-21 13:28:52 +00:00: INFO:     192.168.100.52:49206 - "GET /api/teams HTTP/1.1" 401 Unauthorized
+2026-01-21 13:28:55 +00:00: INFO:     192.168.100.52:49194 - "GET /api/teams HTTP/1.1" 200 OK
+2026-01-21 13:28:55 +00:00: INFO:     192.168.100.52:49206 - "GET /api/games/today HTTP/1.1" 200 OK
+2026-01-21 13:28:55 +00:00: INFO:     192.168.100.52:49220 - "GET /api/games/today HTTP/1.1" 200 OK
+2026-01-21 13:28:55 +00:00: INFO:     192.168.100.52:49202 - "GET /api/focus-teams/today?limit=5 HTTP/1.1" 200 OK
+2026-01-21 13:28:59 +00:00: INFO:     192.168.100.52:49202 - "OPTIONS /api/odds/78825d24fa81f64509d9f720f7f1c2bf HTTP/1.1" 200 OK
+2026-01-21 13:29:07 +00:00: INFO:     192.168.100.52:49192 - "GET /api/teams/analysis?include_betting=true HTTP/1.1" 200 OK
+2026-01-21 13:29:16 +00:00: INFO:     192.168.100.52:56680 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 13:29:46 +00:00: INFO:     192.168.100.52:32840 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 13:30:03 +00:00: INFO:     192.168.100.52:37720 - "GET /api/reports?limit=20 HTTP/1.1" 200 OK
+2026-01-21 13:30:03 +00:00: INFO:     192.168.100.52:37720 - "GET /api/teams HTTP/1.1" 200 OK
+2026-01-21 13:30:03 +00:00: INFO:     192.168.100.52:37736 - "GET /api/games/today HTTP/1.1" 200 OK
+2026-01-21 13:30:04 +00:00: INFO:     192.168.100.52:37744 - "GET /api/focus-teams/today?limit=5 HTTP/1.1" 200 OK
+2026-01-21 13:30:13 +00:00: INFO:     192.168.100.52:37726 - "GET /api/teams/analysis?include_betting=true HTTP/1.1" 200 OK
+2026-01-21 13:30:16 +00:00: INFO:     192.168.100.52:46070 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 13:30:21 +00:00: INFO:     192.168.100.52:37726 - "GET /api/teams/analysis?include_betting=true HTTP/1.1" 200 OK
+2026-01-21 13:30:21 +00:00: INFO:     192.168.100.52:37726 - "OPTIONS /api/odds/78825d24fa81f64509d9f720f7f1c2bf HTTP/1.1" 200 OK
+2026-01-21 13:30:21 +00:00: INFO:     192.168.100.52:53706 - "OPTIONS /api/odds/abfb5e607faa42b472bd17ec495475d2 HTTP/1.1" 200 OK
+2026-01-21 13:30:21 +00:00: INFO:     192.168.100.52:53714 - "OPTIONS /api/odds/7a6dce2087cb5ed530983a64686714ea HTTP/1.1" 200 OK
+2026-01-21 13:30:21 +00:00: INFO:     192.168.100.52:53706 - "OPTIONS /api/odds/98c3423f08777d4b20922a767ac9d848 HTTP/1.1" 200 OK
+2026-01-21 13:30:21 +00:00: INFO:     192.168.100.52:53730 - "OPTIONS /api/odds/5a7446000e1739b011c606a7e4e2f4ec HTTP/1.1" 200 OK
+2026-01-21 13:30:21 +00:00: INFO:     192.168.100.52:53714 - "OPTIONS /api/odds/7903c7ddc480ddb5283a60ccbff4c31d HTTP/1.1" 200 OK
+2026-01-21 13:30:21 +00:00: INFO:     192.168.100.52:53734 - "OPTIONS /api/odds/2fff26d23c77372d82f9d5b1f3fc6d96 HTTP/1.1" 200 OK
+2026-01-21 13:30:22 +00:00: INFO:     192.168.100.52:53742 - "GET /api/odds/78825d24fa81f64509d9f720f7f1c2bf HTTP/1.1" 200 OK
+2026-01-21 13:30:22 +00:00: INFO:     192.168.100.52:37726 - "GET /api/odds/abfb5e607faa42b472bd17ec495475d2 HTTP/1.1" 200 OK
+2026-01-21 13:30:22 +00:00: INFO:     192.168.100.52:53736 - "GET /api/odds/2fff26d23c77372d82f9d5b1f3fc6d96 HTTP/1.1" 200 OK
+2026-01-21 13:30:22 +00:00: INFO:     192.168.100.52:53714 - "GET /api/odds/7a6dce2087cb5ed530983a64686714ea HTTP/1.1" 200 OK
+2026-01-21 13:30:22 +00:00: INFO:     192.168.100.52:53730 - "GET /api/odds/5a7446000e1739b011c606a7e4e2f4ec HTTP/1.1" 200 OK
+2026-01-21 13:30:22 +00:00: INFO:     192.168.100.52:53734 - "GET /api/odds/98c3423f08777d4b20922a767ac9d848 HTTP/1.1" 200 OK
+2026-01-21 13:30:22 +00:00: INFO:     192.168.100.52:53706 - "GET /api/odds/7903c7ddc480ddb5283a60ccbff4c31d HTTP/1.1" 200 OK
+2026-01-21 13:30:46 +00:00: INFO:     192.168.100.52:46200 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 13:31:16 +00:00: INFO:     192.168.100.52:38628 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 13:31:46 +00:00: INFO:     192.168.100.52:36546 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 13:32:16 +00:00: INFO:     192.168.100.52:55938 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 13:32:24 +00:00: INFO:     192.168.100.52:57696 - "OPTIONS /api/games/today HTTP/1.1" 200 OK
+2026-01-21 13:32:24 +00:00: INFO:     192.168.100.52:57696 - "OPTIONS /api/games/today HTTP/1.1" 200 OK
+2026-01-21 13:32:24 +00:00: INFO:     192.168.100.52:57704 - "OPTIONS /api/teams/analysis?include_betting=true HTTP/1.1" 200 OK
+2026-01-21 13:32:24 +00:00: INFO:     192.168.100.52:57708 - "OPTIONS /api/focus-teams/today?limit=5 HTTP/1.1" 200 OK
+2026-01-21 13:32:24 +00:00: INFO:     192.168.100.52:57718 - "OPTIONS /api/teams HTTP/1.1" 200 OK
+2026-01-21 13:32:24 +00:00: INFO:     192.168.100.52:57734 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 13:32:25 +00:00: INFO:     192.168.100.52:57718 - "GET /api/games/today HTTP/1.1" 200 OK
+2026-01-21 13:32:25 +00:00: INFO:     192.168.100.52:57734 - "GET /api/games/today HTTP/1.1" 200 OK
+2026-01-21 13:32:25 +00:00: INFO:     192.168.100.52:57708 - "GET /api/teams HTTP/1.1" 200 OK
+2026-01-21 13:32:25 +00:00: INFO:     192.168.100.52:57704 - "GET /api/focus-teams/today?limit=5 HTTP/1.1" 200 OK
+2026-01-21 13:32:33 +00:00: INFO:     192.168.100.52:57696 - "GET /api/teams/analysis?include_betting=true HTTP/1.1" 200 OK
+2026-01-21 13:32:34 +00:00: INFO:     192.168.100.52:33564 - "GET /api/odds/98c3423f08777d4b20922a767ac9d848 HTTP/1.1" 200 OK
+2026-01-21 13:32:34 +00:00: INFO:     192.168.100.52:33568 - "GET /api/odds/7a6dce2087cb5ed530983a64686714ea HTTP/1.1" 200 OK
+2026-01-21 13:32:34 +00:00: INFO:     192.168.100.52:57696 - "GET /api/odds/78825d24fa81f64509d9f720f7f1c2bf HTTP/1.1" 200 OK
+2026-01-21 13:32:34 +00:00: INFO:     192.168.100.52:33534 - "GET /api/odds/abfb5e607faa42b472bd17ec495475d2 HTTP/1.1" 200 OK
+2026-01-21 13:32:34 +00:00: INFO:     192.168.100.52:33572 - "GET /api/odds/5a7446000e1739b011c606a7e4e2f4ec HTTP/1.1" 200 OK
+2026-01-21 13:32:34 +00:00: INFO:     192.168.100.52:33548 - "GET /api/odds/7903c7ddc480ddb5283a60ccbff4c31d HTTP/1.1" 200 OK
+2026-01-21 13:32:34 +00:00: INFO:     192.168.100.52:33544 - "GET /api/odds/2fff26d23c77372d82f9d5b1f3fc6d96 HTTP/1.1" 200 OK
+2026-01-21 13:32:54 +00:00: INFO:     192.168.100.52:38754 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 13:33:24 +00:00: INFO:     192.168.100.52:38704 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 13:33:54 +00:00: INFO:     192.168.100.52:56518 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 13:34:24 +00:00: INFO:     192.168.100.52:37884 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 13:34:54 +00:00: INFO:     192.168.100.52:37938 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 13:35:24 +00:00: INFO:     192.168.100.52:40336 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 13:35:54 +00:00: INFO:     192.168.100.52:55354 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 13:36:24 +00:00: INFO:     192.168.100.52:47936 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 13:36:50 +00:00: INFO:     192.168.100.52:45780 - "OPTIONS /api/games/today HTTP/1.1" 200 OK
+2026-01-21 13:36:50 +00:00: INFO:     192.168.100.52:45798 - "OPTIONS /api/focus-teams/today?limit=5 HTTP/1.1" 200 OK
+2026-01-21 13:36:50 +00:00: INFO:     192.168.100.52:45808 - "OPTIONS /api/games/today HTTP/1.1" 200 OK
+2026-01-21 13:36:50 +00:00: INFO:     192.168.100.52:45792 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 13:36:50 +00:00: INFO:     192.168.100.52:45814 - "OPTIONS /api/teams HTTP/1.1" 200 OK
+2026-01-21 13:36:50 +00:00: INFO:     192.168.100.52:45824 - "OPTIONS /api/teams/analysis?include_betting=true HTTP/1.1" 200 OK
+2026-01-21 13:36:51 +00:00: INFO:     192.168.100.52:45824 - "GET /api/games/today HTTP/1.1" 200 OK
+2026-01-21 13:36:51 +00:00: INFO:     192.168.100.52:45792 - "GET /api/games/today HTTP/1.1" 200 OK
+2026-01-21 13:36:52 +00:00: INFO:     192.168.100.52:45814 - "GET /api/teams HTTP/1.1" 200 OK
+2026-01-21 13:36:53 +00:00: INFO:     192.168.100.52:45798 - "GET /api/focus-teams/today?limit=5 HTTP/1.1" 200 OK
+2026-01-21 13:37:13 +00:00: INFO:     192.168.100.52:45808 - "GET /api/teams/analysis?include_betting=true HTTP/1.1" 200 OK
+2026-01-21 13:37:14 +00:00: INFO:     192.168.100.52:46074 - "GET /api/odds/7903c7ddc480ddb5283a60ccbff4c31d HTTP/1.1" 200 OK
+2026-01-21 13:37:14 +00:00: INFO:     192.168.100.52:46104 - "GET /api/odds/98c3423f08777d4b20922a767ac9d848 HTTP/1.1" 200 OK
+2026-01-21 13:37:14 +00:00: INFO:     192.168.100.52:45808 - "GET /api/odds/abfb5e607faa42b472bd17ec495475d2 HTTP/1.1" 200 OK
+2026-01-21 13:37:14 +00:00: INFO:     192.168.100.52:46094 - "GET /api/odds/2fff26d23c77372d82f9d5b1f3fc6d96 HTTP/1.1" 200 OK
+2026-01-21 13:37:14 +00:00: INFO:     192.168.100.52:46090 - "GET /api/odds/5a7446000e1739b011c606a7e4e2f4ec HTTP/1.1" 200 OK
+2026-01-21 13:37:14 +00:00: INFO:     192.168.100.52:46108 - "GET /api/odds/7a6dce2087cb5ed530983a64686714ea HTTP/1.1" 200 OK
+2026-01-21 13:37:14 +00:00: INFO:     192.168.100.52:46070 - "GET /api/odds/78825d24fa81f64509d9f720f7f1c2bf HTTP/1.1" 200 OK
+2026-01-21 13:37:20 +00:00: INFO:     192.168.100.52:46124 - "GET /health HTTP/1.1" 200 OK
+2026-01-21 13:37:34 +00:00: INFO:     192.168.100.52:50630 - "GET /api/teams/analysis?include_betting=true HTTP/1.1" 200 OK
+2026-01-21 13:37:50 +00:00: INFO:     192.168.100.52:53942 - "GET /health HTTP/1.1" 200 OK

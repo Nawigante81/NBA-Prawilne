@@ -1,0 +1,13 @@
+tunnel: <TUNNEL_ID>
+credentials-file: /home/<USER>/.cloudflared/<TUNNEL_ID>.json
+
+ingress:
+  - hostname: mareknba.pl
+    path: /api/*
+    service: http://localhost:8000
+  - hostname: mareknba.pl
+    path: /health
+    service: http://localhost:8000
+  - hostname: mareknba.pl
+    service: http://localhost:8080
+  - service: http_status:404
