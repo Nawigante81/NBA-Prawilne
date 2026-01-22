@@ -32,9 +32,9 @@ Profesjonalny system analityczny NBA ze szczególnym naciskiem na Chicago Bulls.
 
 ## 🎯 O projekcie
 
-### Czym jest NBA-Prawilne?
+### Czym jest MarekNBA?
 
-NBA-Prawilne to kompleksowa, produkcyjna platforma analityczna stworzona dla profesjonalnych analityków i entuzjastów zakładów sportowych NBA. System łączy:
+MarekNBA to kompleksowa, produkcyjna platforma analityczna stworzona dla profesjonalnych analityków i entuzjastów zakładów sportowych NBA. System łączy:
 
 - **Automatyczny scraping danych** z wielu źródeł (NBA Stats API, Basketball-Reference, The Odds API)
 - **Zaawansowane algorytmy analityczne** wykorzystujące matematykę zakładową (Kelly Criterion, Expected Value, CLV)
@@ -628,7 +628,7 @@ Long-term EV: $28.70 * 10.7% = +$3.07 per bet
 
 ### 6. Closing Line Value (CLV) Tracking
 
-**CLV** to kluczowa metry ka określająca czy kupujesz "tanio" czy "drogo":
+**CLV** to kluczowa metryka określająca czy kupujesz "tanio" czy "drogo":
 
 - **Dodatnie CLV** (+): Kupiłeś lepszą linię niż closing → Sharp bet
 - **Ujemne CLV** (-): Kupiłeś gorszą linię niż closing → Recreational bet
@@ -854,7 +854,7 @@ TEAM TRENDS (Last 10):
 ## 📁 Struktura projektu
 
 ```
-NBA-Prawilne/
+MarekNBA/
 │
 ├── 📂 backend/                         # Backend Python (FastAPI)
 │   ├── 📂 api/                         # API Layer (8 modułów routingu)
@@ -1029,8 +1029,8 @@ NBA-Prawilne/
 **Windows:**
 ```cmd
 # 1. Klonuj repozytorium
-git clone https://github.com/Nawigante81/NBA-Prawilne.git
-cd NBA-Prawilne
+git clone https://github.com/Nawigante81/MarekNBA.git
+cd MarekNBA
 
 # 2. Uruchom automatyczną instalację
 setup.bat
@@ -1045,8 +1045,8 @@ start.bat
 **Linux/macOS:**
 ```bash
 # 1. Klonuj repozytorium
-git clone https://github.com/Nawigante81/NBA-Prawilne.git
-cd NBA-Prawilne
+git clone https://github.com/Nawigante81/MarekNBA.git
+cd MarekNBA
 
 # 2. Uruchom automatyczną instalację
 chmod +x setup.sh start.sh stop.sh
@@ -1064,8 +1064,8 @@ nano .env
 **Wszystkie platformy:**
 ```bash
 # 1. Klonuj repozytorium
-git clone https://github.com/Nawigante81/NBA-Prawilne.git
-cd NBA-Prawilne
+git clone https://github.com/Nawigante81/MarekNBA.git
+cd MarekNBA
 
 # 2. Skonfiguruj .env
 cp .env.example .env
@@ -1114,8 +1114,8 @@ Po uruchomieniu:
 ### Krok 1: Klonowanie repozytorium
 
 ```bash
-git clone https://github.com/Nawigante81/NBA-Prawilne.git
-cd NBA-Prawilne
+git clone https://github.com/Nawigante81/MarekNBA.git
+cd MarekNBA
 ```
 
 ### Krok 2: Konfiguracja zmiennych środowiskowych
@@ -1815,7 +1815,7 @@ from bs4 import BeautifulSoup
 import time
 
 url = "https://www.basketball-reference.com/teams/CHI/2026.html"
-response = requests.get(url, headers={"User-Agent": "NBA-Prawilne/2.0"})
+response = requests.get(url, headers={"User-Agent": "MarekNBA/2.0"})
 soup = BeautifulSoup(response.content, 'lxml')
 
 # Parse table roster
@@ -2139,8 +2139,8 @@ TRIGGER: Scheduler fires at 7:50 AM / 8:00 AM / 11:00 AM CT
 **Przygotowanie:**
 ```bash
 # 1. Sklonuj repo
-git clone https://github.com/Nawigante81/NBA-Prawilne.git
-cd NBA-Prawilne
+git clone https://github.com/Nawigante81/MarekNBA.git
+cd MarekNBA
 
 # 2. Skonfiguruj .env
 cp .env.example .env
@@ -2264,9 +2264,9 @@ After=network.target
 [Service]
 Type=simple
 User=youruser
-WorkingDirectory=/home/youruser/NBA-Prawilne/backend
-Environment="PATH=/home/youruser/NBA-Prawilne/backend/venv/bin"
-ExecStart=/home/youruser/NBA-Prawilne/backend/venv/bin/python -m uvicorn main_new:app --host 0.0.0.0 --port 8000
+WorkingDirectory=/home/youruser/MarekNBA/backend
+Environment="PATH=/home/youruser/MarekNBA/backend/venv/bin"
+ExecStart=/home/youruser/MarekNBA/backend/venv/bin/python -m uvicorn main_new:app --host 0.0.0.0 --port 8000
 Restart=always
 RestartSec=10
 
@@ -2283,7 +2283,7 @@ After=network.target
 [Service]
 Type=simple
 User=youruser
-WorkingDirectory=/home/youruser/NBA-Prawilne
+WorkingDirectory=/home/youruser/MarekNBA
 ExecStart=/usr/bin/npm run preview
 Restart=always
 RestartSec=10
@@ -2778,7 +2778,7 @@ services:
 
 Jeśli napotkasz problem:
 1. Sprawdź sekcję [Troubleshooting](#-troubleshooting)
-2. Sprawdź [Issues](https://github.com/Nawigante81/NBA-Prawilne/issues) czy problem już został zgłoszony
+2. Sprawdź [Issues](https://github.com/Nawigante81/MarekNBA/issues) czy problem już został zgłoszony
 3. Utwórz nowy Issue z:
    - Opisem problemu
    - Krokami do reprodukcji
@@ -2825,7 +2825,7 @@ Ten projekt jest własnością prywatną i jest dostarczony wyłącznie do celó
 ## 🎓 Credits
 
 **Autor projektu**: Nawigante81  
-**Repozytorium**: [https://github.com/Nawigante81/NBA-Prawilne](https://github.com/Nawigante81/NBA-Prawilne)
+**Repozytorium**: [https://github.com/Nawigante81/MarekNBA](https://github.com/Nawigante81/MarekNBA)
 
 **Wykorzystane biblioteki open source:**
 - [FastAPI](https://fastapi.tiangolo.com/) - Sebastian Ramirez
@@ -2857,7 +2857,7 @@ Ten projekt jest własnością prywatną i jest dostarczony wyłącznie do celó
 
 <div align="center">
 
-**🏀 NBA-Prawilne - Profesjonalna platforma analityczna NBA 🏀**
+**🏀 MarekNBA - Profesjonalna platforma analityczna NBA 🏀**
 
 Zbudowano z ❤️ dla społeczności NBA analytics
 
