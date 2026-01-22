@@ -5,13 +5,14 @@ import { useI18n } from '../i18n/useI18n';
 import { api } from '../services/api';
 import {
   calculateEV,
+  americanToDecimal,
   formatAmericanOdds,
   formatCurrency,
   getRecommendation,
 } from '../utils/bettingCalculations';
 
 interface GameData {
-  game_id: string;
+  id: string;
   home_team: string;
   away_team: string;
   commence_time: string;
@@ -19,13 +20,18 @@ interface GameData {
 
 interface ValueOpportunity {
   game_id: string;
-  market_type: 'h2h' | 'spread' | 'total';
+  market_type: 'h2h' | 'spreads' | 'totals' | 'spread' | 'total';
   selection: string;
-  odds: number;
-  bookmaker: string;
+  point?: number | null;
+  price?: number | null;
   model_prob: number;
-  edge: number;
-  game: GameData;
+  edge_prob: number;
+  ev?: number | null;
+  kelly_fraction?: number | null;
+  why_bullets?: string[];
+  decision?: 'BET' | 'NO_BET';
+  reasons?: string[];
+  commence_time?: string | null;
 }
 
 interface FilterState {
@@ -62,38 +68,25 @@ const ValueBoard: React.FC = () => {
     setError(null);
     
     try {
-      // In production, this would fetch from /api/value/today
-      // For now, we'll adapt the existing betting recommendations
-      const resp = (await api.betting.getRecommendations()) as { picks?: Array<{
-        game_id?: string;
-        team?: string;
-        opponent?: string;
-        best_price?: number;
-        best_book?: string;
-        consensus_prob?: number;
-        edge?: number;
-        commence_time?: string;
-      }> };
-      
-      if (resp?.picks && Array.isArray(resp.picks)) {
-        const transformed: ValueOpportunity[] = resp.picks.map((pick) => ({
-          game_id: pick.game_id || '',
-          market_type: 'h2h' as const,
-          selection: pick.team || '',
-          odds: pick.best_price || 2.0,
-          bookmaker: pick.best_book || 'Unknown',
-          model_prob: pick.consensus_prob || 0.5,
-          edge: pick.edge || 0,
-          game: {
-            game_id: pick.game_id || '',
-            home_team: pick.team || '',
-            away_team: pick.opponent || '',
-            commence_time: pick.commence_time || new Date().toISOString()
-          }
-        }));
-        
-        setOpportunities(transformed);
-      }
+      const [valueResp, gamesResp] = await Promise.all([
+        api.valueBoard.getToday(),
+        api.games.getToday(),
+      ]);
+
+      const games = (gamesResp as { games?: GameData[] })?.games || [];
+      const byGameId = new Map<string, GameData>();
+      games.forEach((game) => {
+        if (game.id) {
+          byGameId.set(game.id, game);
+        }
+      });
+
+      const items = (valueResp as { items?: ValueOpportunity[] })?.items || [];
+      const transformed = items.map((item) => ({
+        ...item,
+        commence_time: item.commence_time || byGameId.get(item.game_id)?.commence_time || null,
+      }));
+      setOpportunities(transformed);
     } catch (err) {
       setError(t('common.error'));
       console.error('Failed to fetch opportunities:', err);
@@ -108,12 +101,12 @@ const ValueBoard: React.FC = () => {
   
   // Apply filters
   const filteredOpportunities = opportunities.filter(opp => {
-    if (filters.showValueOnly && opp.edge <= 0) return false;
-    if (opp.edge < filters.minEdge / 100) return false;
-    if (!filters.markets.includes(opp.market_type)) return false;
+    if (filters.showValueOnly && opp.decision === 'NO_BET') return false;
+    if (opp.edge_prob < filters.minEdge / 100) return false;
+    const marketKey = opp.market_type === 'spreads' ? 'spread' : opp.market_type === 'totals' ? 'total' : opp.market_type;
+    if (!filters.markets.includes(marketKey)) return false;
     
-    // Approximate confidence (in production, would come from backend)
-    const confidence = Math.min(0.95, Math.max(0.50, opp.model_prob + opp.edge * 2));
+    const confidence = Math.min(0.95, Math.max(0.50, opp.model_prob + opp.edge_prob * 2));
     if (confidence * 100 < filters.minConfidence) return false;
     
     return true;
@@ -125,17 +118,19 @@ const ValueBoard: React.FC = () => {
     
     switch (filters.sortBy) {
       case 'edge':
-        comparison = b.edge - a.edge;
+        comparison = b.edge_prob - a.edge_prob;
         break;
       case 'ev': {
-        const evA = calculateEV(a.odds, a.model_prob, 100);
-        const evB = calculateEV(b.odds, b.model_prob, 100);
+        const oddsA = a.price ? americanToDecimal(a.price) : 1;
+        const oddsB = b.price ? americanToDecimal(b.price) : 1;
+        const evA = calculateEV(oddsA, a.model_prob, 100);
+        const evB = calculateEV(oddsB, b.model_prob, 100);
         comparison = evB - evA;
         break;
       }
       case 'time': {
-        const timeA = new Date(a.game.commence_time).getTime();
-        const timeB = new Date(b.game.commence_time).getTime();
+        const timeA = new Date(a.commence_time || 0).getTime();
+        const timeB = new Date(b.commence_time || 0).getTime();
         comparison = timeA - timeB;
         break;
       }
@@ -144,9 +139,10 @@ const ValueBoard: React.FC = () => {
     return filters.sortDirection === 'desc' ? comparison : -comparison;
   });
   
-  const valueCount = opportunities.filter(o => o.edge > 0).length;
+  const valueCount = opportunities.filter(o => o.decision === 'BET').length;
   const totalEV = sortedOpportunities.reduce((sum, opp) => {
-    return sum + calculateEV(opp.odds, opp.model_prob, 100);
+    const odds = opp.price ? americanToDecimal(opp.price) : 1;
+    return sum + calculateEV(odds, opp.model_prob, 100);
   }, 0);
   
   if (loading) {
@@ -331,9 +327,11 @@ const ValueBoard: React.FC = () => {
           </div>
         ) : (
           sortedOpportunities.map((opp, index) => {
-            const confidence = Math.min(0.95, Math.max(0.50, opp.model_prob + opp.edge * 2));
-            const recommendation = getRecommendation(opp.edge, confidence);
-            const gameTime = new Date(opp.game.commence_time);
+            const confidence = Math.min(0.95, Math.max(0.50, opp.model_prob + opp.edge_prob * 2));
+            const recommendation = getRecommendation(opp.edge_prob, confidence);
+            const gameTime = new Date(opp.commence_time || Date.now());
+            const decimalOdds = opp.price ? americanToDecimal(opp.price) : 1;
+            const reasons = opp.reasons || [];
             
             return (
               <div key={`${opp.game_id}-${index}`} className="glass-card p-6 hover:bg-white/5 transition-colors">
@@ -342,8 +340,6 @@ const ValueBoard: React.FC = () => {
                   <div>
                     <h3 className="text-xl font-bold text-white mb-1">
                       {opp.selection}
-                      <span className="text-gray-400 mx-2">vs</span>
-                      {opp.game.away_team}
                     </h3>
                     <div className="flex items-center gap-3 text-sm text-gray-400">
                       <span className="flex items-center gap-1">
@@ -357,28 +353,46 @@ const ValueBoard: React.FC = () => {
                       <span>•</span>
                       <span>{opp.market_type.toUpperCase()}</span>
                       <span>•</span>
-                      <span>{opp.bookmaker}</span>
+                      <span>{opp.decision === 'BET' ? 'VALUE' : 'NO BET'}</span>
                     </div>
                   </div>
                   
                   <div className="text-right">
                     <div className="text-2xl font-bold text-white mb-1">
-                      {formatAmericanOdds(opp.odds)}
+                      {opp.price !== null && opp.price !== undefined ? `${opp.price > 0 ? '+' : ''}${opp.price}` : '—'}
                     </div>
                     <div className="text-sm text-gray-400">
-                      Decimal: {opp.odds.toFixed(2)}
+                      Decimal: {decimalOdds.toFixed(2)}
                     </div>
                   </div>
                 </div>
                 
                 {/* Value Metrics */}
                 <ValueMetrics
-                  odds={opp.odds}
+                  odds={decimalOdds}
                   modelProb={opp.model_prob}
-                  edge={opp.edge}
+                  edge={opp.edge_prob}
                   stake={100}
                   compact={false}
                 />
+
+                {opp.why_bullets && opp.why_bullets.length > 0 && (
+                  <div className="mt-4 text-sm text-gray-400 space-y-1">
+                    {opp.why_bullets.map((bullet) => (
+                      <div key={bullet}>• {bullet}</div>
+                    ))}
+                  </div>
+                )}
+
+                {reasons.length > 0 && (
+                  <div className="mt-3 flex flex-wrap gap-2 text-xs text-gray-400">
+                    {reasons.map((reason) => (
+                      <span key={reason} className="rounded-full bg-gray-800 px-2 py-1 text-gray-300">
+                        {reason}
+                      </span>
+                    ))}
+                  </div>
+                )}
                 
                 {/* Action Buttons */}
                 <div className="mt-4 flex gap-3">

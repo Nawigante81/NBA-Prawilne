@@ -31,11 +31,12 @@ const marketLabel = (market: TeamValueRow['market']) => {
 };
 
 const ValueRow: React.FC<{ row: TeamValueRow; minEv: number }> = ({ row, minEv }) => {
-  const isValue = (row.ev ?? 0) >= minEv;
+  const isValue = row.decision ? row.decision === 'BET' : (row.ev ?? 0) >= minEv;
   const lineText = row.line !== null && row.line !== undefined ? ` ${row.line}` : '';
   const stakePct = row.stake_fraction !== null && row.stake_fraction !== undefined
     ? `${(row.stake_fraction * 100).toFixed(1)}%`
     : '—';
+  const reasons = row.reasons || [];
   return (
     <div className="rounded-xl border border-gray-700/60 bg-gray-900/40 p-3 space-y-3">
       <div className="flex items-start justify-between gap-3">
@@ -59,6 +60,24 @@ const ValueRow: React.FC<{ row: TeamValueRow; minEv: number }> = ({ row, minEv }
         <span>Kelly 1/2</span>
         <span>max 3% bankroll</span>
       </div>
+
+      {row.why_bullets && row.why_bullets.length > 0 && (
+        <div className="text-xs text-gray-400 space-y-1">
+          {row.why_bullets.map((bullet) => (
+            <div key={bullet}>• {bullet}</div>
+          ))}
+        </div>
+      )}
+
+      {reasons.length > 0 && (
+        <div className="flex flex-wrap gap-2 text-[11px] text-gray-400">
+          {reasons.map((reason) => (
+            <span key={reason} className="rounded-full bg-gray-800 px-2 py-1 text-gray-300">
+              {reason}
+            </span>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

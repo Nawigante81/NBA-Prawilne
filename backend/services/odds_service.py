@@ -127,6 +127,126 @@ class OddsService:
         result = query.execute()
         return result.data or []
 
+    def _rows_for_market(self, rows: Iterable[Dict[str, Any]], market_type: str) -> List[Dict[str, Any]]:
+        normalized = normalize_market_type(market_type)
+        aliases = {normalized}
+        if normalized == "spreads":
+            aliases.add("spread")
+        if normalized == "totals":
+            aliases.add("total")
+        return [r for r in rows if normalize_market_type(r.get("market_type")) in aliases]
+
+    def consensus_for_game_from_rows(
+        self,
+        game: Dict[str, Any],
+        cutoff: Optional[datetime],
+        rows: Iterable[Dict[str, Any]],
+    ) -> Dict[str, Any]:
+        game_rows = list(rows)
+        home_team = game.get("home_team")
+        away_team = game.get("away_team")
+
+        def _consensus_spread(team: str | None) -> Optional[Dict[str, Any]]:
+            if not team:
+                return None
+            rows_spread = [r for r in self._rows_for_market(game_rows, "spreads") if r.get("team") == team]
+            by_book = self._latest_per_bookmaker(rows_spread, cutoff)
+            points = [float(r.get("point")) for r in by_book.values() if r.get("point") is not None]
+            filtered, outliers_removed = _mad_filter(points)
+            consensus_point = _median(filtered)
+            if consensus_point is not None:
+                consensus_point = _closest_point(filtered, consensus_point)
+            prices = [r for r in by_book.values() if r.get("price") is not None]
+            consensus_price = _select_price_for_point(prices, consensus_point)
+            used_bookmakers = [r.get("bookmaker_key") for r in by_book.values() if r.get("bookmaker_key")]
+            return {
+                "market_type": "spreads",
+                "team": team,
+                "point": consensus_point,
+                "price": consensus_price,
+                "implied_prob": implied_probability(consensus_price, "american") if consensus_price else None,
+                "sample_count": len(filtered),
+                "used_bookmakers": used_bookmakers,
+                "outliers_removed": outliers_removed,
+                "method": "consensus_median_mad",
+            }
+
+        def _consensus_totals() -> Dict[str, Any]:
+            rows_totals = self._rows_for_market(game_rows, "totals")
+            by_book_over = self._latest_per_bookmaker(
+                [r for r in rows_totals if (r.get("outcome_name") or "").lower() == "over"],
+                cutoff,
+            )
+            points = [float(r.get("point")) for r in by_book_over.values() if r.get("point") is not None]
+            filtered, outliers_removed = _mad_filter(points)
+            consensus_point = _median(filtered)
+            if consensus_point is not None:
+                consensus_point = _closest_point(filtered, consensus_point)
+
+            def _price_for_outcome(outcome: str) -> Optional[float]:
+                by_book = self._latest_per_bookmaker(
+                    [r for r in rows_totals if (r.get("outcome_name") or "").lower() == outcome],
+                    cutoff,
+                )
+                candidates = [r for r in by_book.values() if r.get("price") is not None]
+                return _select_price_for_point(candidates, consensus_point)
+
+            over_price = _price_for_outcome("over")
+            under_price = _price_for_outcome("under")
+            used_bookmakers = [r.get("bookmaker_key") for r in by_book_over.values() if r.get("bookmaker_key")]
+
+            return {
+                "market_type": "totals",
+                "point": consensus_point,
+                "over": {
+                    "team": "Over",
+                    "price": over_price,
+                    "implied_prob": implied_probability(over_price, "american") if over_price else None,
+                },
+                "under": {
+                    "team": "Under",
+                    "price": under_price,
+                    "implied_prob": implied_probability(under_price, "american") if under_price else None,
+                },
+                "sample_count": len(filtered),
+                "used_bookmakers": used_bookmakers,
+                "outliers_removed": outliers_removed,
+                "method": "consensus_median_mad",
+            }
+
+        def _consensus_h2h(team: str | None) -> Optional[Dict[str, Any]]:
+            if not team:
+                return None
+            rows_h2h = [r for r in self._rows_for_market(game_rows, "h2h") if r.get("team") == team]
+            by_book = self._latest_per_bookmaker(rows_h2h, cutoff)
+            prices = [float(r.get("price")) for r in by_book.values() if r.get("price") is not None]
+            consensus_price = _median(prices)
+            used_bookmakers = [r.get("bookmaker_key") for r in by_book.values() if r.get("bookmaker_key")]
+            return {
+                "market_type": "h2h",
+                "team": team,
+                "price": consensus_price,
+                "implied_prob": implied_probability(consensus_price, "american") if consensus_price else None,
+                "sample_count": len(prices),
+                "used_bookmakers": used_bookmakers,
+                "outliers_removed": 0,
+                "method": "consensus_median_mad",
+            }
+
+        return {
+            "game_id": game.get("id"),
+            "cutoff": cutoff.isoformat() if cutoff else None,
+            "spreads": {
+                "home": _consensus_spread(home_team),
+                "away": _consensus_spread(away_team),
+            },
+            "totals": _consensus_totals(),
+            "h2h": {
+                "home": _consensus_h2h(home_team),
+                "away": _consensus_h2h(away_team),
+            },
+        }
+
     def consensus_spread(
         self,
         game_id: str,

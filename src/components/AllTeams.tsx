@@ -126,6 +126,13 @@ const AllTeams: React.FC<AllTeamsProps> = ({ onTeamSelect, preselectTeamAbbrev }
   const [lineMovement, setLineMovement] = useState<OddsMovementResponse | null>(null);
   const [keyPlayersDetail, setKeyPlayersDetail] = useState<KeyPlayerInfo[] | null>(null);
   const [detailRefresh, setDetailRefresh] = useState(0);
+  const [detailErrors, setDetailErrors] = useState({
+    betting: false,
+    nextGame: false,
+    value: false,
+    movement: false,
+    players: false,
+  });
   
   const apiHook = useApi();
 
@@ -182,6 +189,13 @@ const AllTeams: React.FC<AllTeamsProps> = ({ onTeamSelect, preselectTeamAbbrev }
       setValuePanel(null);
       setLineMovement(null);
       setKeyPlayersDetail(null);
+      setDetailErrors({
+        betting: false,
+        nextGame: false,
+        value: false,
+        movement: false,
+        players: false,
+      });
       return;
     }
 
@@ -194,7 +208,7 @@ const AllTeams: React.FC<AllTeamsProps> = ({ onTeamSelect, preselectTeamAbbrev }
         setValuePanel(null);
         setLineMovement(null);
         setKeyPlayersDetail(null);
-        const [bettingRes, nextRes, valueRes, playersRes] = await Promise.all([
+        const results = await Promise.allSettled([
           api.teams.getBettingStatsDetail(selectedTeam.abbreviation, 20),
           api.teams.getNextGame(selectedTeam.abbreviation),
           api.teams.getValuePanel(selectedTeam.abbreviation),
@@ -202,6 +216,19 @@ const AllTeams: React.FC<AllTeamsProps> = ({ onTeamSelect, preselectTeamAbbrev }
         ]);
 
         if (cancelled) return;
+
+        const bettingRes = results[0].status === 'fulfilled' ? results[0].value : null;
+        const nextRes = results[1].status === 'fulfilled' ? results[1].value : null;
+        const valueRes = results[2].status === 'fulfilled' ? results[2].value : null;
+        const playersRes = results[3].status === 'fulfilled' ? results[3].value : null;
+
+        setDetailErrors({
+          betting: results[0].status === 'rejected',
+          nextGame: results[1].status === 'rejected',
+          value: results[2].status === 'rejected',
+          movement: false,
+          players: results[3].status === 'rejected',
+        });
 
         setBettingDetail((bettingRes as TeamBettingStatsResponse) ?? null);
         setNextGame((nextRes as { next_game?: NextGameInfo | null })?.next_game ?? null);
@@ -212,9 +239,16 @@ const AllTeams: React.FC<AllTeamsProps> = ({ onTeamSelect, preselectTeamAbbrev }
           || (nextRes as { next_game?: NextGameInfo | null })?.next_game?.game_id;
 
         if (gameId) {
-          const movementRes = await api.games.getOddsMovement(gameId);
-          if (!cancelled) {
-            setLineMovement((movementRes as OddsMovementResponse) ?? null);
+          try {
+            const movementRes = await api.games.getOddsMovement(gameId);
+            if (!cancelled) {
+              setLineMovement((movementRes as OddsMovementResponse) ?? null);
+            }
+          } catch (movementErr) {
+            if (!cancelled) {
+              setLineMovement(null);
+              setDetailErrors((prev) => ({ ...prev, movement: true }));
+            }
           }
         } else {
           setLineMovement(null);
@@ -642,34 +676,78 @@ const AllTeams: React.FC<AllTeamsProps> = ({ onTeamSelect, preselectTeamAbbrev }
               <button className="px-3 py-1 glass-card hover:bg-white/10 rounded text-sm" onClick={() => setSelectedTeam(null)}>{t('common.close')}</button>
             </div>
             <div className="p-5 sm:p-6 space-y-5">
-              <div className="grid grid-cols-2 gap-3">
-                <div className="glass-card p-4 text-center">
-                  <div className="text-2xl font-bold text-white">
-                    {selectedTeam.season_stats ? `${selectedTeam.season_stats.wins}-${selectedTeam.season_stats.losses}` : t('common.noData')}
+              {(() => {
+                const emptyCard = (title: string, message: string) => (
+                  <div className="rounded-xl border border-gray-700/60 bg-gray-900/40 p-4">
+                    <div className="text-xs uppercase tracking-widest text-gray-500">{title}</div>
+                    <div className="text-sm text-gray-400 mt-2">{message}</div>
                   </div>
-                  <div className="text-sm text-gray-400">{t('teams.label.record')}</div>
-                </div>
-                <div className="glass-card p-4 text-center">
-                  <div className="text-2xl font-bold text-white">
-                    {formatPercentOrNoData(numOrNull(selectedTeam.season_stats?.win_percentage ?? null), 1)}
-                  </div>
-                  <div className="text-sm text-gray-400">{t('teams.label.winPct')}</div>
-                </div>
-                <div className="glass-card p-4 text-center">
-                  <div className="text-xl font-semibold text-green-400">{formatNumberOrNoData(numOrNull(selectedTeam.season_stats?.offensive_rating ?? null), 1)}</div>
-                  <div className="text-sm text-gray-400">{t('teams.label.offRtg')}</div>
-                </div>
-                <div className="glass-card p-4 text-center">
-                  <div className="text-xl font-semibold text-red-400">{formatNumberOrNoData(numOrNull(selectedTeam.season_stats?.defensive_rating ?? null), 1)}</div>
-                  <div className="text-sm text-gray-400">{t('teams.label.defRtg')}</div>
-                </div>
-              </div>
+                );
 
-              <NextGameCard nextGame={nextGame} isLoading={detailLoading} />
-              <BettingStatsPanel data={bettingDetail} isLoading={detailLoading} onRefresh={refreshDetails} />
-              <ValuePanel data={valuePanel} isLoading={detailLoading} />
-              <LineMovementMini data={lineMovement} isHome={nextGame?.is_home} isLoading={detailLoading} />
-              <KeyPlayersPanel players={keyPlayersDetail} isLoading={detailLoading} />
+                const bettingDisabled = detailErrors.betting
+                  || (bettingDetail?.missing_reason || '').toLowerCase().includes('supabase client not configured');
+                const bettingReady = Boolean(bettingDetail?.has_data);
+                const bettingEmpty = !bettingReady && !bettingDisabled;
+
+                const nextGameDisabled = detailErrors.nextGame;
+                const nextGameReady = Boolean(nextGame);
+                const nextGameEmpty = !nextGameReady && !nextGameDisabled;
+
+                const valueDisabled = detailErrors.value || !nextGame;
+                const valueReady = Boolean(valuePanel?.value?.length);
+                const valueEmpty = !valueReady && !valueDisabled;
+
+                const movementDisabled = detailErrors.movement || !nextGame;
+                const hasMovement = Boolean(
+                  lineMovement
+                  && (lineMovement.series.spread_home.length
+                    || lineMovement.series.spread_away.length
+                    || lineMovement.series.total.length)
+                );
+                const movementReady = hasMovement;
+                const movementEmpty = !movementReady && !movementDisabled;
+
+                return (
+                  <>
+                    <div className="grid grid-cols-2 gap-3">
+                      <div className="glass-card p-4 text-center">
+                        <div className="text-2xl font-bold text-white">
+                          {selectedTeam.season_stats ? `${selectedTeam.season_stats.wins}-${selectedTeam.season_stats.losses}` : t('common.noData')}
+                        </div>
+                        <div className="text-sm text-gray-400">{t('teams.label.record')}</div>
+                      </div>
+                      <div className="glass-card p-4 text-center">
+                        <div className="text-2xl font-bold text-white">
+                          {formatPercentOrNoData(numOrNull(selectedTeam.season_stats?.win_percentage ?? null), 1)}
+                        </div>
+                        <div className="text-sm text-gray-400">{t('teams.label.winPct')}</div>
+                      </div>
+                      <div className="glass-card p-4 text-center">
+                        <div className="text-xl font-semibold text-green-400">{formatNumberOrNoData(numOrNull(selectedTeam.season_stats?.offensive_rating ?? null), 1)}</div>
+                        <div className="text-sm text-gray-400">{t('teams.label.offRtg')}</div>
+                      </div>
+                      <div className="glass-card p-4 text-center">
+                        <div className="text-xl font-semibold text-red-400">{formatNumberOrNoData(numOrNull(selectedTeam.season_stats?.defensive_rating ?? null), 1)}</div>
+                        <div className="text-sm text-gray-400">{t('teams.label.defRtg')}</div>
+                      </div>
+                    </div>
+
+                    {nextGameReady && <NextGameCard nextGame={nextGame} isLoading={detailLoading} />}
+                    {nextGameEmpty && emptyCard('Nadchodzący mecz', 'Brak nadchodzącego meczu.')}
+
+                    {bettingReady && <BettingStatsPanel data={bettingDetail} isLoading={detailLoading} onRefresh={refreshDetails} />}
+                    {bettingEmpty && emptyCard('Statystyki zakładów', bettingDetail?.missing_reason || 'Brak danych sezonowych.')}
+
+                    {valueReady && <ValuePanel data={valuePanel} isLoading={detailLoading} />}
+                    {valueEmpty && emptyCard('Value Panel', 'Brak danych o rynku dla nadchodzącego meczu.')}
+
+                    {movementReady && <LineMovementMini data={lineMovement} isHome={nextGame?.is_home} isLoading={detailLoading} />}
+                    {movementEmpty && emptyCard('Ruch linii', 'Brak danych o ruchu linii.')}
+
+                    <KeyPlayersPanel players={keyPlayersDetail} isLoading={detailLoading} />
+                  </>
+                );
+              })()}
 
               <div className="text-right">
                 <button className="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded text-white" onClick={() => setSelectedTeam(null)}>{t('common.done')}</button>

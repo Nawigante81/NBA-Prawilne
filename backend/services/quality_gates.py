@@ -39,7 +39,10 @@ class QualityGateService:
         if not game_result.data or len(game_result.data) == 0:
             reasons.append(GateFailureReason.MISSING_COMMENCE_TIME)
             return QualityGateResult(passed=False, reasons=reasons, details={"error": "Game not found"})
-        
+
+        if not game_result.data[0].get("commence_time"):
+            reasons.append(GateFailureReason.MISSING_COMMENCE_TIME)
+            return QualityGateResult(passed=False, reasons=reasons, details={"error": "Missing commence_time"})
         commence_time = datetime.fromisoformat(game_result.data[0]["commence_time"].replace("Z", "+00:00"))
         now = datetime.utcnow()
 

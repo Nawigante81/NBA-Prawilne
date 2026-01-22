@@ -193,6 +193,9 @@ export interface TeamValueRow {
   edge: number | null;
   ev: number | null;
   stake_fraction: number;
+  why_bullets?: string[];
+  reasons?: string[];
+  decision?: 'BET' | 'NO_BET';
 }
 
 export interface TeamValueResponse {

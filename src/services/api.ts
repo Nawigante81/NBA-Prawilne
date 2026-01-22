@@ -188,6 +188,17 @@ export const bettingApi = {
     }),
 };
 
+// Value Board API
+export const valueBoardApi = {
+  getToday: (minEv?: number, minEdge?: number) => {
+    const params = new URLSearchParams();
+    if (typeof minEv === 'number') params.set('min_ev', String(minEv));
+    if (typeof minEdge === 'number') params.set('min_edge', String(minEdge));
+    const query = params.toString() ? `?${params}` : '';
+    return apiRequest<UnknownRecord>(`/api/value-board/today${query}`);
+  },
+};
+
 // System API
 export const systemApi = {
   // Health check
@@ -213,6 +224,7 @@ export const api = {
   reports: reportsApi,
   bulls: bullsApi,
   betting: bettingApi,
+  valueBoard: valueBoardApi,
   system: systemApi,
 };
 

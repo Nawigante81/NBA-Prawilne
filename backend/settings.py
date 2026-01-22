@@ -6,15 +6,16 @@ from typing import List
 from pydantic_settings import BaseSettings
 from dotenv import load_dotenv
 
-# Load environment variables
-load_dotenv()
+# Load environment variables from backend/.env explicitly
+_env_backend = os.path.join(os.path.dirname(__file__), ".env")
+load_dotenv(_env_backend, override=False)
 
 
 class Settings(BaseSettings):
     """Application settings."""
     
     # Supabase
-    supabase_url: str = os.getenv("SUPABASE_URL", "")
+    supabase_url: str = os.getenv("SUPABASE_URL", "") or os.getenv("VITE_SUPABASE_URL", "")
     supabase_service_role_key: str = os.getenv("SUPABASE_SERVICE_ROLE_KEY", "")
     
     # The Odds API
@@ -46,6 +47,11 @@ class Settings(BaseSettings):
     min_player_games_recent: int = int(os.getenv("MIN_PLAYER_GAMES_RECENT", "3"))
     parlay_max_legs: int = int(os.getenv("PARLAY_MAX_LEGS", "5"))
     parlay_min_combined_implied_prob: float = float(os.getenv("PARLAY_MIN_COMBINED_IMPLIED_PROB", "0.20"))
+
+    # Value board performance controls
+    value_board_cache_seconds: int = int(os.getenv("VALUE_BOARD_CACHE_SECONDS", "30"))
+    value_board_timeout_seconds: int = int(os.getenv("VALUE_BOARD_TIMEOUT_SECONDS", "6"))
+    value_board_max_games: int = int(os.getenv("VALUE_BOARD_MAX_GAMES", "12"))
     
     # Admin
     admin_api_key: str = os.getenv("ADMIN_API_KEY", "change-me-in-production")

@@ -2152,7 +2152,19 @@ async def get_team_betting_stats_detail(team_abbrev: str, window: int = 20):
         from services.betting_stats_service import get_betting_stats_service
 
         service = get_betting_stats_service()
-        result = service.compute_team_betting_stats(team_abbrev, window=window)
+        try:
+            result = service.compute_team_betting_stats(team_abbrev, window=window)
+        except RuntimeError as exc:
+            return {
+                "team": team_abbrev.upper(),
+                "team_name": None,
+                "window": window,
+                "last_window": None,
+                "season": None,
+                "has_data": False,
+                "missing_reason": str(exc),
+                "computed_at": datetime.utcnow().isoformat(),
+            }
         if not result.get("has_data"):
             result["missing_reason"] = "Brak danych - uruchom synchronizację"
         return result
@@ -2568,9 +2580,11 @@ async def get_team_value_panel(team_abbrev: str):
         opponent = away_team if is_home else home_team
 
         from services.value_service import get_value_service
+        from services.quality_gates import get_quality_gate_service
 
         odds_current = await get_game_odds_current(game_id)
         value_service = get_value_service()
+        quality_gates = get_quality_gate_service()
         value_board = [
             row for row in value_service.get_value_board(window_days=2)
             if row.get("game_id") == game_id
@@ -2582,6 +2596,25 @@ async def get_team_value_panel(team_abbrev: str):
                 continue
             if row.get("market_type") == "h2h" and row.get("selection") != team_name:
                 continue
+            reasons = []
+            details = {}
+            gate = await quality_gates.check_odds_availability(game_id, row.get("market_type"))
+            if not gate.passed:
+                reasons.extend([r.value for r in gate.reasons])
+                details.update({"odds": gate.details})
+
+            stats_gate = await quality_gates.check_stats_recency(team.get("abbreviation"))
+            if not stats_gate.passed:
+                reasons.extend([r.value for r in stats_gate.reasons])
+                details.update({"stats": stats_gate.details})
+
+            min_ev = float(os.getenv("MIN_EV", "0.02"))
+            min_edge = float(os.getenv("MIN_EDGE", "0.03"))
+            if row.get("ev") is not None and row.get("ev") < min_ev:
+                reasons.append("EV_TOO_LOW")
+            if row.get("edge_prob") is not None and row.get("edge_prob") < min_edge:
+                reasons.append("EDGE_TOO_SMALL")
+
             value_rows.append(
                 {
                     "market": row.get("market_type"),
@@ -2593,6 +2626,10 @@ async def get_team_value_panel(team_abbrev: str):
                     "edge": row.get("edge_prob"),
                     "ev": row.get("ev"),
                     "stake_fraction": row.get("kelly_fraction"),
+                    "why_bullets": row.get("why_bullets") or [],
+                    "reasons": reasons,
+                    "decision": "BET" if len(reasons) == 0 else "NO_BET",
+                    "details": details,
                 }
             )
 

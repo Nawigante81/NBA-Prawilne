@@ -40,7 +40,17 @@ async def get_value_board_today(
                 name_to_abbr[name] = abbr
 
         value_bets = []
+        no_bets = []
+        items = []
         for row in value_rows:
+            if row.get("skip_gates") or ("TIMEOUT" in (row.get("reasons") or [])):
+                row.setdefault("decision", "NO_BET")
+                row.setdefault("reasons", ["TIMEOUT"])
+                row.setdefault("details", {})
+                items.append(row)
+                no_bets.append(row)
+                continue
+
             reasons = []
             details = {}
 
@@ -67,19 +77,27 @@ async def get_value_board_today(
 
             row.update({
                 "quality_gate_passed": len(reasons) == 0,
+                "decision": "BET" if len(reasons) == 0 else "NO_BET",
                 "reasons": reasons,
                 "details": details,
             })
 
+            items.append(row)
             if len(reasons) == 0:
                 value_bets.append(row)
+            else:
+                no_bets.append(row)
 
         value_bets.sort(key=lambda x: x.get("ev") or -999, reverse=True)
+        no_bets.sort(key=lambda x: x.get("ev") or -999, reverse=True)
 
         return JSONResponse(
             content={
                 "value_bets": value_bets,
+                "no_bets": no_bets,
+                "items": items,
                 "count": len(value_bets),
+                "count_no_bet": len(no_bets),
                 "filters": {"min_ev": min_ev, "min_edge": min_edge},
                 "generated_at": datetime.utcnow().isoformat(),
             },

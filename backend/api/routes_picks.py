@@ -35,6 +35,8 @@ async def get_todays_picks():
         db = get_db()
 
         picks = []
+        no_bets = []
+        items = []
         value_rows = value_service.get_value_board(window_days=2)
 
         # map team name to abbreviation for stats recency gate
@@ -47,25 +49,59 @@ async def get_todays_picks():
                 name_to_abbr[name] = abbr
 
         for row in value_rows:
+            if row.get("skip_gates") or ("TIMEOUT" in (row.get("reasons") or [])):
+                row.setdefault("decision", "NO_BET")
+                row.setdefault("reasons", ["TIMEOUT"])
+                row.setdefault("details", {})
+                items.append(row)
+                no_bets.append(row)
+                continue
+
+            reasons = []
+            details = {}
             if row.get("ev") is None or row.get("edge_prob") is None:
-                continue
-            if row["ev"] < settings.min_ev or row["edge_prob"] < settings.min_edge_prob:
-                continue
+                reasons.append("MISSING_METRICS")
+            if row.get("ev") is not None and row["ev"] < settings.min_ev:
+                reasons.append("EV_TOO_LOW")
+            if row.get("edge_prob") is not None and row["edge_prob"] < settings.min_edge_prob:
+                reasons.append("EDGE_TOO_SMALL")
 
             gate = await quality_gates.check_odds_availability(row.get("game_id"), row.get("market_type"))
             if not gate.passed:
-                continue
+                reasons.extend([r.value for r in gate.reasons])
+                details.update({"odds": gate.details})
 
             team_abbr = name_to_abbr.get(row.get("selection"))
             if team_abbr:
                 stats_gate = await quality_gates.check_stats_recency(team_abbr)
                 if not stats_gate.passed:
-                    continue
+                    reasons.extend([r.value for r in stats_gate.reasons])
+                    details.update({"stats": stats_gate.details})
 
-            picks.append(row)
+            row.update({
+                "decision": "BET" if len(reasons) == 0 else "NO_BET",
+                "reasons": reasons,
+                "details": details,
+            })
+
+            items.append(row)
+            if len(reasons) == 0:
+                picks.append(row)
+            else:
+                no_bets.append(row)
 
         picks.sort(key=lambda x: x.get("ev") or -999, reverse=True)
-        return JSONResponse(content={"picks": picks, "count": len(picks)}, status_code=200)
+        no_bets.sort(key=lambda x: x.get("ev") or -999, reverse=True)
+        return JSONResponse(
+            content={
+                "picks": picks,
+                "no_bets": no_bets,
+                "items": items,
+                "count": len(picks),
+                "count_no_bet": len(no_bets),
+            },
+            status_code=200,
+        )
 
     except Exception as e:
         logger.error(f"Error fetching today's picks: {e}", exc_info=True)
