@@ -280,6 +280,7 @@ async def compute_all_closing_lines() -> int:
                     # Spread: compute for both teams
                     for team in [home_team, away_team]:
                         result = await compute_closing_line(game_id, market_type, team)
+                        # Result is either existing DB record, new consensus dict, or None
                         if result is not None:
                             lines_computed += 1
                 
