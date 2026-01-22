@@ -14,6 +14,11 @@ import {
 } from 'lucide-react';
 import { useApi } from '../services/api';
 import { useI18n } from '../i18n/useI18n';
+import ValuePanel from './ValuePanel';
+import LineMovementMini from './LineMovementMini';
+import KeyPlayersCard from './KeyPlayersCard';
+import BettingStatsCard from './BettingStatsCard';
+import NextGameBlock from './NextGameBlock';
 
 interface Team {
   id: string;
@@ -545,8 +550,8 @@ const AllTeams: React.FC<AllTeamsProps> = ({ onTeamSelect, preselectTeamAbbrev }
       {selectedTeam && (
         <div className="fixed inset-0 z-50 flex justify-end">
           <div className="absolute inset-0 bg-black/50" onClick={() => setSelectedTeam(null)}></div>
-          <div className="relative w-full max-w-xl h-full bg-gray-900 border-l border-gray-700/50 overflow-auto">
-            <div className="p-6 border-b border-gray-700/50 flex items-center justify-between">
+          <div className="relative w-full max-w-2xl h-full bg-gray-900 border-l border-gray-700/50 overflow-auto">
+            <div className="p-6 border-b border-gray-700/50 flex items-center justify-between sticky top-0 bg-gray-900 z-10">
               <div className="flex items-center space-x-3">
                 <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded flex items-center justify-center text-white font-bold">
                   {selectedTeam.abbreviation}
@@ -558,82 +563,187 @@ const AllTeams: React.FC<AllTeamsProps> = ({ onTeamSelect, preselectTeamAbbrev }
               </div>
               <button className="px-3 py-1 glass-card hover:bg-white/10 rounded text-sm" onClick={() => setSelectedTeam(null)}>{t('common.close')}</button>
             </div>
-            <div className="p-6 space-y-6">
-              <div className="grid grid-cols-2 gap-4">
-                <div className="glass-card p-4 text-center">
-                  <div className="text-2xl font-bold text-white">
-                    {selectedTeam.season_stats ? `${selectedTeam.season_stats.wins}-${selectedTeam.season_stats.losses}` : t('common.noData')}
-                  </div>
-                  <div className="text-sm text-gray-400">{t('teams.label.record')}</div>
-                </div>
-                <div className="glass-card p-4 text-center">
-                  <div className="text-2xl font-bold text-white">
-                    {formatPercentOrNoData(numOrNull(selectedTeam.season_stats?.win_percentage ?? null), 1)}
-                  </div>
-                  <div className="text-sm text-gray-400">{t('teams.label.winPct')}</div>
-                </div>
-                <div className="glass-card p-4 text-center">
-                  <div className="text-xl font-semibold text-green-400">{formatNumberOrNoData(numOrNull(selectedTeam.season_stats?.offensive_rating ?? null), 1)}</div>
-                  <div className="text-sm text-gray-400">{t('teams.label.offRtg')}</div>
-                </div>
-                <div className="glass-card p-4 text-center">
-                  <div className="text-xl font-semibold text-red-400">{formatNumberOrNoData(numOrNull(selectedTeam.season_stats?.defensive_rating ?? null), 1)}</div>
-                  <div className="text-sm text-gray-400">{t('teams.label.defRtg')}</div>
-                </div>
-              </div>
-
-              <div className="glass-card p-4">
-                <div className="text-sm text-gray-400 mb-2">{t('teams.details.keyPlayers')}</div>
-                <div className="flex flex-wrap gap-2">
-                  {(selectedTeam.key_players || []).length === 0 ? (
-                    <span className="text-sm text-gray-400">{t('common.noData')}</span>
-                  ) : (
-                    (selectedTeam.key_players || []).map((p, idx) => (
-                      <span key={idx} className="px-2 py-1 text-xs bg-gray-800/50 rounded text-white">{p}</span>
-                    ))
-                  )}
-                </div>
-              </div>
-
-              <div className="glass-card p-4">
-                <div className="text-sm text-gray-400 mb-2">{t('teams.details.bettingStats')}</div>
-                <div className="grid grid-cols-2 gap-3 text-sm">
-                  <div>
-                    <div className="text-gray-400">{t('teams.card.atsRecord')}</div>
-                    <div className="text-white font-medium">
-                      {selectedTeam.betting_stats
-                        ? `${selectedTeam.betting_stats.ats_record} (${formatPercentOrNoData(numOrNull(selectedTeam.betting_stats.ats_percentage), 1)})`
-                        : t('common.noData')}
-                    </div>
-                  </div>
-                  <div>
-                    <div className="text-gray-400">{t('teams.details.overUnder')}</div>
-                    <div className="text-white font-medium">
-                      {selectedTeam.betting_stats
-                        ? `${selectedTeam.betting_stats.over_under} (${formatPercentOrNoData(numOrNull(selectedTeam.betting_stats.ou_percentage), 1)})`
-                        : t('common.noData')}
-                    </div>
-                  </div>
-                  <div>
-                    <div className="text-gray-400">{t('teams.details.avgTotal')}</div>
-                    <div className="text-white font-medium">{selectedTeam.betting_stats?.avg_total ?? t('common.noData')}</div>
-                  </div>
-                  <div>
-                    <div className="text-gray-400">{t('teams.details.strength')}</div>
-                    <div className="text-white font-medium">
-                      {typeof selectedTeam.strength_rating === 'number' ? selectedTeam.strength_rating : t('common.noData')}
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="text-right">
-                <button className="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded text-white" onClick={() => setSelectedTeam(null)}>{t('common.done')}</button>
-              </div>
-            </div>
+            <TeamDetailContent team={selectedTeam} />
           </div>
         </div>
       )}
+    </div>
+  );
+};
+
+// Separate component for team details to keep code organized
+const TeamDetailContent: React.FC<{ team: Team }> = ({ team }) => {
+  const { t } = useI18n();
+  const [bettingStats, setBettingStats] = React.useState<any>(null);
+  const [nextGame, setNextGame] = React.useState<any>(null);
+  const [valuePanelData, setValuePanelData] = React.useState<any>(null);
+  const [lineMovement, setLineMovement] = React.useState<any[]>([]);
+  const [keyPlayers, setKeyPlayers] = React.useState<any[]>([]);
+  const [loading, setLoading] = React.useState(true);
+  const apiHook = useApi();
+
+  const numOrNull = (value: unknown): number | null => {
+    if (typeof value !== 'number') return null;
+    return Number.isFinite(value) ? value : null;
+  };
+
+  const formatPercentOrNoData = (value: number | null, digits: number = 1) => {
+    if (value === null) return t('common.noData');
+    return `${(value * 100).toFixed(digits)}%`;
+  };
+
+  const formatNumberOrNoData = (value: number | null, digits: number = 1) => {
+    if (value === null) return t('common.noData');
+    return value.toFixed(digits);
+  };
+
+  React.useEffect(() => {
+    const fetchTeamData = async () => {
+      setLoading(true);
+      try {
+        // Fetch all data in parallel
+        const [bettingResponse, nextGameResponse, keyPlayersResponse] = await Promise.all([
+          fetch(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000'}/api/team/${team.abbreviation}/betting-stats/detailed`)
+            .then(r => r.ok ? r.json() : null),
+          fetch(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000'}/api/team/${team.abbreviation}/next-game`)
+            .then(r => r.ok ? r.json() : null),
+          fetch(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000'}/api/team/${team.abbreviation}/key-players`)
+            .then(r => r.ok ? r.json() : null),
+        ]);
+
+        setBettingStats(bettingResponse);
+        setNextGame(nextGameResponse?.next_game);
+        setKeyPlayers(keyPlayersResponse?.players || []);
+
+        // If we have a next game, fetch value panel and line movement
+        if (nextGameResponse?.next_game?.game_id) {
+          const gameId = nextGameResponse.next_game.game_id;
+          
+          const [valueResponse, movementResponse] = await Promise.all([
+            fetch(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000'}/api/team/${team.abbreviation}/value`)
+              .then(r => r.ok ? r.json() : null),
+            fetch(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000'}/api/game/${gameId}/odds/movement`)
+              .then(r => r.ok ? r.json() : null),
+          ]);
+
+          setValuePanelData(valueResponse);
+          setLineMovement(movementResponse?.movements || []);
+        }
+      } catch (error) {
+        console.error('Error fetching team data:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchTeamData();
+  }, [team.abbreviation]);
+
+  const handleRefresh = () => {
+    setLoading(true);
+    // Trigger re-fetch
+    setBettingStats(null);
+    setNextGame(null);
+    setValuePanelData(null);
+    setLineMovement([]);
+    setKeyPlayers([]);
+  };
+
+  return (
+    <div className="p-6 space-y-6">
+      {/* Team KPI Cards */}
+      <div className="grid grid-cols-2 gap-4">
+        <div className="glass-card p-4 text-center">
+          <div className="text-2xl font-bold text-white">
+            {team.season_stats ? `${team.season_stats.wins}-${team.season_stats.losses}` : t('common.noData')}
+          </div>
+          <div className="text-sm text-gray-400">{t('teams.label.record')}</div>
+        </div>
+        <div className="glass-card p-4 text-center">
+          <div className="text-2xl font-bold text-white">
+            {formatPercentOrNoData(numOrNull(team.season_stats?.win_percentage ?? null), 1)}
+          </div>
+          <div className="text-sm text-gray-400">{t('teams.label.winPct')}</div>
+        </div>
+        <div className="glass-card p-4 text-center">
+          <div className="text-xl font-semibold text-green-400">{formatNumberOrNoData(numOrNull(team.season_stats?.offensive_rating ?? null), 1)}</div>
+          <div className="text-sm text-gray-400">{t('teams.label.offRtg')}</div>
+        </div>
+        <div className="glass-card p-4 text-center">
+          <div className="text-xl font-semibold text-red-400">{formatNumberOrNoData(numOrNull(team.season_stats?.defensive_rating ?? null), 1)}</div>
+          <div className="text-sm text-gray-400">{t('teams.label.defRtg')}</div>
+        </div>
+      </div>
+
+      {/* Next Game Block - Import component when ready */}
+      {nextGame && (
+        <NextGameBlock 
+          data={{
+            game_id: nextGame.game_id,
+            opponent: nextGame.opponent,
+            opponent_abbrev: nextGame.opponent_abbrev,
+            commence_time: nextGame.commence_time,
+            is_home: nextGame.is_home,
+            venue: nextGame.venue,
+            status: nextGame.status,
+          }}
+          teamAbbrev={team.abbreviation}
+          loading={loading}
+        />
+      )}
+
+      {/* Betting Stats Card */}
+      <BettingStatsCard
+        data={bettingStats ? {
+          ats_season: bettingStats.ats_season || {
+            wins: 0, losses: 0, pushes: 0, percentage: 0, avg_margin: 0
+          },
+          ats_last_20: bettingStats.ats_last_20 || {
+            wins: 0, losses: 0, pushes: 0, percentage: 0, avg_margin: 0
+          },
+          ou_season: bettingStats.ou_season || {
+            overs: 0, unders: 0, pushes: 0, percentage: 0, avg_margin: 0
+          },
+          ou_last_20: bettingStats.ou_last_20 || {
+            overs: 0, unders: 0, pushes: 0, percentage: 0, avg_margin: 0
+          },
+          avg_total_points: bettingStats.avg_total_points || {
+            season: 0, last_20: 0
+          }
+        } : null}
+        loading={loading}
+        onRefresh={handleRefresh}
+        teamName={team.full_name}
+      />
+
+      {/* Value Panel */}
+      {valuePanelData && (
+        <ValuePanel
+          data={valuePanelData}
+          loading={loading}
+          onRefresh={handleRefresh}
+        />
+      )}
+
+      {/* Line Movement */}
+      {lineMovement.length > 0 && (
+        <LineMovementMini
+          data={lineMovement}
+          loading={loading}
+        />
+      )}
+
+      {/* Key Players */}
+      <KeyPlayersCard
+        players={keyPlayers}
+        loading={loading}
+      />
+
+      <div className="text-right">
+        <button className="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded text-white" onClick={() => {}}>
+          {t('common.done')}
+        </button>
+      </div>
     </div>
   );
 };

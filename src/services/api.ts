@@ -99,11 +99,6 @@ export const playersApi = {
   getById: (playerId: string) => 
     apiRequest<{player: UnknownRecord}>(`/api/players/${playerId}`),
   
-  // Search players
-  search: (query: string) => 
-    apiRequest<{players: UnknownRecord[], count: number}>(`/api/players/search?q=${encodeURIComponent(query)}`)
-};
-  
   // Search players by name
   searchByName: (name: string) => 
     apiRequest<{query: string, players: UnknownRecord[], count: number}>(`/api/players/search/${name}`),
