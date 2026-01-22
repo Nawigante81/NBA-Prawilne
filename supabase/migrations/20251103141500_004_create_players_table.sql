@@ -59,10 +59,20 @@ BEGIN
 END;
 $$ language 'plpgsql';
 
-CREATE TRIGGER update_players_updated_at 
-    BEFORE UPDATE ON players 
-    FOR EACH ROW 
-    EXECUTE FUNCTION update_updated_at_column();
+DO $$
+BEGIN
+    IF NOT EXISTS (
+        SELECT 1
+        FROM pg_trigger
+        WHERE tgname = 'update_players_updated_at'
+    ) THEN
+        CREATE TRIGGER update_players_updated_at
+            BEFORE UPDATE ON players
+            FOR EACH ROW
+            EXECUTE FUNCTION update_updated_at_column();
+    END IF;
+END;
+$$;
 
 -- Add some useful comments
 COMMENT ON TABLE players IS 'NBA player rosters and detailed information';

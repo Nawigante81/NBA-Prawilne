@@ -740,6 +740,59 @@ def _summarize_team_games(team_abbrev: str, games_ordered: list[dict]) -> dict:
 def _parse_iso_datetime(value: str | None) -> datetime | None:
     if not value:
         return None
+    s = str(value).strip()
+    if not s:
+        return None
+    try:
+        if s.endswith("Z"):
+            s = s[:-1] + "+00:00"
+        return datetime.fromisoformat(s)
+    except Exception:
+        return None
+
+
+def _decimal_from_odds(value: float | int | str | None) -> float | None:
+    if value is None:
+        return None
+    try:
+        odds = float(value)
+    except Exception:
+        return None
+    if odds <= 0:
+        return None
+    if 1.01 <= odds < 10:
+        return odds
+    if odds >= 100 or odds <= -100:
+        if odds > 0:
+            return 1.0 + (odds / 100.0)
+        return 1.0 + (100.0 / abs(odds))
+    return odds
+
+
+def _implied_prob_from_odds(value: float | int | str | None) -> float | None:
+    dec = _decimal_from_odds(value)
+    if dec is None or dec <= 1:
+        return None
+    return 1.0 / dec
+
+
+def _expected_value(prob: float | None, decimal_odds: float | None) -> float | None:
+    if prob is None or decimal_odds is None:
+        return None
+    return prob * decimal_odds - 1.0
+
+
+def _kelly_half(prob: float | None, decimal_odds: float | None, max_fraction: float = 0.03) -> float:
+    if prob is None or decimal_odds is None:
+        return 0.0
+    b = decimal_odds - 1.0
+    if b <= 0:
+        return 0.0
+    q = 1.0 - prob
+    fraction = 0.5 * ((b * prob - q) / b)
+    if fraction <= 0:
+        return 0.0
+    return min(fraction, max_fraction)
 
 
 def _betting_cache_expired(computed_at: str | None, ttl_hours: int) -> bool:
@@ -785,15 +838,6 @@ async def _save_betting_cache(supabase: Client, team_name: str, stats: dict | No
         .upsert([r], on_conflict="team_name")
         .execute()
     )
-    s = str(value).strip()
-    if not s:
-        return None
-    try:
-        if s.endswith("Z"):
-            s = s[:-1] + "+00:00"
-        return datetime.fromisoformat(s)
-    except Exception:
-        return None
 
 
 async def _find_odds_game_for_result(
@@ -903,6 +947,167 @@ async def _load_closing_lines(
     return spread_median, total_line
 
 
+async def _load_closing_lines_from_snapshots(
+    supabase: Client, game_id: str, commence_time: str | None
+) -> tuple[dict | None, float | None]:
+    if not game_id or not commence_time:
+        return None, None
+    commence_dt = _parse_iso_datetime(commence_time)
+    if not commence_dt:
+        return None, None
+
+    try:
+        odds_resp = await anyio.to_thread.run_sync(
+            lambda: supabase.table("odds_snapshots")
+            .select("ts,market_type,team,outcome_name,point")
+            .eq("game_id", game_id)
+            .in_("market_type", ["spread", "totals"])
+            .execute()
+        )
+    except Exception as e:
+        if "odds_snapshots" in str(e):
+            return None, None
+        raise
+
+    rows = odds_resp.data or []
+    if not rows:
+        return None, None
+
+    latest_dt = None
+    latest_ts = None
+    for r in rows:
+        ts = r.get("ts")
+        ts_dt = _parse_iso_datetime(ts)
+        if not ts_dt or ts_dt > commence_dt:
+            continue
+        if latest_dt is None or ts_dt > latest_dt:
+            latest_dt = ts_dt
+            latest_ts = ts
+
+    if not latest_ts:
+        return None, None
+
+    closing_rows = [r for r in rows if r.get("ts") == latest_ts]
+    spread_by_team: dict[str, list[float]] = {}
+    for r in closing_rows:
+        if r.get("market_type") != "spread":
+            continue
+        team = (r.get("team") or "").strip()
+        if not team:
+            continue
+        try:
+            val = float(r.get("point"))
+        except Exception:
+            continue
+        spread_by_team.setdefault(team, []).append(val)
+
+    spread_median: dict[str, float] = {}
+    for team, vals in spread_by_team.items():
+        med = _median_values(vals)
+        if med is not None:
+            spread_median[team] = med
+
+    total_lines = []
+    for r in closing_rows:
+        if r.get("market_type") != "totals":
+            continue
+        if (r.get("outcome_name") or "").lower() != "over":
+            continue
+        try:
+            total_lines.append(float(r.get("point")))
+        except Exception:
+            continue
+
+    total_line = _median_values(total_lines)
+    return spread_median, total_line
+
+
+async def _compute_betting_window_stats(
+    supabase: Client, team_full_name: str, results: list[dict]
+) -> dict | None:
+    if not results:
+        return None
+
+    ats_w = ats_l = ats_p = 0
+    ou_o = ou_u = ou_p = 0
+    spread_diffs: list[float] = []
+    total_diffs: list[float] = []
+    total_points: list[float] = []
+
+    for r in results:
+        home_team = r.get("home_team")
+        away_team = r.get("away_team")
+        home_score = r.get("home_score")
+        away_score = r.get("away_score")
+        if home_score is None or away_score is None:
+            continue
+
+        game = await _find_odds_game_for_result(
+            supabase, home_team, away_team, r.get("game_date")
+        )
+        if not game:
+            continue
+
+        spread_map, total_line = await _load_closing_lines_from_snapshots(
+            supabase, game.get("id"), game.get("commence_time")
+        )
+        if not spread_map and total_line is None:
+            spread_map, total_line = await _load_closing_lines(
+                supabase, game.get("id"), game.get("commence_time")
+            )
+
+        team_is_home = team_full_name == home_team
+        team_score = float(home_score)
+        opp_score = float(away_score)
+        if not team_is_home:
+            team_score, opp_score = opp_score, team_score
+
+        if spread_map:
+            spread = spread_map.get(team_full_name)
+            if spread is not None:
+                adjusted = team_score + float(spread)
+                if adjusted > opp_score:
+                    ats_w += 1
+                elif adjusted < opp_score:
+                    ats_l += 1
+                else:
+                    ats_p += 1
+                spread_diffs.append(team_score + float(spread) - opp_score)
+
+        if total_line is not None:
+            total_score = float(home_score) + float(away_score)
+            total_points.append(total_score)
+            if total_score > float(total_line):
+                ou_o += 1
+            elif total_score < float(total_line):
+                ou_u += 1
+            else:
+                ou_p += 1
+            total_diffs.append(total_score - float(total_line))
+
+    ats_den = ats_w + ats_l
+    ou_den = ou_o + ou_u
+
+    return {
+        "ats": {
+            "w": ats_w,
+            "l": ats_l,
+            "p": ats_p,
+            "avg_spread_diff": float(statistics.mean(spread_diffs)) if spread_diffs else None,
+            "win_pct": (ats_w / ats_den) if ats_den > 0 else None,
+        },
+        "ou": {
+            "o": ou_o,
+            "u": ou_u,
+            "p": ou_p,
+            "avg_total_diff": float(statistics.mean(total_diffs)) if total_diffs else None,
+            "over_pct": (ou_o / ou_den) if ou_den > 0 else None,
+        },
+        "avg_total_points": float(statistics.mean(total_points)) if total_points else None,
+        "games_count": len(results),
+    }
+
+
 async def _compute_betting_stats(
     supabase: Client, team_full_name: str, max_games: int = 20
 ) -> dict | None:
@@ -992,6 +1197,65 @@ async def _compute_betting_stats(
         "avg_total": float(statistics.mean(total_lines)) if total_lines else None,
         "games_count": games_count,
     }
+
+
+def _allowlisted_bookmakers() -> list[str]:
+    raw = (os.getenv("ODDS_BOOKMAKERS_ALLOWLIST") or "").strip()
+    if raw:
+        return [b.strip() for b in raw.split(",") if b.strip()]
+    return [
+        "draftkings",
+        "fanduel",
+        "betmgm",
+        "caesars",
+        "pointsbetus",
+        "williamhill_us",
+    ]
+
+
+def _select_consensus_point(rows: list[dict]) -> float | None:
+    points = []
+    for r in rows:
+        try:
+            points.append(float(r.get("point")))
+        except Exception:
+            continue
+    return _median_values(points)
+
+
+def _pick_best_row(rows: list[dict], target_point: float | None) -> dict | None:
+    if not rows:
+        return None
+    if target_point is None:
+        return max(rows, key=lambda r: _safe_float(r.get("price")) or -999)
+    closest = sorted(
+        rows,
+        key=lambda r: (abs(float(r.get("point") or 0) - target_point), -(float(r.get("price") or 0))),
+    )
+    return closest[0] if closest else None
+
+
+def _series_from_snapshot_rows(rows: list[dict]) -> list[dict]:
+    if not rows:
+        return []
+    by_ts: dict[str, list[float]] = {}
+    for r in rows:
+        ts = r.get("ts")
+        ts_dt = _parse_iso_datetime(ts)
+        if not ts_dt:
+            continue
+        try:
+            point = float(r.get("point"))
+        except Exception:
+            continue
+        by_ts.setdefault(ts_dt.isoformat(), []).append(point)
+    series = []
+    for ts, points in by_ts.items():
+        med = _median_values(points)
+        if med is None:
+            continue
+        series.append({"ts": ts, "point": med})
+    return sorted(series, key=lambda r: r["ts"])
 
 
 async def scrape_loop(supabase: Client, stop_evt: asyncio.Event):
@@ -1865,6 +2129,566 @@ async def get_team_betting_stats(team_abbrev: str, refresh: bool = False):
     except Exception as e:
         logger.error(f"Error fetching betting stats for {team_abbrev}: {e}")
         raise HTTPException(status_code=500, detail="Failed to fetch betting stats")
+
+
+@app.get("/api/team/{team_abbrev}/betting-stats")
+async def get_team_betting_stats_detail(team_abbrev: str, window: int = 20):
+    """Get ATS/OU betting stats for a team (last N games + season)."""
+    try:
+        supabase = app.state.supabase
+        if not supabase:
+            raise HTTPException(status_code=503, detail="Database not available")
+
+        window = max(5, min(40, int(window)))
+        season_games = int(os.getenv("BETTING_SEASON_GAMES", "82"))
+
+        team_resp = await anyio.to_thread.run_sync(
+            lambda: supabase.table("teams")
+            .select("full_name,abbreviation")
+            .eq("abbreviation", team_abbrev.upper())
+            .single()
+            .execute()
+        )
+        team = team_resp.data
+        if not team:
+            raise HTTPException(status_code=404, detail=f"Team '{team_abbrev}' not found")
+
+        team_name = team.get("full_name") or ""
+        try:
+            results_resp = await anyio.to_thread.run_sync(
+                lambda: supabase.table("game_results")
+                .select("*")
+                .or_(f"home_team.eq.{team_name},away_team.eq.{team_name}")
+                .order("game_date", desc=True)
+                .limit(max(window, season_games))
+                .execute()
+            )
+            results = results_resp.data or []
+        except Exception as e:
+            if "game_results" in str(e):
+                return {
+                    "team": team.get("abbreviation"),
+                    "team_name": team_name,
+                    "window": window,
+                    "last_window": None,
+                    "season": None,
+                    "has_data": False,
+                    "missing_reason": "Brak danych - uruchom synchronizację",
+                    "computed_at": datetime.now().isoformat(),
+                }
+            raise
+
+        last_window = results[:window]
+        season_slice = results[:season_games]
+
+        last_stats = await _compute_betting_window_stats(supabase, team_name, last_window)
+        season_stats = await _compute_betting_window_stats(supabase, team_name, season_slice)
+
+        has_data = bool(last_stats or season_stats)
+        return {
+            "team": team.get("abbreviation"),
+            "team_name": team_name,
+            "window": window,
+            "last_window": last_stats,
+            "season": season_stats,
+            "has_data": has_data,
+            "missing_reason": None if has_data else "Brak danych - uruchom synchronizację",
+            "computed_at": datetime.now().isoformat(),
+        }
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error fetching detailed betting stats for {team_abbrev}: {e}")
+        raise HTTPException(status_code=500, detail="Failed to fetch betting stats")
+
+
+@app.get("/api/team/{team_abbrev}/next-game")
+async def get_team_next_game(team_abbrev: str):
+    """Get the next scheduled game for a team."""
+    try:
+        supabase = app.state.supabase
+        if not supabase:
+            raise HTTPException(status_code=503, detail="Database not available")
+
+        team_resp = await anyio.to_thread.run_sync(
+            lambda: supabase.table("teams")
+            .select("full_name,abbreviation")
+            .eq("abbreviation", team_abbrev.upper())
+            .single()
+            .execute()
+        )
+        team = team_resp.data
+        if not team:
+            raise HTTPException(status_code=404, detail=f"Team '{team_abbrev}' not found")
+
+        team_name = team.get("full_name") or ""
+        now_iso = datetime.utcnow().isoformat()
+        next_resp = await anyio.to_thread.run_sync(
+            lambda: supabase.table("games")
+            .select("id,commence_time,home_team,away_team")
+            .or_(f"home_team.eq.{team_name},away_team.eq.{team_name}")
+            .gte("commence_time", now_iso)
+            .order("commence_time")
+            .limit(1)
+            .execute()
+        )
+        next_game = (next_resp.data or [None])[0]
+        if not next_game:
+            return {"team": team.get("abbreviation"), "next_game": None}
+
+        home_team = next_game.get("home_team")
+        away_team = next_game.get("away_team")
+        is_home = team_name == home_team
+        opponent = away_team if is_home else home_team
+
+        return {
+            "team": team.get("abbreviation"),
+            "next_game": {
+                "game_id": next_game.get("id"),
+                "commence_time": next_game.get("commence_time"),
+                "home_team": home_team,
+                "away_team": away_team,
+                "is_home": is_home,
+                "opponent": opponent,
+            },
+        }
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error fetching next game for {team_abbrev}: {e}")
+        raise HTTPException(status_code=500, detail="Failed to fetch next game")
+
+
+@app.get("/api/game/{game_id}/odds/current")
+async def get_game_odds_current(game_id: str):
+    """Return latest odds for a game (spread, totals, h2h) from allowlisted books."""
+    try:
+        supabase = app.state.supabase
+        if not supabase:
+            raise HTTPException(status_code=503, detail="Database not available")
+
+        allowlist = set(_allowlisted_bookmakers())
+        odds_resp = await anyio.to_thread.run_sync(
+            lambda: supabase.table("odds")
+            .select("bookmaker_key,bookmaker_title,market_type,team,outcome_name,point,price,last_update")
+            .eq("game_id", game_id)
+            .in_("market_type", ["h2h", "spread", "totals"])
+            .execute()
+        )
+        rows = odds_resp.data or []
+        if allowlist:
+            rows = [r for r in rows if (r.get("bookmaker_key") or "") in allowlist]
+
+        latest_ts = None
+        for r in rows:
+            ts = _parse_iso_datetime(r.get("last_update"))
+            if ts and (latest_ts is None or ts > latest_ts):
+                latest_ts = ts
+
+        markets = {"h2h": [], "spread": [], "totals": []}
+        for market in ["h2h", "spread", "totals"]:
+            market_rows = [r for r in rows if r.get("market_type") == market]
+            key_field = "team" if market != "totals" else "outcome_name"
+            by_outcome: dict[str, list[dict]] = {}
+            for r in market_rows:
+                key = (r.get(key_field) or "").strip()
+                if not key:
+                    continue
+                by_outcome.setdefault(key, []).append(r)
+
+            for outcome, outcome_rows in by_outcome.items():
+                target_point = _select_consensus_point(outcome_rows) if market != "h2h" else None
+                best_row = _pick_best_row(outcome_rows, target_point)
+                if not best_row:
+                    continue
+                price = _safe_float(best_row.get("price"))
+                dec = _decimal_from_odds(price)
+                markets[market].append(
+                    {
+                        "outcome": outcome,
+                        "point": best_row.get("point"),
+                        "price": price,
+                        "decimal_price": dec,
+                        "implied_prob": _implied_prob_from_odds(price),
+                        "bookmaker_key": best_row.get("bookmaker_key"),
+                        "bookmaker_title": best_row.get("bookmaker_title"),
+                        "last_update": best_row.get("last_update"),
+                    }
+                )
+
+        snapshot_age_hours = None
+        if latest_ts:
+            now_dt = datetime.now(latest_ts.tzinfo) if latest_ts.tzinfo else datetime.utcnow()
+            snapshot_age_hours = (now_dt - latest_ts).total_seconds() / 3600
+
+        return {
+            "game_id": game_id,
+            "markets": markets,
+            "latest_update": latest_ts.isoformat() if latest_ts else None,
+            "snapshot_age_hours": snapshot_age_hours,
+        }
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error fetching current odds for {game_id}: {e}")
+        raise HTTPException(status_code=500, detail="Failed to fetch odds")
+
+
+@app.get("/api/game/{game_id}/odds/movement")
+async def get_game_odds_movement(game_id: str):
+    """Return odds movement timeline for spreads and totals."""
+    try:
+        supabase = app.state.supabase
+        if not supabase:
+            raise HTTPException(status_code=503, detail="Database not available")
+
+        game_resp = await anyio.to_thread.run_sync(
+            lambda: supabase.table("games")
+            .select("home_team,away_team,commence_time")
+            .eq("id", game_id)
+            .single()
+            .execute()
+        )
+        game = game_resp.data or {}
+
+        try:
+            odds_resp = await anyio.to_thread.run_sync(
+                lambda: supabase.table("odds_snapshots")
+                .select("ts,market_type,team,outcome_name,point")
+                .eq("game_id", game_id)
+                .in_("market_type", ["spread", "totals"])
+                .execute()
+            )
+        except Exception as e:
+            if "odds_snapshots" in str(e):
+                return {
+                    "game_id": game_id,
+                    "home_team": game.get("home_team"),
+                    "away_team": game.get("away_team"),
+                    "series": {"spread_home": [], "spread_away": [], "total": []},
+                    "note": "odds_snapshots missing",
+                }
+            raise
+
+        rows = odds_resp.data or []
+        home_team = game.get("home_team")
+        away_team = game.get("away_team")
+
+        spread_home = _series_from_snapshot_rows(
+            [r for r in rows if r.get("market_type") == "spread" and (r.get("team") or "") == home_team]
+        )
+        spread_away = _series_from_snapshot_rows(
+            [r for r in rows if r.get("market_type") == "spread" and (r.get("team") or "") == away_team]
+        )
+        totals = _series_from_snapshot_rows(
+            [
+                r
+                for r in rows
+                if r.get("market_type") == "totals"
+                and (r.get("outcome_name") or "").lower() == "over"
+            ]
+        )
+
+        return {
+            "game_id": game_id,
+            "home_team": home_team,
+            "away_team": away_team,
+            "commence_time": game.get("commence_time"),
+            "series": {"spread_home": spread_home, "spread_away": spread_away, "total": totals},
+        }
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error fetching odds movement for {game_id}: {e}")
+        raise HTTPException(status_code=500, detail="Failed to fetch odds movement")
+
+
+@app.get("/api/team/{team_abbrev}/key-players")
+async def get_team_key_players(team_abbrev: str, limit: int = 5):
+    """Return key players with status and minutes trends."""
+    try:
+        supabase = app.state.supabase
+        if not supabase:
+            raise HTTPException(status_code=503, detail="Database not available")
+
+        limit = max(3, min(8, int(limit)))
+        players_resp = await anyio.to_thread.run_sync(
+            lambda: supabase.table("players")
+            .select("name,team_abbreviation")
+            .eq("team_abbreviation", team_abbrev.upper())
+            .eq("is_active", True)
+            .execute()
+        )
+        players = players_resp.data or []
+        if not players:
+            return {"team": team_abbrev.upper(), "players": []}
+
+        enriched: list[dict] = []
+        for p in players:
+            name = (p.get("name") or "").strip()
+            if not name:
+                continue
+            recent_resp = await anyio.to_thread.run_sync(
+                lambda n=name: supabase.table("player_game_stats")
+                .select("game_date,minutes")
+                .ilike("player_name", n)
+                .order("game_date", desc=True)
+                .limit(10)
+                .execute()
+            )
+            rows = recent_resp.data or []
+            minutes = []
+            for r in rows:
+                parsed = _parse_minutes_to_float(r.get("minutes"))
+                if parsed is not None:
+                    minutes.append(parsed)
+            if not minutes:
+                continue
+            last5 = minutes[:5]
+            prev5 = minutes[5:10]
+            last5_avg = statistics.mean(last5) if last5 else None
+            prev5_avg = statistics.mean(prev5) if prev5 else None
+            delta = (last5_avg - prev5_avg) if last5_avg is not None and prev5_avg is not None else None
+            trend = _trend_direction(delta, 1.5)
+            last_game_minutes = minutes[0] if minutes else None
+
+            status = "Unknown"
+            if last_game_minutes is not None:
+                if last_game_minutes <= 0.1 and (last5_avg or 0) < 5:
+                    status = "OUT"
+                elif (last5_avg or 0) < 18 and (delta or 0) < -3:
+                    status = "Q"
+                elif (last5_avg or 0) >= 24 and (delta or 0) > 1.5:
+                    status = "Probable"
+                else:
+                    status = "Active"
+
+            volatility = statistics.pstdev(minutes) if len(minutes) >= 2 else 0.0
+
+            enriched.append(
+                {
+                    "name": name,
+                    "status": status,
+                    "minutes_last5_avg": last5_avg,
+                    "minutes_prev5_avg": prev5_avg,
+                    "minutes_trend": trend,
+                    "minutes_trend_delta": delta,
+                    "minutes_volatility": volatility,
+                    "trend_note": _format_delta(delta) if delta is not None else None,
+                }
+            )
+
+        enriched = sorted(
+            enriched, key=lambda r: (r.get("minutes_last5_avg") or 0), reverse=True
+        )[:limit]
+
+        return {"team": team_abbrev.upper(), "players": enriched}
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error fetching key players for {team_abbrev}: {e}")
+        raise HTTPException(status_code=500, detail="Failed to fetch key players")
+
+
+@app.get("/api/team/{team_abbrev}/value")
+async def get_team_value_panel(team_abbrev: str):
+    """Return value panel data for the team's next game."""
+    try:
+        supabase = app.state.supabase
+        if not supabase:
+            raise HTTPException(status_code=503, detail="Database not available")
+
+        team_resp = await anyio.to_thread.run_sync(
+            lambda: supabase.table("teams")
+            .select("full_name,abbreviation")
+            .eq("abbreviation", team_abbrev.upper())
+            .single()
+            .execute()
+        )
+        team = team_resp.data
+        if not team:
+            raise HTTPException(status_code=404, detail=f"Team '{team_abbrev}' not found")
+        team_name = team.get("full_name") or ""
+
+        now_iso = datetime.utcnow().isoformat()
+        next_resp = await anyio.to_thread.run_sync(
+            lambda: supabase.table("games")
+            .select("id,commence_time,home_team,away_team")
+            .or_(f"home_team.eq.{team_name},away_team.eq.{team_name}")
+            .gte("commence_time", now_iso)
+            .order("commence_time")
+            .limit(1)
+            .execute()
+        )
+        next_game = (next_resp.data or [None])[0]
+        if not next_game:
+            return {"team": team.get("abbreviation"), "next_game": None, "value": []}
+
+        game_id = next_game.get("id")
+        home_team = next_game.get("home_team")
+        away_team = next_game.get("away_team")
+        is_home = team_name == home_team
+        opponent = away_team if is_home else home_team
+
+        odds_current = await get_game_odds_current(game_id)
+        betting_stats = await _compute_betting_stats(supabase, team_name, max_games=20)
+
+        ats_prob = betting_stats.get("ats_percentage") if betting_stats else None
+        over_prob = betting_stats.get("ou_percentage") if betting_stats else None
+
+        value_rows = []
+        for market in ["spread", "totals", "h2h"]:
+            selections = odds_current.get("markets", {}).get(market, [])
+            if market == "spread":
+                team_sel = next((s for s in selections if (s.get("outcome") or "") == team_name), None)
+                if not team_sel:
+                    continue
+                implied = team_sel.get("implied_prob")
+                model_prob = ats_prob if ats_prob is not None else implied
+                dec = team_sel.get("decimal_price")
+                ev = _expected_value(model_prob, dec)
+                edge = (model_prob - implied) if model_prob is not None and implied is not None else None
+                stake = _kelly_half(model_prob, dec)
+                value_rows.append(
+                    {
+                        "market": "spread",
+                        "label": team_sel.get("outcome"),
+                        "line": team_sel.get("point"),
+                        "price": team_sel.get("price"),
+                        "decimal_price": dec,
+                        "implied_prob": implied,
+                        "model_prob": model_prob,
+                        "edge": edge,
+                        "ev": ev,
+                        "stake_fraction": stake,
+                    }
+                )
+            elif market == "totals":
+                over_sel = next((s for s in selections if (s.get("outcome") or "").lower() == "over"), None)
+                under_sel = next((s for s in selections if (s.get("outcome") or "").lower() == "under"), None)
+                for sel, is_over in ((over_sel, True), (under_sel, False)):
+                    if not sel:
+                        continue
+                    implied = sel.get("implied_prob")
+                    model_prob = over_prob if is_over else (1 - over_prob if over_prob is not None else implied)
+                    dec = sel.get("decimal_price")
+                    ev = _expected_value(model_prob, dec)
+                    edge = (model_prob - implied) if model_prob is not None and implied is not None else None
+                    stake = _kelly_half(model_prob, dec)
+                    value_rows.append(
+                        {
+                            "market": "total",
+                            "label": sel.get("outcome"),
+                            "line": sel.get("point"),
+                            "price": sel.get("price"),
+                            "decimal_price": dec,
+                            "implied_prob": implied,
+                            "model_prob": model_prob,
+                            "edge": edge,
+                            "ev": ev,
+                            "stake_fraction": stake,
+                        }
+                    )
+            else:
+                team_sel = next((s for s in selections if (s.get("outcome") or "") == team_name), None)
+                opp_sel = next((s for s in selections if (s.get("outcome") or "") == opponent), None)
+                if not team_sel or not opp_sel:
+                    continue
+                consensus = _compute_no_vig_consensus_probs(
+                    [
+                        {
+                            "team": team_sel.get("outcome"),
+                            "price": team_sel.get("decimal_price"),
+                            "bookmaker_key": "consensus",
+                        },
+                        {
+                            "team": opp_sel.get("outcome"),
+                            "price": opp_sel.get("decimal_price"),
+                            "bookmaker_key": "consensus",
+                        },
+                    ],
+                    home_team,
+                    away_team,
+                )
+                if consensus:
+                    model_prob = consensus[0] if team_name == home_team else consensus[1]
+                else:
+                    model_prob = team_sel.get("implied_prob")
+                implied = team_sel.get("implied_prob")
+                dec = team_sel.get("decimal_price")
+                ev = _expected_value(model_prob, dec)
+                edge = (model_prob - implied) if model_prob is not None and implied is not None else None
+                stake = _kelly_half(model_prob, dec)
+                value_rows.append(
+                    {
+                        "market": "moneyline",
+                        "label": team_sel.get("outcome"),
+                        "line": None,
+                        "price": team_sel.get("price"),
+                        "decimal_price": dec,
+                        "implied_prob": implied,
+                        "model_prob": model_prob,
+                        "edge": edge,
+                        "ev": ev,
+                        "stake_fraction": stake,
+                    }
+                )
+
+        risk_flags = []
+        age_hours = odds_current.get("snapshot_age_hours") or 0
+        if age_hours and age_hours > float(os.getenv("ODDS_STALE_HOURS", "12")):
+            risk_flags.append("LINE_STALE")
+
+        try:
+            snapshots_resp = await anyio.to_thread.run_sync(
+                lambda: supabase.table("odds_snapshots")
+                .select("id")
+                .eq("game_id", game_id)
+                .limit(1)
+                .execute()
+            )
+            if not (snapshots_resp.data or []):
+                risk_flags.append("NO_CLOSING_LINE")
+        except Exception as e:
+            if "odds_snapshots" in str(e):
+                risk_flags.append("NO_CLOSING_LINE")
+
+        players_resp = await get_team_key_players(team_abbrev, limit=5)
+        volatility_risk = False
+        for p in (players_resp.get("players") or []):
+            if (p.get("minutes_volatility") or 0) >= 6:
+                volatility_risk = True
+                break
+            if (p.get("status") or "").upper() in {"OUT", "Q"}:
+                volatility_risk = True
+                break
+        if volatility_risk:
+            risk_flags.append("VOLATILITY_RISK")
+
+        return {
+            "team": team.get("abbreviation"),
+            "next_game": {
+                "game_id": game_id,
+                "commence_time": next_game.get("commence_time"),
+                "home_team": home_team,
+                "away_team": away_team,
+                "is_home": is_home,
+                "opponent": opponent,
+            },
+            "value": value_rows,
+            "risk_flags": risk_flags,
+            "snapshot_age_hours": odds_current.get("snapshot_age_hours"),
+            "thresholds": {
+                "min_ev": float(os.getenv("MIN_EV", "0.02")),
+                "min_edge": float(os.getenv("MIN_EDGE", "0.03")),
+                "max_stake_fraction": 0.03,
+            },
+        }
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error generating value panel for {team_abbrev}: {e}")
+        raise HTTPException(status_code=500, detail="Failed to generate value panel")
 
 
 @app.get("/api/status")

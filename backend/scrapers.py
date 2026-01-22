@@ -371,6 +371,7 @@ async def process_odds_data(supabase: Client, odds_data: dict):
             bookmakers = event.get("bookmakers", [])
             for bookmaker in bookmakers:
                 odds_records = []
+                snapshot_records = []
                 bookmaker_key = bookmaker.get("key")
                 bookmaker_title = bookmaker.get("title")
                 last_update = bookmaker.get("last_update")
@@ -381,7 +382,7 @@ async def process_odds_data(supabase: Client, odds_data: dict):
 
                     if market_key == "h2h":
                         for outcome in outcomes:
-                            odds_records.append({
+                            record = {
                                 "game_id": game_id,
                                 "bookmaker_key": bookmaker_key,
                                 "bookmaker_title": bookmaker_title,
@@ -389,11 +390,23 @@ async def process_odds_data(supabase: Client, odds_data: dict):
                                 "market_type": "h2h",
                                 "team": outcome.get("name"),
                                 "price": outcome.get("price"),
-                            })
+                            }
+                            odds_records.append(record)
+                            snapshot_records.append(
+                                {
+                                    "game_id": game_id,
+                                    "bookmaker_key": bookmaker_key,
+                                    "bookmaker_title": bookmaker_title,
+                                    "market_type": "h2h",
+                                    "team": outcome.get("name"),
+                                    "price": outcome.get("price"),
+                                    "ts": last_update,
+                                }
+                            )
 
                     elif market_key == "spread":
                         for outcome in outcomes:
-                            odds_records.append({
+                            record = {
                                 "game_id": game_id,
                                 "bookmaker_key": bookmaker_key,
                                 "bookmaker_title": bookmaker_title,
@@ -402,11 +415,24 @@ async def process_odds_data(supabase: Client, odds_data: dict):
                                 "team": outcome.get("name"),
                                 "point": outcome.get("point"),
                                 "price": outcome.get("price"),
-                            })
+                            }
+                            odds_records.append(record)
+                            snapshot_records.append(
+                                {
+                                    "game_id": game_id,
+                                    "bookmaker_key": bookmaker_key,
+                                    "bookmaker_title": bookmaker_title,
+                                    "market_type": "spread",
+                                    "team": outcome.get("name"),
+                                    "point": outcome.get("point"),
+                                    "price": outcome.get("price"),
+                                    "ts": last_update,
+                                }
+                            )
 
                     elif market_key == "totals":
                         for outcome in outcomes:
-                            odds_records.append({
+                            record = {
                                 "game_id": game_id,
                                 "bookmaker_key": bookmaker_key,
                                 "bookmaker_title": bookmaker_title,
@@ -415,7 +441,20 @@ async def process_odds_data(supabase: Client, odds_data: dict):
                                 "outcome_name": outcome.get("name"),
                                 "point": outcome.get("point"),
                                 "price": outcome.get("price"),
-                            })
+                            }
+                            odds_records.append(record)
+                            snapshot_records.append(
+                                {
+                                    "game_id": game_id,
+                                    "bookmaker_key": bookmaker_key,
+                                    "bookmaker_title": bookmaker_title,
+                                    "market_type": "totals",
+                                    "outcome_name": outcome.get("name"),
+                                    "point": outcome.get("point"),
+                                    "price": outcome.get("price"),
+                                    "ts": last_update,
+                                }
+                            )
 
                 if odds_records:
                     for record in odds_records:
@@ -427,6 +466,16 @@ async def process_odds_data(supabase: Client, odds_data: dict):
                             )
                         except Exception as e:
                             print(f"Error saving odds record: {e}")
+                if snapshot_records:
+                    try:
+                        await anyio.to_thread.run_sync(
+                            lambda rows=snapshot_records: supabase.table("odds_snapshots")
+                            .insert(rows)
+                            .execute()
+                        )
+                    except Exception as e:
+                        if "odds_snapshots" not in str(e):
+                            print(f"Error saving odds snapshots: {e}")
 
         except Exception as e:
             print(f"Error processing event {event.get('id')}: {e}")

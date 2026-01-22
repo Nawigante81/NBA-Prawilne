@@ -93,6 +93,121 @@ export interface KellyCalculation {
   recommended_stake: string;
 }
 
+export interface TeamBettingWindowStats {
+  ats: {
+    w: number;
+    l: number;
+    p: number;
+    avg_spread_diff: number | null;
+    win_pct: number | null;
+  };
+  ou: {
+    o: number;
+    u: number;
+    p: number;
+    avg_total_diff: number | null;
+    over_pct: number | null;
+  };
+  avg_total_points: number | null;
+  games_count: number;
+}
+
+export interface TeamBettingStatsResponse {
+  team: string;
+  team_name: string;
+  window: number;
+  last_window: TeamBettingWindowStats | null;
+  season: TeamBettingWindowStats | null;
+  has_data: boolean;
+  missing_reason?: string | null;
+  computed_at: string;
+}
+
+export interface NextGameInfo {
+  game_id: string;
+  commence_time: string;
+  home_team: string;
+  away_team: string;
+  is_home: boolean;
+  opponent: string;
+}
+
+export interface OddsSelection {
+  outcome: string;
+  point?: number | null;
+  price?: number | null;
+  decimal_price?: number | null;
+  implied_prob?: number | null;
+  bookmaker_key?: string | null;
+  bookmaker_title?: string | null;
+  last_update?: string | null;
+}
+
+export interface OddsCurrentResponse {
+  game_id: string;
+  markets: {
+    h2h: OddsSelection[];
+    spread: OddsSelection[];
+    totals: OddsSelection[];
+  };
+  latest_update?: string | null;
+  snapshot_age_hours?: number | null;
+}
+
+export interface OddsMovementPoint {
+  ts: string;
+  point: number;
+}
+
+export interface OddsMovementResponse {
+  game_id: string;
+  home_team?: string | null;
+  away_team?: string | null;
+  commence_time?: string | null;
+  series: {
+    spread_home: OddsMovementPoint[];
+    spread_away: OddsMovementPoint[];
+    total: OddsMovementPoint[];
+  };
+}
+
+export interface KeyPlayerInfo {
+  name: string;
+  status: 'OUT' | 'Q' | 'Probable' | 'Active' | 'Unknown';
+  minutes_last5_avg: number | null;
+  minutes_prev5_avg: number | null;
+  minutes_trend: 'up' | 'down' | 'stable' | null;
+  minutes_trend_delta: number | null;
+  minutes_volatility: number | null;
+  trend_note?: string | null;
+}
+
+export interface TeamValueRow {
+  market: 'spread' | 'total' | 'moneyline';
+  label: string;
+  line: number | null;
+  price: number | null;
+  decimal_price: number | null;
+  implied_prob: number | null;
+  model_prob: number | null;
+  edge: number | null;
+  ev: number | null;
+  stake_fraction: number;
+}
+
+export interface TeamValueResponse {
+  team: string;
+  next_game: NextGameInfo | null;
+  value: TeamValueRow[];
+  risk_flags: string[];
+  snapshot_age_hours?: number | null;
+  thresholds: {
+    min_ev: number;
+    min_edge: number;
+    max_stake_fraction: number;
+  };
+}
+
 // Component Props
 export interface NavItem {
   id: string;

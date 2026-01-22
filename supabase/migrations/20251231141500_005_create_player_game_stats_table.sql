@@ -85,18 +85,66 @@ CREATE INDEX IF NOT EXISTS idx_player_game_stats_season_year ON public.player_ga
 ALTER TABLE public.player_game_stats ENABLE ROW LEVEL SECURITY;
 
 -- Create policy for read access (everyone can read historical data)
-CREATE POLICY "Enable read access for all users" ON public.player_game_stats
-  FOR SELECT USING (true);
+DO $$
+BEGIN
+  IF NOT EXISTS (
+    SELECT 1
+    FROM pg_policies
+    WHERE schemaname = 'public'
+      AND tablename = 'player_game_stats'
+      AND policyname = 'Enable read access for all users'
+  ) THEN
+    CREATE POLICY "Enable read access for all users" ON public.player_game_stats
+      FOR SELECT USING (true);
+  END IF;
+END;
+$$;
 
 -- Create policy for write access (only service role)
-CREATE POLICY "Enable insert for service role only" ON public.player_game_stats
-  FOR INSERT WITH CHECK (auth.role() = 'service_role');
+DO $$
+BEGIN
+  IF NOT EXISTS (
+    SELECT 1
+    FROM pg_policies
+    WHERE schemaname = 'public'
+      AND tablename = 'player_game_stats'
+      AND policyname = 'Enable insert for service role only'
+  ) THEN
+    CREATE POLICY "Enable insert for service role only" ON public.player_game_stats
+      FOR INSERT WITH CHECK (auth.role() = 'service_role');
+  END IF;
+END;
+$$;
 
-CREATE POLICY "Enable update for service role only" ON public.player_game_stats
-  FOR UPDATE USING (auth.role() = 'service_role');
+DO $$
+BEGIN
+  IF NOT EXISTS (
+    SELECT 1
+    FROM pg_policies
+    WHERE schemaname = 'public'
+      AND tablename = 'player_game_stats'
+      AND policyname = 'Enable update for service role only'
+  ) THEN
+    CREATE POLICY "Enable update for service role only" ON public.player_game_stats
+      FOR UPDATE USING (auth.role() = 'service_role');
+  END IF;
+END;
+$$;
 
-CREATE POLICY "Enable delete for service role only" ON public.player_game_stats
-  FOR DELETE USING (auth.role() = 'service_role');
+DO $$
+BEGIN
+  IF NOT EXISTS (
+    SELECT 1
+    FROM pg_policies
+    WHERE schemaname = 'public'
+      AND tablename = 'player_game_stats'
+      AND policyname = 'Enable delete for service role only'
+  ) THEN
+    CREATE POLICY "Enable delete for service role only" ON public.player_game_stats
+      FOR DELETE USING (auth.role() = 'service_role');
+  END IF;
+END;
+$$;
 
 -- Add comment to table
 COMMENT ON TABLE public.player_game_stats IS 'Historical NBA player game statistics (box scores) from 2010-2024 season';

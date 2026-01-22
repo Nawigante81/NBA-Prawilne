@@ -12,8 +12,20 @@ import {
   Eye,
   Zap
 } from 'lucide-react';
-import { useApi } from '../services/api';
+import api, { useApi } from '../services/api';
 import { useI18n } from '../i18n/useI18n';
+import type {
+  TeamBettingStatsResponse,
+  NextGameInfo,
+  TeamValueResponse,
+  OddsMovementResponse,
+  KeyPlayerInfo,
+} from '../types';
+import BettingStatsPanel from './team/BettingStatsPanel';
+import NextGameCard from './team/NextGameCard';
+import ValuePanel from './team/ValuePanel';
+import LineMovementMini from './team/LineMovementMini';
+import KeyPlayersPanel from './team/KeyPlayersPanel';
 
 interface Team {
   id: string;
@@ -107,6 +119,13 @@ const AllTeams: React.FC<AllTeamsProps> = ({ onTeamSelect, preselectTeamAbbrev }
   const [showTopFive, setShowTopFive] = useState(false);
   const [viewMode, setViewMode] = useState<'grid' | 'table'>('grid');
   const [selectedTeam, setSelectedTeam] = useState<Team | null>(null);
+  const [detailLoading, setDetailLoading] = useState(false);
+  const [bettingDetail, setBettingDetail] = useState<TeamBettingStatsResponse | null>(null);
+  const [nextGame, setNextGame] = useState<NextGameInfo | null>(null);
+  const [valuePanel, setValuePanel] = useState<TeamValueResponse | null>(null);
+  const [lineMovement, setLineMovement] = useState<OddsMovementResponse | null>(null);
+  const [keyPlayersDetail, setKeyPlayersDetail] = useState<KeyPlayerInfo[] | null>(null);
+  const [detailRefresh, setDetailRefresh] = useState(0);
   
   const apiHook = useApi();
 
@@ -153,6 +172,70 @@ const AllTeams: React.FC<AllTeamsProps> = ({ onTeamSelect, preselectTeamAbbrev }
       }
     }
   }, [loading, preselectTeamAbbrev, teams]);
+
+  const refreshDetails = () => setDetailRefresh((prev) => prev + 1);
+
+  useEffect(() => {
+    if (!selectedTeam) {
+      setBettingDetail(null);
+      setNextGame(null);
+      setValuePanel(null);
+      setLineMovement(null);
+      setKeyPlayersDetail(null);
+      return;
+    }
+
+    let cancelled = false;
+    const loadDetails = async () => {
+      try {
+        setDetailLoading(true);
+        setBettingDetail(null);
+        setNextGame(null);
+        setValuePanel(null);
+        setLineMovement(null);
+        setKeyPlayersDetail(null);
+        const [bettingRes, nextRes, valueRes, playersRes] = await Promise.all([
+          api.teams.getBettingStatsDetail(selectedTeam.abbreviation, 20),
+          api.teams.getNextGame(selectedTeam.abbreviation),
+          api.teams.getValuePanel(selectedTeam.abbreviation),
+          api.teams.getKeyPlayers(selectedTeam.abbreviation),
+        ]);
+
+        if (cancelled) return;
+
+        setBettingDetail((bettingRes as TeamBettingStatsResponse) ?? null);
+        setNextGame((nextRes as { next_game?: NextGameInfo | null })?.next_game ?? null);
+        setValuePanel((valueRes as TeamValueResponse) ?? null);
+        setKeyPlayersDetail((playersRes as { players?: KeyPlayerInfo[] })?.players ?? []);
+
+        const gameId = (valueRes as TeamValueResponse)?.next_game?.game_id
+          || (nextRes as { next_game?: NextGameInfo | null })?.next_game?.game_id;
+
+        if (gameId) {
+          const movementRes = await api.games.getOddsMovement(gameId);
+          if (!cancelled) {
+            setLineMovement((movementRes as OddsMovementResponse) ?? null);
+          }
+        } else {
+          setLineMovement(null);
+        }
+      } catch (error) {
+        if (!cancelled) {
+          console.error('Error fetching team details:', error);
+          setLineMovement(null);
+        }
+      } finally {
+        if (!cancelled) {
+          setDetailLoading(false);
+        }
+      }
+    };
+
+    loadDetails();
+    return () => {
+      cancelled = true;
+    };
+  }, [selectedTeam, detailRefresh]);
 
   // Filter and sort teams
   const filteredTeams = teams
@@ -582,50 +665,11 @@ const AllTeams: React.FC<AllTeamsProps> = ({ onTeamSelect, preselectTeamAbbrev }
                 </div>
               </div>
 
-              <div className="glass-card p-4">
-                <div className="text-sm text-gray-400 mb-2">{t('teams.details.keyPlayers')}</div>
-                <div className="flex flex-wrap gap-2">
-                  {(selectedTeam.key_players || []).length === 0 ? (
-                    <span className="text-sm text-gray-400">{t('common.noData')}</span>
-                  ) : (
-                    (selectedTeam.key_players || []).map((p, idx) => (
-                      <span key={idx} className="px-2 py-1 text-xs bg-gray-800/50 rounded text-white">{p}</span>
-                    ))
-                  )}
-                </div>
-              </div>
-
-              <div className="glass-card p-4">
-                <div className="text-sm text-gray-400 mb-2">{t('teams.details.bettingStats')}</div>
-                <div className="grid grid-cols-2 gap-3 text-sm">
-                  <div>
-                    <div className="text-gray-400">{t('teams.card.atsRecord')}</div>
-                    <div className="text-white font-medium">
-                      {selectedTeam.betting_stats
-                        ? `${selectedTeam.betting_stats.ats_record} (${formatPercentOrNoData(numOrNull(selectedTeam.betting_stats.ats_percentage), 1)})`
-                        : t('common.noData')}
-                    </div>
-                  </div>
-                  <div>
-                    <div className="text-gray-400">{t('teams.details.overUnder')}</div>
-                    <div className="text-white font-medium">
-                      {selectedTeam.betting_stats
-                        ? `${selectedTeam.betting_stats.over_under} (${formatPercentOrNoData(numOrNull(selectedTeam.betting_stats.ou_percentage), 1)})`
-                        : t('common.noData')}
-                    </div>
-                  </div>
-                  <div>
-                    <div className="text-gray-400">{t('teams.details.avgTotal')}</div>
-                    <div className="text-white font-medium">{selectedTeam.betting_stats?.avg_total ?? t('common.noData')}</div>
-                  </div>
-                  <div>
-                    <div className="text-gray-400">{t('teams.details.strength')}</div>
-                    <div className="text-white font-medium">
-                      {typeof selectedTeam.strength_rating === 'number' ? selectedTeam.strength_rating : t('common.noData')}
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <NextGameCard nextGame={nextGame} isLoading={detailLoading} />
+              <BettingStatsPanel data={bettingDetail} isLoading={detailLoading} onRefresh={refreshDetails} />
+              <ValuePanel data={valuePanel} isLoading={detailLoading} />
+              <LineMovementMini data={lineMovement} isHome={nextGame?.is_home} isLoading={detailLoading} />
+              <KeyPlayersPanel players={keyPlayersDetail} isLoading={detailLoading} />
 
               <div className="text-right">
                 <button className="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded text-white" onClick={() => setSelectedTeam(null)}>{t('common.done')}</button>

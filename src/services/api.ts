@@ -72,6 +72,22 @@ export const teamsApi = {
   
   // Get detailed team analysis
   getAnalysis: (teamAbbrev: string) => apiRequest<UnknownRecord>(`/api/teams/${teamAbbrev}/analysis`),
+
+  // Get detailed betting stats for team
+  getBettingStatsDetail: (teamAbbrev: string, window: number = 20) =>
+    apiRequest<UnknownRecord>(`/api/team/${teamAbbrev}/betting-stats?window=${window}`),
+
+  // Get next game info for team
+  getNextGame: (teamAbbrev: string) =>
+    apiRequest<UnknownRecord>(`/api/team/${teamAbbrev}/next-game`),
+
+  // Get key players with minutes trends
+  getKeyPlayers: (teamAbbrev: string) =>
+    apiRequest<UnknownRecord>(`/api/team/${teamAbbrev}/key-players`),
+
+  // Get value panel data
+  getValuePanel: (teamAbbrev: string) =>
+    apiRequest<UnknownRecord>(`/api/team/${teamAbbrev}/value`),
   
   // Compare teams
   compare: (team1: string, team2: string, team3?: string) => {
@@ -111,6 +127,12 @@ export const gamesApi = {
   
   // Get game odds
   getOdds: (gameId: string) => apiRequest<{odds: UnknownRecord[]}>(`/api/odds/${gameId}`),
+
+  // Get current game odds for markets
+  getOddsCurrent: (gameId: string) => apiRequest<UnknownRecord>(`/api/game/${gameId}/odds/current`),
+
+  // Get odds movement timeline
+  getOddsMovement: (gameId: string) => apiRequest<UnknownRecord>(`/api/game/${gameId}/odds/movement`),
 };
 
 // Focus Teams API
