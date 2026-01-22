@@ -3,7 +3,7 @@ Team endpoints
 """
 from fastapi import APIRouter, HTTPException, Query
 from datetime import datetime
-from typing import List, Optional
+from typing import List
 
 from models import TeamBettingStats, TeamNextGame, KeyPlayer, PlayerStatus
 from services.betting_stats_service import get_team_ats_stats, get_team_ou_stats

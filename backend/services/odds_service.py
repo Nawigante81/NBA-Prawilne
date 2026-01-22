@@ -8,7 +8,7 @@ from typing import Dict, List, Optional, Any
 from datetime import datetime, timedelta, date, timezone
 import statistics
 
-import settings import (
+from settings import (
     ODDS_API_KEY,
     ODDS_MAX_CALLS_PER_DAY,
     ODDS_BOOKMAKERS_ALLOWLIST,

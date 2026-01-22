@@ -3,11 +3,9 @@ NBA Betting Analytics Backend - Betting Stats Service
 Computes ATS (Against The Spread) and O/U (Over/Under) statistics using consensus closing lines
 """
 import logging
-from typing import Dict, Optional, Any, List
-from datetime import datetime
+from typing import Dict, Optional, Any
 
-from db import fetch_one, fetch_all, execute_query
-from services.odds_service import get_consensus_line
+from db import fetch_one, fetch_all
 
 logger = logging.getLogger(__name__)
 

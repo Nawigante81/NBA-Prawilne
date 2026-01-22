@@ -4,7 +4,7 @@ Handles fetching and storing NBA statistics from nba_api
 """
 import logging
 import asyncio
-from typing import Dict, List, Optional, Any, Tuple
+from typing import Dict, Optional, Any, Tuple
 from datetime import datetime, timedelta, timezone
 
 from nba_api.stats.endpoints import (
@@ -14,7 +14,7 @@ from nba_api.stats.endpoints import (
 )
 from nba_api.stats.static import teams as nba_teams
 
-import settings import NBA_API_CACHE_TTL_SECONDS, NBA_STATS_WINDOW
+from settings import NBA_API_CACHE_TTL_SECONDS
 from db import fetch_all, execute_query, get_cache, set_cache, fetch_one
 
 logger = logging.getLogger(__name__)
@@ -208,7 +208,13 @@ async def sync_nba_games(days_ahead: int = 7, days_back: int = 3) -> Dict[str, A
                 game_date_str = record.get("GAME_DATE")
                 try:
                     game_date = datetime.strptime(game_date_str, "%Y-%m-%d").replace(tzinfo=timezone.utc)
-                except:
+                except (TypeError, ValueError) as parse_err:
+                    logger.warning(
+                        "Failed to parse GAME_DATE '%s' for GAME_ID %s: %s; defaulting to current UTC time",
+                        game_date_str,
+                        record.get("GAME_ID"),
+                        parse_err,
+                    )
                     game_date = datetime.now(timezone.utc)
                 
                 # Determine home/away teams from matchup string (e.g., "ATL @ BOS")

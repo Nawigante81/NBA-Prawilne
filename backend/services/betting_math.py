@@ -3,7 +3,6 @@ NBA Betting Analytics Backend - Betting Math
 Calculations for implied probability, EV, Kelly criterion, etc.
 """
 import logging
-from typing import Optional
 
 logger = logging.getLogger(__name__)
 

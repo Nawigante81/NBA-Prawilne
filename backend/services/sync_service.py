@@ -3,7 +3,6 @@ NBA Betting Analytics Backend - Sync Service
 Orchestrates all synchronization jobs using APScheduler
 """
 import logging
-from typing import Optional
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from apscheduler.triggers.interval import IntervalTrigger
 import pytz

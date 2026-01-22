@@ -22,7 +22,7 @@ async def get_today_value_board():
     """
     try:
         # Get raw value board for today
-        raw_board = await get_value_board_today()
+        raw_board = await get_value_board_today(date.today())
         
         if not raw_board:
             # Return empty board if no games today

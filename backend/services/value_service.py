@@ -2,12 +2,11 @@
 Value Board Service - Generates expected value calculations for upcoming games.
 """
 
-from datetime import date, datetime, timedelta
-from typing import Optional, List, Tuple
+from datetime import date, datetime
+from typing import Optional, List
 from sqlalchemy import select, and_, func, desc
 from sqlalchemy.orm import Session
 
-from db import get_db
 from models import Game, TeamGameStats, ValueBet, ValueBoard
 from settings import HOME_COURT_ADVANTAGE, KELLY_FRACTION
 from services import betting_math
@@ -99,13 +98,8 @@ def compute_model_probability(
         return home_prob if team == 'home' else (1 - home_prob)
     
     elif market_type == 'total':
-        avg_pace = (home_stats['pace'] + away_stats['pace']) / 2
-        avg_off = (home_stats['off_rtg'] + away_stats['off_rtg']) / 2
-        
-        estimated_total = (avg_off * avg_pace) / 100
-        
-        total_std = 12.0
-        
+        # TODO: Implement total-market model probability using team stats.
+        # For now, retain existing behavior: return a neutral 0.5 probability.
         return 0.5
     
     elif market_type == 'h2h':

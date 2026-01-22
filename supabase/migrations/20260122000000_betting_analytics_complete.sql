@@ -254,7 +254,7 @@ END;
 $$ LANGUAGE plpgsql IMMUTABLE;
 
 -- ==================================================================
--- Row Level Security (Optional - enable if using Supabase Auth)
+-- Row Level Security
 -- ==================================================================
 
 -- Enable RLS on sensitive tables
@@ -263,18 +263,58 @@ ALTER TABLE public.pick_results ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.api_budget ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.api_cache ENABLE ROW LEVEL SECURITY;
 
--- Public read access to game data
-CREATE POLICY "Allow read access to odds_snapshots" ON public.odds_snapshots FOR SELECT USING (true);
-CREATE POLICY "Allow read access to closing_lines" ON public.closing_lines FOR SELECT USING (true);
-CREATE POLICY "Allow read access to team_game_results" ON public.team_game_results FOR SELECT USING (true);
-CREATE POLICY "Allow read access to team_game_stats" ON public.team_game_stats FOR SELECT USING (true);
-CREATE POLICY "Allow read access to player_game_stats" ON public.player_game_stats FOR SELECT USING (true);
+-- Public read access to game data (read-only for all authenticated users)
+CREATE POLICY "Public read access to odds_snapshots" ON public.odds_snapshots 
+    FOR SELECT 
+    USING (true);
 
--- Admin-only access for budget and picks
-CREATE POLICY "Service role can manage api_budget" ON public.api_budget USING (true);
-CREATE POLICY "Service role can manage api_cache" ON public.api_cache USING (true);
-CREATE POLICY "Service role can manage picks" ON public.picks USING (true);
-CREATE POLICY "Service role can manage pick_results" ON public.pick_results USING (true);
+CREATE POLICY "Public read access to closing_lines" ON public.closing_lines 
+    FOR SELECT 
+    USING (true);
+
+CREATE POLICY "Public read access to team_game_results" ON public.team_game_results 
+    FOR SELECT 
+    USING (true);
+
+CREATE POLICY "Public read access to team_game_stats" ON public.team_game_stats 
+    FOR SELECT 
+    USING (true);
+
+CREATE POLICY "Public read access to player_game_stats" ON public.player_game_stats 
+    FOR SELECT 
+    USING (true);
+
+-- Restrict sensitive tables to service_role only
+-- Note: In Supabase, check role with: auth.role() = 'service_role'
+-- For production, these should use auth.uid() checks or service role checks
+
+-- api_budget - service role only
+CREATE POLICY "Service role full access to api_budget" ON public.api_budget
+    FOR ALL
+    TO service_role
+    USING (true)
+    WITH CHECK (true);
+
+-- api_cache - service role only
+CREATE POLICY "Service role full access to api_cache" ON public.api_cache
+    FOR ALL
+    TO service_role
+    USING (true)
+    WITH CHECK (true);
+
+-- picks - service role only (or add user-specific policies later)
+CREATE POLICY "Service role full access to picks" ON public.picks
+    FOR ALL
+    TO service_role
+    USING (true)
+    WITH CHECK (true);
+
+-- pick_results - service role only
+CREATE POLICY "Service role full access to pick_results" ON public.pick_results
+    FOR ALL
+    TO service_role
+    USING (true)
+    WITH CHECK (true);
 
 -- ==================================================================
 -- END OF MIGRATION

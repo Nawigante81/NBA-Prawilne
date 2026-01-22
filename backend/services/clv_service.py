@@ -4,9 +4,8 @@ Tracks and calculates Closing Line Value (CLV) for picks
 """
 import logging
 from typing import Dict, Optional, Any
-from datetime import datetime, timezone
 
-from db import fetch_one, fetch_all, execute_query
+from db import fetch_one, fetch_all
 from services.odds_service import get_consensus_line
 
 logger = logging.getLogger(__name__)

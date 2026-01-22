@@ -5,7 +5,7 @@ from fastapi import APIRouter, HTTPException
 from datetime import date, datetime
 from typing import List
 
-from models import Pick, SettlePickRequest, PickStatus, PickResult as PickResultEnum
+from models import Pick, SettlePickRequest, PickStatus
 from backend.supabase_client import create_isolated_supabase_client, get_supabase_config
 
 router = APIRouter()

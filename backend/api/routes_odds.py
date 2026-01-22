@@ -2,7 +2,6 @@
 Odds endpoints
 """
 from fastapi import APIRouter, HTTPException, Query
-from datetime import datetime
 from typing import List, Optional
 
 from models import GameOdds, OddsMovement, CLVData, ConsensusLine, MarketType

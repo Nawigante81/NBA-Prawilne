@@ -3,7 +3,6 @@ NBA Betting Analytics Backend - Settings
 Environment configuration and constants
 """
 import os
-from typing import List
 from dotenv import load_dotenv
 
 # Load environment variables

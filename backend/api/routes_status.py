@@ -27,7 +27,7 @@ async def check_database_connection() -> bool:
             return False
         
         # Simple query to verify connection
-        result = supabase.table("games").select("id").limit(1).execute()
+        supabase.table("games").select("id").limit(1).execute()
         return True
     except Exception:
         return False
