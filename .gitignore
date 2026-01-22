@@ -13,3 +13,6 @@ node_modules/
 
 # Playwright cache (opcjonalnie)
 .ms-playwright/
+backend/__pycache__/
+backend/services/__pycache__/
+backend/api/__pycache__/
