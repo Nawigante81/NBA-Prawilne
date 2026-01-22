@@ -2988,3 +2988,321 @@ async def health_check():
         "service": "nba-analytics-backend",
         "version": "1.0.0"
     }
+
+
+# ============================================================================
+# BETTING DECISION ENDPOINTS
+# ============================================================================
+
+@app.get("/api/team/{team_abbrev}/betting-stats/detailed")
+async def get_team_betting_stats_detailed(
+    team_abbrev: str,
+    window: Optional[int] = None
+):
+    """
+    Get detailed ATS/O-U betting stats for a team.
+    
+    Args:
+        team_abbrev: Team abbreviation (e.g., 'CHI')
+        window: Number of recent games (default: None = all season)
+    
+    Returns:
+        Detailed betting statistics including season and last 20 games
+    """
+    try:
+        from betting_endpoints import _compute_ats_ou_stats
+        
+        supabase = app.state.supabase
+        if not supabase:
+            raise HTTPException(status_code=503, detail="Database not available")
+        
+        # Get season stats
+        season_stats = await _compute_ats_ou_stats(supabase, team_abbrev.upper(), window=None)
+        
+        # Get last 20 games stats
+        last_20_stats = await _compute_ats_ou_stats(supabase, team_abbrev.upper(), window=20)
+        
+        if not season_stats and not last_20_stats:
+            return {
+                "team": team_abbrev.upper(),
+                "error": "No data available",
+                "data": None
+            }
+        
+        return {
+            "team": team_abbrev.upper(),
+            "ats_season": season_stats.get("ats") if season_stats else None,
+            "ats_last_20": last_20_stats.get("ats") if last_20_stats else None,
+            "ou_season": season_stats.get("ou") if season_stats else None,
+            "ou_last_20": last_20_stats.get("ou") if last_20_stats else None,
+            "avg_total_points": {
+                "season": season_stats.get("avg_total_points") if season_stats else None,
+                "last_20": last_20_stats.get("avg_total_points") if last_20_stats else None,
+            },
+            "generated_at": datetime.now().isoformat()
+        }
+        
+    except Exception as e:
+        logger.error(f"Error getting detailed betting stats: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/api/team/{team_abbrev}/next-game")
+async def get_team_next_game(team_abbrev: str):
+    """
+    Get information about team's next scheduled game.
+    
+    Args:
+        team_abbrev: Team abbreviation
+    
+    Returns:
+        Next game details including opponent, time, and venue
+    """
+    try:
+        from betting_endpoints import _get_next_game_info
+        
+        supabase = app.state.supabase
+        if not supabase:
+            raise HTTPException(status_code=503, detail="Database not available")
+        
+        next_game = await _get_next_game_info(supabase, team_abbrev.upper())
+        
+        if not next_game:
+            return {
+                "team": team_abbrev.upper(),
+                "next_game": None,
+                "message": "No upcoming games scheduled"
+            }
+        
+        return {
+            "team": team_abbrev.upper(),
+            "next_game": next_game,
+            "generated_at": datetime.now().isoformat()
+        }
+        
+    except Exception as e:
+        logger.error(f"Error getting next game: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/api/game/{game_id}/odds/current")
+async def get_game_current_odds(game_id: str):
+    """
+    Get current odds for all markets for a specific game.
+    
+    Args:
+        game_id: Game ID
+    
+    Returns:
+        Current odds across spread, totals, and h2h markets
+    """
+    try:
+        from betting_endpoints import _get_current_odds
+        
+        supabase = app.state.supabase
+        if not supabase:
+            raise HTTPException(status_code=503, detail="Database not available")
+        
+        odds = await _get_current_odds(supabase, game_id)
+        
+        return {
+            "game_id": game_id,
+            "odds": odds,
+            "generated_at": datetime.now().isoformat()
+        }
+        
+    except Exception as e:
+        logger.error(f"Error getting current odds: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/api/game/{game_id}/odds/movement")
+async def get_game_odds_movement(game_id: str):
+    """
+    Get odds movement history for a game.
+    
+    Args:
+        game_id: Game ID
+    
+    Returns:
+        Line movement data for spread, totals, and h2h markets
+    """
+    try:
+        from betting_endpoints import _get_odds_movement
+        
+        supabase = app.state.supabase
+        if not supabase:
+            raise HTTPException(status_code=503, detail="Database not available")
+        
+        # Get movement for each market type
+        spread_movement = await _get_odds_movement(supabase, game_id, "spread")
+        totals_movement = await _get_odds_movement(supabase, game_id, "totals")
+        h2h_movement = await _get_odds_movement(supabase, game_id, "h2h")
+        
+        movements = []
+        if spread_movement:
+            movements.append(spread_movement)
+        if totals_movement:
+            movements.append(totals_movement)
+        if h2h_movement:
+            movements.append(h2h_movement)
+        
+        return {
+            "game_id": game_id,
+            "movements": movements,
+            "generated_at": datetime.now().isoformat()
+        }
+        
+    except Exception as e:
+        logger.error(f"Error getting odds movement: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/api/team/{team_abbrev}/key-players")
+async def get_team_key_players(team_abbrev: str, limit: int = 5):
+    """
+    Get key players for a team with injury status and minutes trends.
+    
+    Args:
+        team_abbrev: Team abbreviation
+        limit: Number of players to return (default: 5)
+    
+    Returns:
+        List of key players with status and performance trends
+    """
+    try:
+        from betting_endpoints import _get_key_players_with_status
+        
+        supabase = app.state.supabase
+        if not supabase:
+            raise HTTPException(status_code=503, detail="Database not available")
+        
+        players = await _get_key_players_with_status(supabase, team_abbrev.upper(), limit)
+        
+        return {
+            "team": team_abbrev.upper(),
+            "players": players,
+            "count": len(players),
+            "generated_at": datetime.now().isoformat()
+        }
+        
+    except Exception as e:
+        logger.error(f"Error getting key players: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/api/team/{team_abbrev}/value")
+async def get_team_value_betting(team_abbrev: str, bankroll: float = 1000.0):
+    """
+    Get value betting recommendations for a team's next game.
+    
+    Args:
+        team_abbrev: Team abbreviation
+        bankroll: User's bankroll for stake calculations (default: 1000)
+    
+    Returns:
+        Value Panel data with EV, Kelly, and stake recommendations
+    """
+    try:
+        from betting_endpoints import (
+            _get_next_game_info,
+            _get_current_odds,
+            _calculate_ev_and_kelly
+        )
+        
+        supabase = app.state.supabase
+        if not supabase:
+            raise HTTPException(status_code=503, detail="Database not available")
+        
+        # Get next game
+        next_game = await _get_next_game_info(supabase, team_abbrev.upper())
+        if not next_game:
+            return {
+                "team": team_abbrev.upper(),
+                "data": None,
+                "message": "No upcoming game found"
+            }
+        
+        game_id = next_game["game_id"]
+        
+        # Get current odds
+        odds_by_market = await _get_current_odds(supabase, game_id)
+        
+        # For demo purposes, use simple model probabilities
+        # In production, these would come from your analytics model
+        model_probs = {
+            "spread": 0.55,  # Example: 55% chance to cover
+            "total": 0.52,   # Example: 52% chance of over
+            "h2h": 0.48,     # Example: 48% chance to win
+        }
+        
+        markets = {}
+        
+        # Process spread odds
+        if "spread" in odds_by_market and odds_by_market["spread"]:
+            spread_row = odds_by_market["spread"][0]
+            odds_value = float(spread_row.get("price", 2.0))
+            
+            ev_data = _calculate_ev_and_kelly(
+                odds_value,
+                model_probs["spread"],
+                bankroll
+            )
+            
+            markets["spread"] = {
+                "market_type": "spread",
+                "line_value": float(spread_row.get("point", 0)),
+                "odds": odds_value,
+                "bookmaker": spread_row.get("bookmaker_title", "Unknown"),
+                **ev_data
+            }
+        
+        # Process totals odds
+        if "totals" in odds_by_market and odds_by_market["totals"]:
+            totals_row = odds_by_market["totals"][0]
+            odds_value = float(totals_row.get("price", 2.0))
+            
+            ev_data = _calculate_ev_and_kelly(
+                odds_value,
+                model_probs["total"],
+                bankroll
+            )
+            
+            markets["total"] = {
+                "market_type": "total",
+                "line_value": float(totals_row.get("point", 0)),
+                "odds": odds_value,
+                "bookmaker": totals_row.get("bookmaker_title", "Unknown"),
+                **ev_data
+            }
+        
+        # Process h2h odds
+        if "h2h" in odds_by_market and odds_by_market["h2h"]:
+            h2h_row = odds_by_market["h2h"][0]
+            odds_value = float(h2h_row.get("price", 2.0))
+            
+            ev_data = _calculate_ev_and_kelly(
+                odds_value,
+                model_probs["h2h"],
+                bankroll
+            )
+            
+            markets["h2h"] = {
+                "market_type": "h2h",
+                "odds": odds_value,
+                "bookmaker": h2h_row.get("bookmaker_title", "Unknown"),
+                **ev_data
+            }
+        
+        return {
+            "game_id": game_id,
+            "home_team": next_game.get("opponent") if not next_game.get("is_home") else team_abbrev.upper(),
+            "away_team": next_game.get("opponent") if next_game.get("is_home") else team_abbrev.upper(),
+            "commence_time": next_game.get("commence_time"),
+            "markets": markets,
+            "last_updated": datetime.now().isoformat()
+        }
+        
+    except Exception as e:
+        logger.error(f"Error getting value betting data: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
