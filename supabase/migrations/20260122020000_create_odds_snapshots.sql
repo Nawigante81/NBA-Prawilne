@@ -27,8 +27,9 @@ CREATE INDEX IF NOT EXISTS idx_odds_snapshots_bookmaker ON public.odds_snapshots
 -- RLS policies
 ALTER TABLE public.odds_snapshots ENABLE ROW LEVEL SECURITY;
 
-CREATE POLICY "Enable read access for all users" ON public.odds_snapshots
-  FOR SELECT USING (true);
+-- Allow authenticated users to read odds snapshots (public data for betting analysis)
+CREATE POLICY "Enable read access for authenticated users" ON public.odds_snapshots
+  FOR SELECT USING (auth.role() = 'authenticated' OR auth.role() = 'service_role');
 
 CREATE POLICY "Enable insert for service role only" ON public.odds_snapshots
   FOR INSERT WITH CHECK (auth.role() = 'service_role');

@@ -5,7 +5,6 @@ This helps with line movement tracking by creating historical snapshots.
 
 import os
 import sys
-from datetime import datetime, timedelta
 from dotenv import load_dotenv
 
 # Add backend to path
@@ -22,7 +21,9 @@ def populate_odds_snapshots():
     """
     print("🔄 Populating odds_snapshots table from odds...")
     
-    supabase = create_isolated_supabase_client()
+    supabase_url = os.getenv("SUPABASE_URL")
+    supabase_service_key = os.getenv("SUPABASE_SERVICE_ROLE_KEY")
+    supabase = create_isolated_supabase_client(supabase_url, supabase_service_key)
     if not supabase:
         print("❌ Failed to connect to Supabase")
         return False
@@ -72,14 +73,16 @@ def compute_game_results_ats_ou():
     """
     print("🔄 Computing ATS and O/U results for game_results...")
     
-    supabase = create_isolated_supabase_client()
+    supabase_url = os.getenv("SUPABASE_URL")
+    supabase_service_key = os.getenv("SUPABASE_SERVICE_ROLE_KEY")
+    supabase = create_isolated_supabase_client(supabase_url, supabase_service_key)
     if not supabase:
         print("❌ Failed to connect to Supabase")
         return False
     
     try:
-        # Fetch all completed game results
-        response = supabase.table("game_results").select("*").not_.is_("home_score", "null").execute()
+        # Fetch all completed game results (where home_score is not null)
+        response = supabase.table("game_results").select("*").neq("home_score", None).execute()
         games = response.data or []
         
         print(f"📊 Found {len(games)} completed games")

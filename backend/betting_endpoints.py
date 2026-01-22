@@ -9,8 +9,12 @@ This module adds new endpoints for:
 """
 
 from typing import Optional, List, Dict, Any
-from datetime import datetime, timedelta
+from datetime import datetime
 import statistics
+import logging
+import anyio
+
+logger = logging.getLogger(__name__)
 
 
 async def _compute_ats_ou_stats(
@@ -59,7 +63,6 @@ async def _compute_ats_ou_stats(
         
         for game in games:
             home_team = game.get("home_team")
-            away_team = game.get("away_team")
             home_score = game.get("home_score")
             away_score = game.get("away_score")
             
@@ -344,7 +347,7 @@ async def _get_key_players_with_status(
                     minutes = float(mm) + float(ss) / 60.0
                 else:
                     minutes = float(minutes_str)
-            except:
+            except (ValueError, TypeError):
                 continue
             
             if player_name not in by_player:
@@ -402,6 +405,10 @@ def _calculate_ev_and_kelly(
     Returns:
         Dictionary with EV, stake recommendations, and risk level
     """
+    # Validate odds is positive
+    if odds <= 0:
+        raise ValueError("odds must be a positive number")
+    
     # Implied probability from odds
     implied_prob = 1.0 / odds
     

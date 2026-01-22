@@ -1,5 +1,5 @@
 import React from 'react';
-import { TrendingUp, TrendingDown, AlertTriangle, Clock, Target } from 'lucide-react';
+import { AlertTriangle, Clock, Target } from 'lucide-react';
 
 export interface MarketOdds {
   market_type: 'spread' | 'total' | 'h2h';

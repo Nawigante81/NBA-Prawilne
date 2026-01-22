@@ -580,7 +580,6 @@ const TeamDetailContent: React.FC<{ team: Team }> = ({ team }) => {
   const [lineMovement, setLineMovement] = React.useState<any[]>([]);
   const [keyPlayers, setKeyPlayers] = React.useState<any[]>([]);
   const [loading, setLoading] = React.useState(true);
-  const apiHook = useApi();
 
   const numOrNull = (value: unknown): number | null => {
     if (typeof value !== 'number') return null;
@@ -639,14 +638,47 @@ const TeamDetailContent: React.FC<{ team: Team }> = ({ team }) => {
     fetchTeamData();
   }, [team.abbreviation]);
 
-  const handleRefresh = () => {
+  const handleRefresh = async () => {
     setLoading(true);
-    // Trigger re-fetch
     setBettingStats(null);
     setNextGame(null);
     setValuePanelData(null);
     setLineMovement([]);
     setKeyPlayers([]);
+    
+    // Re-fetch data
+    try {
+      const [bettingResponse, nextGameResponse, keyPlayersResponse] = await Promise.all([
+        fetch(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000'}/api/team/${team.abbreviation}/betting-stats/detailed`)
+          .then(r => r.ok ? r.json() : null),
+        fetch(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000'}/api/team/${team.abbreviation}/next-game`)
+          .then(r => r.ok ? r.json() : null),
+        fetch(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000'}/api/team/${team.abbreviation}/key-players`)
+          .then(r => r.ok ? r.json() : null),
+      ]);
+
+      setBettingStats(bettingResponse);
+      setNextGame(nextGameResponse?.next_game);
+      setKeyPlayers(keyPlayersResponse?.players || []);
+
+      if (nextGameResponse?.next_game?.game_id) {
+        const gameId = nextGameResponse.next_game.game_id;
+        
+        const [valueResponse, movementResponse] = await Promise.all([
+          fetch(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000'}/api/team/${team.abbreviation}/value`)
+            .then(r => r.ok ? r.json() : null),
+          fetch(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000'}/api/game/${gameId}/odds/movement`)
+            .then(r => r.ok ? r.json() : null),
+        ]);
+
+        setValuePanelData(valueResponse);
+        setLineMovement(movementResponse?.movements || []);
+      }
+    } catch (error) {
+      console.error('Error refreshing team data:', error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -739,11 +771,7 @@ const TeamDetailContent: React.FC<{ team: Team }> = ({ team }) => {
         loading={loading}
       />
 
-      <div className="text-right">
-        <button className="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded text-white" onClick={() => {}}>
-          {t('common.done')}
-        </button>
-      </div>
+      {/* Done button removed - panel can be closed via backdrop or X button */}
     </div>
   );
 };
