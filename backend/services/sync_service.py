@@ -9,13 +9,14 @@ from apscheduler.triggers.interval import IntervalTrigger
 import pytz
 
 # Import settings
-from backend import settings
+import settings as config
 
 # Import service modules
-from backend.services import stats_service
-from backend.services import odds_service
-from backend.services import betting_stats_service
-from backend.services import clv_service
+from services import stats_service
+from services import odds_service
+from services import betting_stats_service
+from services import clv_service
+from db import clear_expired_cache
 
 # Configure logging
 logger = logging.getLogger(__name__)
@@ -31,41 +32,41 @@ def setup_scheduler() -> AsyncIOScheduler:
     logger.info("Setting up APScheduler...")
     
     # Create scheduler with timezone from settings
-    timezone = pytz.timezone(settings.TIMEZONE)
+    timezone = pytz.timezone(config.TIMEZONE)
     scheduler = AsyncIOScheduler(timezone=timezone)
     
     # Add job: sync_nba_stats every SYNC_NBA_STATS_INTERVAL_HOURS hours
     scheduler.add_job(
         sync_nba_stats,
-        trigger=IntervalTrigger(hours=settings.SYNC_NBA_STATS_INTERVAL_HOURS),
+        trigger=IntervalTrigger(hours=config.SYNC_NBA_STATS_INTERVAL_HOURS),
         id='sync_nba_stats',
         name='Sync NBA Stats',
         replace_existing=True,
         max_instances=1
     )
-    logger.info(f"Added job: sync_nba_stats (every {settings.SYNC_NBA_STATS_INTERVAL_HOURS} hours)")
+    logger.info(f"Added job: sync_nba_stats (every {config.SYNC_NBA_STATS_INTERVAL_HOURS} hours)")
     
     # Add job: sync_odds every SYNC_ODDS_INTERVAL_MINUTES minutes
     scheduler.add_job(
         sync_odds,
-        trigger=IntervalTrigger(minutes=settings.SYNC_ODDS_INTERVAL_MINUTES),
+        trigger=IntervalTrigger(minutes=config.SYNC_ODDS_INTERVAL_MINUTES),
         id='sync_odds',
         name='Sync Odds',
         replace_existing=True,
         max_instances=1
     )
-    logger.info(f"Added job: sync_odds (every {settings.SYNC_ODDS_INTERVAL_MINUTES} minutes)")
+    logger.info(f"Added job: sync_odds (every {config.SYNC_ODDS_INTERVAL_MINUTES} minutes)")
     
     # Add job: compute_results every COMPUTE_RESULTS_INTERVAL_HOURS hours
     scheduler.add_job(
         compute_results,
-        trigger=IntervalTrigger(hours=settings.COMPUTE_RESULTS_INTERVAL_HOURS),
+        trigger=IntervalTrigger(hours=config.COMPUTE_RESULTS_INTERVAL_HOURS),
         id='compute_results',
         name='Compute Results',
         replace_existing=True,
         max_instances=1
     )
-    logger.info(f"Added job: compute_results (every {settings.COMPUTE_RESULTS_INTERVAL_HOURS} hours)")
+    logger.info(f"Added job: compute_results (every {config.COMPUTE_RESULTS_INTERVAL_HOURS} hours)")
     
     # Add job: compute_closing_lines_job every 1 hour
     scheduler.add_job(

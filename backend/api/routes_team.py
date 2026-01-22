@@ -5,8 +5,8 @@ from fastapi import APIRouter, HTTPException, Query
 from datetime import datetime
 from typing import List, Optional
 
-from backend.models import TeamBettingStats, TeamNextGame, KeyPlayer, PlayerStatus
-from backend.services.betting_stats_service import get_team_ats_stats, get_team_ou_stats
+from models import TeamBettingStats, TeamNextGame, KeyPlayer, PlayerStatus
+from services.betting_stats_service import get_team_ats_stats, get_team_ou_stats
 from backend.supabase_client import create_isolated_supabase_client, get_supabase_config
 
 router = APIRouter()

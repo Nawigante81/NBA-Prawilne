@@ -4,7 +4,7 @@ Performance metrics endpoints
 from fastapi import APIRouter, HTTPException
 from typing import Optional
 
-from backend.models import PerformanceMetrics
+from models import PerformanceMetrics
 from backend.supabase_client import create_isolated_supabase_client, get_supabase_config
 
 router = APIRouter()

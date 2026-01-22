@@ -14,8 +14,8 @@ from nba_api.stats.endpoints import (
 )
 from nba_api.stats.static import teams as nba_teams
 
-from backend.settings import NBA_API_CACHE_TTL_SECONDS, NBA_STATS_WINDOW
-from backend.db import fetch_all, execute_query, get_cache, set_cache, fetch_one
+import settings import NBA_API_CACHE_TTL_SECONDS, NBA_STATS_WINDOW
+from db import fetch_all, execute_query, get_cache, set_cache, fetch_one
 
 logger = logging.getLogger(__name__)
 

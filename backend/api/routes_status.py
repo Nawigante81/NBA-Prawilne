@@ -5,7 +5,7 @@ from fastapi import APIRouter, HTTPException
 from datetime import datetime
 from typing import Optional
 
-from backend.models import SystemStatus
+from models import SystemStatus
 from backend.supabase_client import create_isolated_supabase_client, get_supabase_config
 
 router = APIRouter()

@@ -9,10 +9,10 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from backend.settings import settings
-from backend.db import init_db_pool, close_db_pool
-from backend.services.sync_service import setup_scheduler, shutdown_scheduler
-from backend.api import (
+import settings
+from db import init_db_pool, close_db_pool
+from services.sync_service import setup_scheduler, shutdown_scheduler
+from api import (
     routes_health,
     routes_status,
     routes_team,
@@ -38,13 +38,14 @@ async def lifespan(app: FastAPI):
     # Startup
     logger.info("Starting up NBA Betting Analytics API...")
     
+    scheduler = None
     try:
         # Initialize database pool
         await init_db_pool()
         logger.info("Database pool initialized")
         
-        # Setup scheduler
-        await setup_scheduler()
+        # Setup scheduler (non-async function)
+        scheduler = setup_scheduler()
         logger.info("Scheduler initialized")
         
         yield
@@ -54,8 +55,9 @@ async def lifespan(app: FastAPI):
         logger.info("Shutting down NBA Betting Analytics API...")
         
         # Shutdown scheduler
-        await shutdown_scheduler()
-        logger.info("Scheduler shut down")
+        if scheduler:
+            shutdown_scheduler(scheduler)
+            logger.info("Scheduler shut down")
         
         # Close database pool
         await close_db_pool()

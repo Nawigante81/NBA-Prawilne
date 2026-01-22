@@ -6,8 +6,8 @@ import logging
 from typing import Dict, Optional, Any
 from datetime import datetime, timezone
 
-from backend.db import fetch_one, fetch_all, execute_query
-from backend.services.odds_service import get_consensus_line
+from db import fetch_one, fetch_all, execute_query
+from services.odds_service import get_consensus_line
 
 logger = logging.getLogger(__name__)
 

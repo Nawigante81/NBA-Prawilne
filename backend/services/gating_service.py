@@ -6,9 +6,9 @@ import logging
 from typing import Dict, List, Optional, Any
 from datetime import datetime, timedelta
 
-from backend.db import fetch_one, fetch_all
-from backend.models import ValueBet
-from backend.settings import (
+from db import fetch_one, fetch_all
+from models import ValueBet
+import settings import (
     MIN_EV,
     MIN_EDGE_PROB,
     ODDS_STALE_HOURS,

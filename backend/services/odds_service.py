@@ -8,7 +8,7 @@ from typing import Dict, List, Optional, Any
 from datetime import datetime, timedelta, date, timezone
 import statistics
 
-from backend.settings import (
+import settings import (
     ODDS_API_KEY,
     ODDS_MAX_CALLS_PER_DAY,
     ODDS_BOOKMAKERS_ALLOWLIST,
@@ -19,7 +19,7 @@ from backend.settings import (
     CONSENSUS_OUTLIER_MAD_MULTIPLIER,
     CONSENSUS_MIN_OUTLIER_THRESHOLD,
 )
-from backend.db import (
+from db import (
     check_api_budget,
     increment_api_budget,
     execute_query,

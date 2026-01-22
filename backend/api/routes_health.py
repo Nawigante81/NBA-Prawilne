@@ -4,7 +4,7 @@ Health check endpoint
 from fastapi import APIRouter
 from datetime import datetime
 
-from backend.models import HealthCheck
+from models import HealthCheck
 
 router = APIRouter()
 

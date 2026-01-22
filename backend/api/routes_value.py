@@ -4,9 +4,9 @@ Value board endpoint
 from fastapi import APIRouter, HTTPException
 from datetime import date
 
-from backend.models import ValueBoard
-from backend.services.value_service import get_value_board_today
-from backend.services.gating_service import apply_gates_to_value_board
+from models import ValueBoard
+from services.value_service import get_value_board_today
+from services.gating_service import apply_gates_to_value_board
 
 router = APIRouter()
 

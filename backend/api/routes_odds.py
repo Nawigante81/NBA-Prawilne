@@ -5,9 +5,9 @@ from fastapi import APIRouter, HTTPException, Query
 from datetime import datetime
 from typing import List, Optional
 
-from backend.models import GameOdds, OddsMovement, CLVData, ConsensusLine, MarketType
-from backend.services.odds_service import get_current_odds, get_odds_movement, get_consensus_line
-from backend.services.clv_service import get_closing_line
+from models import GameOdds, OddsMovement, CLVData, ConsensusLine, MarketType
+from services.odds_service import get_current_odds, get_odds_movement, get_consensus_line
+from services.clv_service import get_closing_line
 
 router = APIRouter()
 
