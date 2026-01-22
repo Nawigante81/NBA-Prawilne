@@ -48,11 +48,12 @@ async def fetch_odds_from_api() -> Dict[str, Any]:
             "data": None
         }
     
-    # Calculate date range: today + tomorrow only
-    today = date.today()
-    tomorrow = today + timedelta(days=1)
-    commence_time_from = today.isoformat() + "T00:00:00Z"
-    commence_time_to = tomorrow.isoformat() + "T23:59:59Z"
+    # Calculate date range: today + tomorrow only (in UTC)
+    now_utc = datetime.now(timezone.utc)
+    today_utc = now_utc.date()
+    tomorrow_utc = today_utc + timedelta(days=1)
+    commence_time_from = today_utc.isoformat() + "T00:00:00Z"
+    commence_time_to = tomorrow_utc.isoformat() + "T23:59:59Z"
     
     # Build API request
     url = f"https://api.the-odds-api.com/v4/sports/{ODDS_SPORT_KEY}/odds"
@@ -308,15 +309,18 @@ async def get_consensus_line(
         }
     
     # Calculate median
+    # For spread/totals markets, we analyze points; for h2h, we analyze prices
     if points:
         median_point = statistics.median(points)
         metric_values = points  # Use points for spread/totals
+        use_points_metric = True
     else:
         median_point = None
         metric_values = prices  # For h2h market, use prices as the metric
+        use_points_metric = False
     
     median_price = statistics.median(prices)
-    median_metric = median_point if median_point is not None else median_price
+    median_metric = median_point if use_points_metric else median_price
     
     # Remove outliers using MAD
     if len(metric_values) >= 3:
@@ -332,7 +336,8 @@ async def get_consensus_line(
         outliers_removed = []
         
         for i, snapshot in enumerate(snapshots):
-            metric_val = snapshot["point"] if snapshot["point"] is not None else snapshot["price"]
+            # Extract the same metric type we're analyzing (points or prices)
+            metric_val = snapshot["point"] if use_points_metric else snapshot["price"]
             deviation = abs(metric_val - median_metric)
             
             if deviation <= threshold:
