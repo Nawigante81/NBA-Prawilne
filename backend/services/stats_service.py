@@ -4,17 +4,13 @@ Handles fetching and storing NBA statistics from nba_api
 """
 import logging
 import asyncio
-from typing import Dict, List, Optional, Any
+from typing import Dict, List, Optional, Any, Tuple
 from datetime import datetime, timedelta, timezone
-import time
 
 from nba_api.stats.endpoints import (
     leaguegamefinder,
     boxscoretraditionalv2,
     boxscoreadvancedv2,
-    teamgamelog,
-    playergamelog,
-    commonteamroster,
 )
 from nba_api.stats.static import teams as nba_teams
 
@@ -129,7 +125,7 @@ async def sync_nba_teams() -> Dict[str, Any]:
         }
 
 
-def get_conference_division(abbrev: str) -> tuple[str, str]:
+def get_conference_division(abbrev: str) -> Tuple[str, str]:
     """Get conference and division for a team"""
     # Eastern Conference
     atlantic = ["BOS", "BKN", "NYK", "PHI", "TOR"]
