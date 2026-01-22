@@ -20,7 +20,7 @@ from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from apscheduler.triggers.cron import CronTrigger
 
 # Import our API routers
-from backend.api import (
+from api import (
     teams_router,
     games_router,
     odds_router,
@@ -32,15 +32,10 @@ from backend.api import (
 )
 
 # Import our services
-from backend.services.sync_service import (
-    startup_sync,
-    scheduled_sync,
-)
-from backend.services.report_service import generate_and_send_daily_report
-from backend.services.budget_service import get_todays_budget_usage
-from backend.settings import settings
-from backend.providers.nba_stats import nba_stats_provider
-from backend.providers.the_odds_api import the_odds_api_provider
+from services.sync_service import get_sync_service
+from services.report_service import get_report_service
+from services.budget_service import get_budget_service
+from settings import settings
 
 # Configure structured logging
 logging.basicConfig(
@@ -69,20 +64,25 @@ async def lifespan(app: FastAPI):
     logger.info("NBA Analytics Platform - Starting Up")
     logger.info("=" * 80)
     
+    # Initialize services
+    sync_service = get_sync_service()
+    report_service = get_report_service()
+    budget_service = get_budget_service()
+    
     # Initialize scheduler
     scheduler = AsyncIOScheduler(timezone=settings.timezone)
     
     # Schedule startup sync (runs immediately)
     logger.info("Scheduling startup sync...")
     try:
-        await startup_sync()
+        await sync_service.startup_sync()
         logger.info("✓ Startup sync completed successfully")
     except Exception as e:
         logger.error(f"✗ Startup sync failed: {e}", exc_info=True)
     
     # Schedule periodic data sync every 12 hours
     scheduler.add_job(
-        scheduled_sync,
+        sync_service.scheduled_sync,
         trigger='interval',
         hours=12,
         id='periodic_sync',
@@ -94,7 +94,7 @@ async def lifespan(app: FastAPI):
     # Schedule daily reports at specific times (Chicago timezone)
     # 7:50 AM Report
     scheduler.add_job(
-        generate_and_send_daily_report,
+        lambda: report_service.generate_750am_report(),
         trigger=CronTrigger(hour=7, minute=50, timezone=settings.timezone),
         id='report_0750',
         name='Daily Report 7:50 AM',
@@ -104,7 +104,7 @@ async def lifespan(app: FastAPI):
     
     # 8:00 AM Report
     scheduler.add_job(
-        generate_and_send_daily_report,
+        lambda: report_service.generate_800am_report(),
         trigger=CronTrigger(hour=8, minute=0, timezone=settings.timezone),
         id='report_0800',
         name='Daily Report 8:00 AM',
@@ -114,7 +114,7 @@ async def lifespan(app: FastAPI):
     
     # 11:00 AM Report
     scheduler.add_job(
-        generate_and_send_daily_report,
+        lambda: report_service.generate_1100am_report(),
         trigger=CronTrigger(hour=11, minute=0, timezone=settings.timezone),
         id='report_1100',
         name='Daily Report 11:00 AM',
@@ -237,10 +237,10 @@ async def system_status() -> Dict[str, Any]:
                     "next_run": job.next_run_time.isoformat() if job.next_run_time else None
                 })
         
-        # Check provider health
+        # Check provider health (skipped for now - would require DB connection)
         providers_health = {
-            "nba_stats": await nba_stats_provider.health_check(),
-            "the_odds_api": await the_odds_api_provider.health_check(),
+            "nba_stats": {"status": "not_checked"},
+            "the_odds_api": {"status": "not_checked"},
         }
         
         return {
@@ -272,7 +272,8 @@ async def api_budget() -> Dict[str, Any]:
     Returns today's API call budget usage.
     """
     try:
-        budget_data = await get_todays_budget_usage()
+        budget_service = get_budget_service()
+        budget_data = await budget_service.get_budget_summary()
         return budget_data
     except Exception as e:
         logger.error(f"Error getting budget usage: {e}", exc_info=True)
