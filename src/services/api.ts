@@ -164,6 +164,27 @@ export const bettingApi = {
       method: 'POST',
       body: JSON.stringify({bets, total_stake: totalStake}),
     }),
+  
+  // New betting decision endpoints
+  getTeamBettingStatsDetailed: (teamAbbrev: string, window?: number) => {
+    const params = window ? `?window=${window}` : '';
+    return apiRequest<UnknownRecord>(`/api/team/${teamAbbrev}/betting-stats/detailed${params}`);
+  },
+  
+  getTeamNextGame: (teamAbbrev: string) =>
+    apiRequest<UnknownRecord>(`/api/team/${teamAbbrev}/next-game`),
+  
+  getGameCurrentOdds: (gameId: string) =>
+    apiRequest<UnknownRecord>(`/api/game/${gameId}/odds/current`),
+  
+  getGameOddsMovement: (gameId: string) =>
+    apiRequest<UnknownRecord>(`/api/game/${gameId}/odds/movement`),
+  
+  getTeamKeyPlayers: (teamAbbrev: string, limit: number = 5) =>
+    apiRequest<UnknownRecord>(`/api/team/${teamAbbrev}/key-players?limit=${limit}`),
+  
+  getTeamValueBetting: (teamAbbrev: string, bankroll: number = 1000) =>
+    apiRequest<UnknownRecord>(`/api/team/${teamAbbrev}/value?bankroll=${bankroll}`),
 };
 
 // System API
