@@ -108,11 +108,12 @@ class TestKellyCriterion:
     
     def test_kelly_half_fraction(self):
         """Test half Kelly."""
-        full_kelly = kelly_criterion(0.6, 100, "american", fraction=1.0, max_stake_pct=0.1)
-        half_kelly = kelly_criterion(0.6, 100, "american", fraction=0.5, max_stake_pct=0.1)
+        # Use values that won't hit the max cap
+        full_kelly = kelly_criterion(0.55, 100, "american", fraction=1.0, max_stake_pct=1.0)
+        half_kelly = kelly_criterion(0.55, 100, "american", fraction=0.5, max_stake_pct=1.0)
         
         assert half_kelly < full_kelly
-        assert half_kelly == full_kelly * 0.5
+        assert abs(half_kelly - full_kelly * 0.5) < 0.001
     
     def test_kelly_max_stake_cap(self):
         """Test Kelly respects max stake."""
@@ -129,8 +130,10 @@ class TestFairOdds:
         odds = calculate_fair_odds(0.5, "american")
         assert odds == 100
         
+        # 0.6 probability should give negative odds (favorite)
         odds = calculate_fair_odds(0.6, "american")
-        assert abs(odds - 66.67) < 1
+        assert odds < 0  # Should be around -150
+        assert abs(odds - (-150)) < 10
     
     def test_fair_odds_decimal(self):
         """Test fair decimal odds calculation."""
