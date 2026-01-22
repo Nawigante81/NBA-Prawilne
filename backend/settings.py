@@ -46,6 +46,9 @@ class Settings(BaseSettings):
     parlay_max_legs: int = int(os.getenv("PARLAY_MAX_LEGS", "5"))
     parlay_min_combined_implied_prob: float = float(os.getenv("PARLAY_MIN_COMBINED_IMPLIED_PROB", "0.20"))
     
+    # Admin
+    admin_api_key: str = os.getenv("ADMIN_API_KEY", "change-me-in-production")
+    
     # Rate limiting
     nba_api_scoreboard_ttl_hours: int = 1
     nba_api_players_ttl_days: int = 7
