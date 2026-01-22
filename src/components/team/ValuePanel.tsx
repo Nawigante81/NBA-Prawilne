@@ -1,5 +1,5 @@
 import React from 'react';
-import { BadgeCheck, ShieldAlert } from 'lucide-react';
+import { BadgeCheck, ShieldAlert, TrendingUp } from 'lucide-react';
 import type { TeamValueResponse, TeamValueRow } from '../../types';
 
 interface ValuePanelProps {
@@ -24,29 +24,40 @@ const formatSigned = (value?: number | null) => {
   return `${sign}${value.toFixed(2)}`;
 };
 
+const marketLabel = (market: TeamValueRow['market']) => {
+  if (market === 'h2h' || market === 'moneyline') return 'ML';
+  if (market === 'totals' || market === 'total') return 'TOTAL';
+  return 'SPREAD';
+};
+
 const ValueRow: React.FC<{ row: TeamValueRow; minEv: number }> = ({ row, minEv }) => {
   const isValue = (row.ev ?? 0) >= minEv;
+  const lineText = row.line !== null && row.line !== undefined ? ` ${row.line}` : '';
+  const stakePct = row.stake_fraction !== null && row.stake_fraction !== undefined
+    ? `${(row.stake_fraction * 100).toFixed(1)}%`
+    : '—';
   return (
-    <div className="rounded-xl border border-gray-700/60 bg-gray-900/40 p-3">
+    <div className="rounded-xl border border-gray-700/60 bg-gray-900/40 p-3 space-y-3">
       <div className="flex items-start justify-between gap-3">
         <div>
-          <div className="text-sm font-semibold text-white">
-            {row.label}
-            {row.line !== null && row.line !== undefined ? ` ${row.line}` : ''}
-          </div>
-          <div className="text-xs text-gray-400">{row.market.toUpperCase()}</div>
+          <div className="text-sm font-semibold text-white">{row.label}{lineText}</div>
+          <div className="text-[11px] text-gray-400">{marketLabel(row.market)}</div>
         </div>
         <div className={`text-xs px-2 py-1 rounded-full ${isValue ? 'bg-green-500/20 text-green-300' : 'bg-gray-700/50 text-gray-300'}`}>
           {isValue ? 'VALUE' : 'PASS'}
         </div>
       </div>
-      <div className="grid grid-cols-2 gap-2 text-xs mt-3 text-gray-300">
+      <div className="grid grid-cols-2 gap-2 text-xs text-gray-300">
         <div>Odds: <span className="text-white">{row.price ?? '—'}</span></div>
+        <div>EV: <span className="text-white">{formatSigned(row.ev)}</span></div>
         <div>Implied: <span className="text-white">{formatPct(row.implied_prob)}</span></div>
         <div>Model: <span className="text-white">{formatPct(row.model_prob)}</span></div>
         <div>Edge: <span className="text-white">{formatSignedPct(row.edge)}</span></div>
-        <div>EV: <span className="text-white">{formatSigned(row.ev)}</span></div>
-        <div>Stake: <span className="text-white">{formatPct(row.stake_fraction)}</span></div>
+        <div>Stake: <span className="text-white">{stakePct}</span></div>
+      </div>
+      <div className="flex items-center justify-between text-[11px] text-gray-500">
+        <span>Kelly 1/2</span>
+        <span>max 3% bankroll</span>
       </div>
     </div>
   );
@@ -74,7 +85,7 @@ const ValuePanel: React.FC<ValuePanelProps> = ({ data, isLoading }) => {
 
   return (
     <div className="glass-card p-4 space-y-4">
-      <div className="flex items-start justify-between">
+      <div className="flex items-start justify-between gap-3">
         <div>
           <div className="text-sm uppercase tracking-widest text-gray-400">Value Panel</div>
           <div className="text-xs text-gray-500">{data.next_game.home_team} vs {data.next_game.away_team}</div>
@@ -108,6 +119,11 @@ const ValuePanel: React.FC<ValuePanelProps> = ({ data, isLoading }) => {
           </div>
         </div>
       )}
+
+      <div className="flex items-center gap-2 text-xs text-gray-500">
+        <TrendingUp className="w-4 h-4 text-emerald-400" />
+        Decyzja w 15s: EV, Edge, Stake.
+      </div>
     </div>
   );
 };

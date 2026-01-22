@@ -2,161 +2,155 @@
 Closing Line Value (CLV) service for tracking line movements and calculating CLV.
 """
 from datetime import datetime, timedelta
-from typing import Optional, Dict, List
+from typing import Optional, Dict, List, Any
 from db import get_db
 from services.betting_math import calculate_clv_spreads, calculate_clv_totals, calculate_clv_moneyline
+from services.odds_service import get_odds_service, normalize_market_type
+from settings import settings
 import logging
 
 logger = logging.getLogger(__name__)
 
 
+def _parse_ts(value: str | None) -> Optional[datetime]:
+    if not value:
+        return None
+    try:
+        if value.endswith("Z"):
+            value = value[:-1] + "+00:00"
+        return datetime.fromisoformat(value)
+    except Exception:
+        return None
+
+
 class CLVService:
     """Service for managing closing line value calculations and line movement tracking."""
-    
+
     def __init__(self):
         self.db = get_db()
-    
+        self.odds_service = get_odds_service()
+
     async def get_closing_line(
-        self, 
-        game_id: str, 
-        market_type: str, 
-        team: Optional[str] = None
-    ) -> Optional[Dict]:
-        """
-        Get the closing line for a game/market.
-        Closing line = last odds snapshot before game commence_time.
-        
-        Args:
-            game_id: Game ID
-            market_type: "h2h", "spreads", or "totals"
-            team: Team name (for h2h and spreads)
-        
-        Returns:
-            Dictionary with closing line info or None
-        """
-        # Get game commence time
-        game_result = self.db.table("games").select("commence_time").eq("id", game_id).execute()
-        
-        if not game_result.data or len(game_result.data) == 0:
-            logger.warning(f"Game {game_id} not found")
-            return None
-        
-        commence_time = datetime.fromisoformat(game_result.data[0]["commence_time"].replace("Z", "+00:00"))
-        
-        # Query odds snapshots before commence time
-        query = self.db.table("odds_snapshots").select("*").eq("game_id", game_id).eq("market_type", market_type).lt("snapshot_time", commence_time.isoformat())
-        
-        if team:
+        self,
+        game_id: str,
+        market_type: str,
+        team: Optional[str] = None,
+    ) -> Optional[Dict[str, Any]]:
+        """Get stored closing line, compute if missing."""
+        normalized = normalize_market_type(market_type)
+        query = self.db.table("closing_lines").select("*").eq("game_id", game_id).eq("market_type", normalized)
+        if team is not None:
             query = query.eq("team", team)
-        
-        query = query.order("snapshot_time", desc=True).limit(1)
-        
         result = query.execute()
-        
-        if not result.data or len(result.data) == 0:
-            logger.warning(f"No closing line found for game {game_id}, market {market_type}, team {team}")
+        if result.data:
+            return result.data[0]
+
+        game_result = self.db.table("games").select("id,commence_time,home_team,away_team").eq("id", game_id).execute()
+        if not game_result.data:
             return None
-        
-        return result.data[0]
-    
+        game = game_result.data[0]
+        commence_time = game.get("commence_time")
+        if not commence_time:
+            return None
+
+        cutoff_dt = _parse_ts(commence_time)
+        consensus = self.odds_service.consensus_for_game(game, cutoff_dt)
+        self.odds_service.upsert_closing_lines(game, consensus)
+
+        # Retry after insert
+        result = query.execute()
+        if result.data:
+            return result.data[0]
+        return None
+
+    async def get_clv_for_game(self, game_id: str) -> Dict[str, Any]:
+        """Return CLV comparison of current consensus vs closing line."""
+        game_result = self.db.table("games").select("id,commence_time,home_team,away_team").eq("id", game_id).execute()
+        if not game_result.data:
+            return {"game_id": game_id, "error": "Game not found"}
+        game = game_result.data[0]
+        cutoff_dt = _parse_ts(game.get("commence_time"))
+        current = self.odds_service.consensus_for_game(game, None)
+        closing = self.odds_service.consensus_for_game(game, cutoff_dt) if cutoff_dt else None
+
+        def _clv_spread(team: str, current_line: Dict[str, Any], closing_line: Dict[str, Any]) -> Optional[float]:
+            if not current_line or not closing_line:
+                return None
+            if current_line.get("point") is None or closing_line.get("point") is None:
+                return None
+            is_favorite = (current_line.get("point") or 0) < 0
+            return calculate_clv_spreads(float(current_line["point"]), float(closing_line["point"]), is_favorite)
+
+        def _clv_total(current_line: Dict[str, Any], closing_line: Dict[str, Any], is_over: bool) -> Optional[float]:
+            if not current_line or not closing_line:
+                return None
+            if current_line.get("point") is None or closing_line.get("point") is None:
+                return None
+            return calculate_clv_totals(float(current_line["point"]), float(closing_line["point"]), is_over)
+
+        def _clv_h2h(current_line: Dict[str, Any], closing_line: Dict[str, Any]) -> Optional[float]:
+            if not current_line or not closing_line:
+                return None
+            if current_line.get("price") is None or closing_line.get("price") is None:
+                return None
+            clv_prob, _ = calculate_clv_moneyline(float(current_line["price"]), float(closing_line["price"]), "american")
+            return clv_prob
+
+        return {
+            "game_id": game_id,
+            "current": current,
+            "closing": closing,
+            "clv": {
+                "spreads": {
+                    "home": _clv_spread(game.get("home_team"), (current.get("spreads") or {}).get("home"), (closing.get("spreads") or {}).get("home")) if closing else None,
+                    "away": _clv_spread(game.get("away_team"), (current.get("spreads") or {}).get("away"), (closing.get("spreads") or {}).get("away")) if closing else None,
+                },
+                "totals": {
+                    "over": _clv_total(current.get("totals"), closing.get("totals"), True) if closing else None,
+                    "under": _clv_total(current.get("totals"), closing.get("totals"), False) if closing else None,
+                },
+                "h2h": {
+                    "home": _clv_h2h((current.get("h2h") or {}).get("home"), (closing.get("h2h") or {}).get("home")) if closing else None,
+                    "away": _clv_h2h((current.get("h2h") or {}).get("away"), (closing.get("h2h") or {}).get("away")) if closing else None,
+                },
+            },
+        }
+
     async def calculate_clv_for_pick(self, pick_id: str) -> Optional[float]:
-        """
-        Calculate CLV for a settled pick.
-        
-        Args:
-            pick_id: Pick ID
-        
-        Returns:
-            CLV value or None
-        """
-        # Get pick details
+        """Calculate CLV for a pick based on closing line."""
         pick_result = self.db.table("picks").select("*").eq("id", pick_id).execute()
-        
-        if not pick_result.data or len(pick_result.data) == 0:
-            logger.warning(f"Pick {pick_id} not found")
+        if not pick_result.data:
             return None
-        
         pick = pick_result.data[0]
-        
-        game_id = pick["game_id"]
-        market_type = pick["market_type"]
-        selection = pick["selection"]
-        bet_odds = pick["odds"]
+        market_type = pick.get("market_type")
+        selection = pick.get("selection")
+        bet_odds = pick.get("odds")
         bet_point = pick.get("point")
-        
-        # Get closing line
-        closing = await self.get_closing_line(game_id, market_type, selection)
-        
+
+        closing = await self.get_closing_line(pick.get("game_id"), market_type, selection)
         if not closing:
             return None
-        
         closing_odds = closing.get("price")
         closing_point = closing.get("point")
-        
-        # Calculate CLV based on market type
-        if market_type == "h2h":
-            clv_prob, clv_price = calculate_clv_moneyline(bet_odds, closing_odds, "american")
-            return clv_prob  # Use probability delta
-        
-        elif market_type == "spreads":
-            if bet_point is None or closing_point is None:
+
+        normalized = normalize_market_type(market_type)
+        if normalized == "h2h":
+            if closing_odds is None or bet_odds is None:
                 return None
-            is_favorite = bet_point < 0
-            return calculate_clv_spreads(bet_point, closing_point, is_favorite)
-        
-        elif market_type == "totals":
-            if bet_point is None or closing_point is None:
+            clv_prob, _ = calculate_clv_moneyline(float(bet_odds), float(closing_odds), "american")
+            return clv_prob
+        if normalized == "spreads":
+            if closing_point is None or bet_point is None:
                 return None
-            is_over = "over" in selection.lower()
-            return calculate_clv_totals(bet_point, closing_point, is_over)
-        
+            is_favorite = float(bet_point) < 0
+            return calculate_clv_spreads(float(bet_point), float(closing_point), is_favorite)
+        if normalized == "totals":
+            if closing_point is None or bet_point is None:
+                return None
+            is_over = "over" in str(selection).lower()
+            return calculate_clv_totals(float(bet_point), float(closing_point), is_over)
         return None
-    
-    async def get_line_movement(
-        self, 
-        game_id: str, 
-        market_type: str, 
-        team: Optional[str] = None,
-        bookmaker: Optional[str] = None
-    ) -> List[Dict]:
-        """
-        Get line movement timeline for a game/market.
-        
-        Args:
-            game_id: Game ID
-            market_type: "h2h", "spreads", or "totals"
-            team: Team name (optional)
-            bookmaker: Bookmaker key (optional)
-        
-        Returns:
-            List of snapshots ordered by time: [{"ts": ..., "line": ..., "price": ...}, ...]
-        """
-        query = self.db.table("odds_snapshots").select("snapshot_time, point, price, bookmaker_key").eq("game_id", game_id).eq("market_type", market_type)
-        
-        if team:
-            query = query.eq("team", team)
-        
-        if bookmaker:
-            query = query.eq("bookmaker_key", bookmaker)
-        
-        query = query.order("snapshot_time", desc=False)
-        
-        result = query.execute()
-        
-        if not result.data:
-            return []
-        
-        timeline = []
-        for snapshot in result.data:
-            timeline.append({
-                "ts": snapshot["snapshot_time"],
-                "line": snapshot.get("point"),
-                "price": snapshot.get("price"),
-                "bookmaker": snapshot.get("bookmaker_key")
-            })
-        
-        return timeline
-    
+
     async def store_odds_snapshot(
         self,
         game_id: str,
@@ -168,88 +162,50 @@ class CLVService:
         point: Optional[float],
         price: Optional[float],
         snapshot_time: datetime,
-        content_hash: Optional[str] = None
+        content_hash: Optional[str] = None,
     ) -> bool:
-        """
-        Store an odds snapshot with deduplication.
-        
-        Returns:
-            True if stored, False if duplicate
-        """
-        # Check if duplicate exists (same content_hash within last 6 hours)
-        if content_hash:
-            six_hours_ago = snapshot_time - timedelta(hours=6)
-            existing = self.db.table("odds_snapshots").select("id").eq("game_id", game_id).eq("market_type", market_type).eq("content_hash", content_hash).gte("snapshot_time", six_hours_ago.isoformat()).execute()
-            
-            if existing.data and len(existing.data) > 0:
-                logger.debug(f"Duplicate snapshot detected, skipping")
-                return False
-        
-        # Insert new snapshot
+        """Store snapshot with dedupe (change or every 6h)."""
+        dedupe_hours = int(getattr(settings, "odds_snapshot_dedupe_hours", 6))
+        six_hours_ago = snapshot_time - timedelta(hours=dedupe_hours)
+
+        normalized = normalize_market_type(market_type)
+        query = self.db.table("odds_snapshots").select("id,content_hash,point,price,ts").eq(
+            "game_id", game_id
+        ).eq("market_type", normalized).eq("bookmaker_key", bookmaker_key)
+
+        if outcome_name:
+            query = query.eq("outcome_name", outcome_name)
+        if team:
+            query = query.eq("team", team)
+
+        query = query.order("ts", desc=True).limit(1)
+        existing = query.execute()
+
+        if existing.data:
+            last = existing.data[0]
+            last_ts = _parse_ts(last.get("ts"))
+            if last_ts and last_ts >= six_hours_ago:
+                if content_hash and last.get("content_hash") == content_hash:
+                    return False
+                if content_hash is None and last.get("point") == point and last.get("price") == price:
+                    return False
+
         self.db.table("odds_snapshots").insert({
             "game_id": game_id,
             "bookmaker_key": bookmaker_key,
             "bookmaker_title": bookmaker_title,
-            "market_type": market_type,
+            "market_type": normalized,
             "outcome_name": outcome_name,
             "team": team,
             "point": point,
             "price": price,
-            "snapshot_time": snapshot_time.isoformat(),
-            "content_hash": content_hash
+            "ts": snapshot_time.isoformat(),
+            "content_hash": content_hash,
         }).execute()
-        
-        logger.info(f"Stored odds snapshot for {game_id} {market_type}")
+
         return True
-    
-    async def get_clv_summary(self, start_date: Optional[datetime] = None) -> Dict:
-        """
-        Get summary of CLV performance.
-        
-        Args:
-            start_date: Start date for summary (default: 30 days ago)
-        
-        Returns:
-            Dictionary with CLV statistics
-        """
-        if start_date is None:
-            start_date = datetime.utcnow() - timedelta(days=30)
-        
-        # Query pick results with CLV
-        result = self.db.table("pick_results").select("clv, status").gte("settled_at", start_date.isoformat()).execute()
-        
-        if not result.data:
-            return {
-                "total_picks": 0,
-                "avg_clv": 0,
-                "positive_clv_count": 0,
-                "negative_clv_count": 0
-            }
-        
-        clv_values = [r.get("clv", 0) for r in result.data if r.get("clv") is not None]
-        
-        if not clv_values:
-            return {
-                "total_picks": len(result.data),
-                "avg_clv": 0,
-                "positive_clv_count": 0,
-                "negative_clv_count": 0
-            }
-        
-        avg_clv = sum(clv_values) / len(clv_values)
-        positive_count = sum(1 for v in clv_values if v > 0)
-        negative_count = sum(1 for v in clv_values if v < 0)
-        
-        return {
-            "total_picks": len(result.data),
-            "avg_clv": avg_clv,
-            "positive_clv_count": positive_count,
-            "negative_clv_count": negative_count,
-            "positive_clv_rate": positive_count / len(clv_values) if clv_values else 0
-        }
 
 
-# Global instance
 _clv_service: Optional[CLVService] = None
 
 

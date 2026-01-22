@@ -10,9 +10,23 @@ interface KeyPlayersPanelProps {
 const statusStyles: Record<string, string> = {
   OUT: 'bg-red-500/20 text-red-300',
   Q: 'bg-yellow-500/20 text-yellow-300',
+  PROBABLE: 'bg-green-500/20 text-green-300',
+  ACTIVE: 'bg-blue-500/20 text-blue-300',
+  UNKNOWN: 'bg-gray-600/30 text-gray-300',
+  DNP_FLAG: 'bg-orange-500/20 text-orange-300',
   Probable: 'bg-green-500/20 text-green-300',
   Active: 'bg-blue-500/20 text-blue-300',
   Unknown: 'bg-gray-600/30 text-gray-300',
+};
+
+const normalizeStatus = (status?: string) => {
+  const value = (status || 'UNKNOWN').toUpperCase();
+  if (value === 'DNP_FLAG') return 'DNP_FLAG';
+  if (value === 'ACTIVE') return 'ACTIVE';
+  if (value === 'PROBABLE') return 'PROBABLE';
+  if (value === 'OUT') return 'OUT';
+  if (value === 'Q') return 'Q';
+  return 'UNKNOWN';
 };
 
 const trendIcon = (trend?: KeyPlayerInfo['minutes_trend']) => {
@@ -52,8 +66,8 @@ const KeyPlayersPanel: React.FC<KeyPlayersPanelProps> = ({ players, isLoading })
                   avg {player.minutes_last5_avg?.toFixed(1) ?? '—'} min (L5)
                 </div>
               </div>
-              <span className={`text-xs px-2 py-1 rounded-full ${statusStyles[player.status] || statusStyles.Unknown}`}>
-                {player.status}
+              <span className={`text-xs px-2 py-1 rounded-full ${statusStyles[normalizeStatus(player.status)] || statusStyles.Unknown}`}>
+                {normalizeStatus(player.status)}
               </span>
             </div>
             <div className="mt-3 flex items-center justify-between text-xs text-gray-400">

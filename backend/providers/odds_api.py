@@ -11,6 +11,7 @@ from providers.base import BaseProvider
 from models import Game, OddsSnapshot
 from services.budget_service import get_budget_service
 from services.clv_service import get_clv_service
+from services.odds_service import normalize_market_type
 from settings import settings
 import logging
 
@@ -45,6 +46,19 @@ class OddsAPIProvider(BaseProvider):
         """Make HTTP request to Odds API with retry logic."""
         url = f"{self.BASE_URL}/{endpoint}"
         params["apiKey"] = self.api_key
+
+        # Cache lookup
+        params_hash = hashlib.md5(json.dumps(params, sort_keys=True).encode()).hexdigest()
+        cache = self.db.table("api_cache").select("response_data,expires_at").eq(
+            "provider", "odds_api"
+        ).eq("endpoint", endpoint).eq("params_hash", params_hash).execute()
+        if cache.data:
+            cached = cache.data[0]
+            expires_at = cached.get("expires_at")
+            if expires_at:
+                expires_dt = datetime.fromisoformat(str(expires_at).replace("Z", "+00:00"))
+                if expires_dt > datetime.utcnow():
+                    return cached.get("response_data") or {}
         
         max_retries = 3
         for attempt in range(max_retries):
@@ -55,7 +69,20 @@ class OddsAPIProvider(BaseProvider):
                     if response.status_code == 200:
                         # Increment budget
                         await self.budget_service.increment_calls("odds_api", 1)
-                        return response.json()
+                        payload = response.json()
+                        # Save cache (6h)
+                        ttl_seconds = 6 * 3600
+                        expires_at = datetime.utcnow() + timedelta(seconds=ttl_seconds)
+                        self.db.table("api_cache").upsert({
+                            "provider": "odds_api",
+                            "endpoint": endpoint,
+                            "params_hash": params_hash,
+                            "response_data": payload,
+                            "ttl_seconds": ttl_seconds,
+                            "cached_at": datetime.utcnow().isoformat(),
+                            "expires_at": expires_at.isoformat(),
+                        }, on_conflict="provider,endpoint,params_hash").execute()
+                        return payload
                     
                     elif response.status_code == 429:
                         # Rate limit hit
@@ -104,10 +131,11 @@ class OddsAPIProvider(BaseProvider):
         commence_time_from = datetime.utcnow().isoformat()
         commence_time_to = (datetime.utcnow() + timedelta(days=window_days)).isoformat()
         
+        allowlist = settings.odds_bookmakers_allowlist[:3]
         params = {
             "regions": "us",
             "markets": ",".join(["h2h", "spreads", "totals"]),
-            "bookmakers": ",".join(settings.odds_bookmakers_allowlist),
+            "bookmakers": ",".join(allowlist),
             "commenceTimeFrom": commence_time_from,
             "commenceTimeTo": commence_time_to,
             "oddsFormat": "american"
@@ -155,19 +183,20 @@ class OddsAPIProvider(BaseProvider):
                 bookmaker_title = bookmaker["title"]
                 
                 for market in bookmaker.get("markets", []):
-                    market_type = market["key"]
+                    market_type = normalize_market_type(market.get("key"))
                     
                     for outcome in market.get("outcomes", []):
+                        team_name = outcome.get("name") if market_type in ["h2h", "spreads"] else None
                         snapshot = OddsSnapshot(
                             game_id=game.id,
                             bookmaker_key=bookmaker_key,
                             bookmaker_title=bookmaker_title,
                             market_type=market_type,
-                            outcome_name=outcome["name"],
-                            team=outcome.get("name"),  # Team name for h2h/spreads, "Over"/"Under" for totals
+                            outcome_name=outcome.get("name"),
+                            team=team_name,
                             point=outcome.get("point"),
                             price=outcome.get("price"),
-                            snapshot_time=snapshot_time
+                            ts=snapshot_time
                         )
                         
                         # Generate content hash for deduplication
@@ -209,7 +238,7 @@ class OddsAPIProvider(BaseProvider):
                         team=snapshot.team,
                         point=snapshot.point,
                         price=snapshot.price,
-                        snapshot_time=snapshot.snapshot_time,
+                        snapshot_time=snapshot.ts,
                         content_hash=snapshot.content_hash
                     )
                     if stored:

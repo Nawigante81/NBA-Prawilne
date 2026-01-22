@@ -628,7 +628,7 @@ const AllTeams: React.FC<AllTeamsProps> = ({ onTeamSelect, preselectTeamAbbrev }
       {selectedTeam && (
         <div className="fixed inset-0 z-50 flex justify-end">
           <div className="absolute inset-0 bg-black/50" onClick={() => setSelectedTeam(null)}></div>
-          <div className="relative w-full max-w-xl h-full bg-gray-900 border-l border-gray-700/50 overflow-auto">
+          <div className="relative w-full max-w-full md:max-w-xl h-full bg-gray-900 border-l border-gray-700/50 overflow-auto">
             <div className="p-6 border-b border-gray-700/50 flex items-center justify-between">
               <div className="flex items-center space-x-3">
                 <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded flex items-center justify-center text-white font-bold">
@@ -641,8 +641,8 @@ const AllTeams: React.FC<AllTeamsProps> = ({ onTeamSelect, preselectTeamAbbrev }
               </div>
               <button className="px-3 py-1 glass-card hover:bg-white/10 rounded text-sm" onClick={() => setSelectedTeam(null)}>{t('common.close')}</button>
             </div>
-            <div className="p-6 space-y-6">
-              <div className="grid grid-cols-2 gap-4">
+            <div className="p-5 sm:p-6 space-y-5">
+              <div className="grid grid-cols-2 gap-3">
                 <div className="glass-card p-4 text-center">
                   <div className="text-2xl font-bold text-white">
                     {selectedTeam.season_stats ? `${selectedTeam.season_stats.wins}-${selectedTeam.season_stats.losses}` : t('common.noData')}

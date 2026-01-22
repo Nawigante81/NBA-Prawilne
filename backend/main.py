@@ -24,6 +24,12 @@ from apscheduler.triggers.cron import CronTrigger
 from apscheduler.triggers.interval import IntervalTrigger
 import pytz
 
+from api.routes_value_board import router as value_board_router
+from api.routes_picks import router as picks_router
+from api.routes_performance import router as performance_router
+from api.routes_reports import router as reports_router
+from api.routes_uploads_stub import router as uploads_router
+
 # Temporarily use mock implementations to avoid httpx_socks conflicts with supabase
 # These will be loaded dynamically when needed
 def scrape_all_data(*args, **kwargs):
@@ -889,7 +895,7 @@ async def _load_closing_lines(
         lambda: supabase.table("odds")
         .select("last_update,market_type,team,outcome_name,point")
         .eq("game_id", game_id)
-        .in_("market_type", ["spread", "totals"])
+        .in_("market_type", ["spreads", "spread", "totals", "total"])
         .execute()
     )
     rows = odds_resp.data or []
@@ -913,7 +919,7 @@ async def _load_closing_lines(
     closing_rows = [r for r in rows if r.get("last_update") == latest_str]
     spread_by_team: dict[str, list[float]] = {}
     for r in closing_rows:
-        if r.get("market_type") != "spread":
+        if r.get("market_type") not in ["spreads", "spread"]:
             continue
         team = (r.get("team") or "").strip()
         if not team:
@@ -961,7 +967,7 @@ async def _load_closing_lines_from_snapshots(
             lambda: supabase.table("odds_snapshots")
             .select("ts,market_type,team,outcome_name,point")
             .eq("game_id", game_id)
-            .in_("market_type", ["spread", "totals"])
+            .in_("market_type", ["spreads", "spread", "totals", "total"])
             .execute()
         )
     except Exception as e:
@@ -990,7 +996,7 @@ async def _load_closing_lines_from_snapshots(
     closing_rows = [r for r in rows if r.get("ts") == latest_ts]
     spread_by_team: dict[str, list[float]] = {}
     for r in closing_rows:
-        if r.get("market_type") != "spread":
+        if r.get("market_type") not in ["spreads", "spread"]:
             continue
         team = (r.get("team") or "").strip()
         if not team:
@@ -1455,6 +1461,13 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# API routers (avoid conflicts with in-file endpoints)
+app.include_router(value_board_router)
+app.include_router(picks_router)
+app.include_router(performance_router)
+app.include_router(reports_router)
+app.include_router(uploads_router)
 
 
 @app.get("/health")
@@ -2135,66 +2148,14 @@ async def get_team_betting_stats(team_abbrev: str, refresh: bool = False):
 async def get_team_betting_stats_detail(team_abbrev: str, window: int = 20):
     """Get ATS/OU betting stats for a team (last N games + season)."""
     try:
-        supabase = app.state.supabase
-        if not supabase:
-            raise HTTPException(status_code=503, detail="Database not available")
-
         window = max(5, min(40, int(window)))
-        season_games = int(os.getenv("BETTING_SEASON_GAMES", "82"))
+        from services.betting_stats_service import get_betting_stats_service
 
-        team_resp = await anyio.to_thread.run_sync(
-            lambda: supabase.table("teams")
-            .select("full_name,abbreviation")
-            .eq("abbreviation", team_abbrev.upper())
-            .single()
-            .execute()
-        )
-        team = team_resp.data
-        if not team:
-            raise HTTPException(status_code=404, detail=f"Team '{team_abbrev}' not found")
-
-        team_name = team.get("full_name") or ""
-        try:
-            results_resp = await anyio.to_thread.run_sync(
-                lambda: supabase.table("game_results")
-                .select("*")
-                .or_(f"home_team.eq.{team_name},away_team.eq.{team_name}")
-                .order("game_date", desc=True)
-                .limit(max(window, season_games))
-                .execute()
-            )
-            results = results_resp.data or []
-        except Exception as e:
-            if "game_results" in str(e):
-                return {
-                    "team": team.get("abbreviation"),
-                    "team_name": team_name,
-                    "window": window,
-                    "last_window": None,
-                    "season": None,
-                    "has_data": False,
-                    "missing_reason": "Brak danych - uruchom synchronizację",
-                    "computed_at": datetime.now().isoformat(),
-                }
-            raise
-
-        last_window = results[:window]
-        season_slice = results[:season_games]
-
-        last_stats = await _compute_betting_window_stats(supabase, team_name, last_window)
-        season_stats = await _compute_betting_window_stats(supabase, team_name, season_slice)
-
-        has_data = bool(last_stats or season_stats)
-        return {
-            "team": team.get("abbreviation"),
-            "team_name": team_name,
-            "window": window,
-            "last_window": last_stats,
-            "season": season_stats,
-            "has_data": has_data,
-            "missing_reason": None if has_data else "Brak danych - uruchom synchronizację",
-            "computed_at": datetime.now().isoformat(),
-        }
+        service = get_betting_stats_service()
+        result = service.compute_team_betting_stats(team_abbrev, window=window)
+        if not result.get("has_data"):
+            result["missing_reason"] = "Brak danych - uruchom synchronizację"
+        return result
     except HTTPException:
         raise
     except Exception as e:
@@ -2263,67 +2224,95 @@ async def get_team_next_game(team_abbrev: str):
 async def get_game_odds_current(game_id: str):
     """Return latest odds for a game (spread, totals, h2h) from allowlisted books."""
     try:
+        from services.odds_service import get_odds_service
+
         supabase = app.state.supabase
         if not supabase:
             raise HTTPException(status_code=503, detail="Database not available")
 
-        allowlist = set(_allowlisted_bookmakers())
-        odds_resp = await anyio.to_thread.run_sync(
-            lambda: supabase.table("odds")
-            .select("bookmaker_key,bookmaker_title,market_type,team,outcome_name,point,price,last_update")
-            .eq("game_id", game_id)
-            .in_("market_type", ["h2h", "spread", "totals"])
+        game_resp = await anyio.to_thread.run_sync(
+            lambda: supabase.table("games")
+            .select("id,home_team,away_team,commence_time")
+            .eq("id", game_id)
+            .single()
             .execute()
         )
-        rows = odds_resp.data or []
-        if allowlist:
-            rows = [r for r in rows if (r.get("bookmaker_key") or "") in allowlist]
+        game = game_resp.data
+        if not game:
+            raise HTTPException(status_code=404, detail="Game not found")
 
-        latest_ts = None
-        for r in rows:
-            ts = _parse_iso_datetime(r.get("last_update"))
-            if ts and (latest_ts is None or ts > latest_ts):
-                latest_ts = ts
+        odds_service = get_odds_service()
+        consensus = odds_service.consensus_for_game(game, None)
 
-        markets = {"h2h": [], "spread": [], "totals": []}
-        for market in ["h2h", "spread", "totals"]:
-            market_rows = [r for r in rows if r.get("market_type") == market]
-            key_field = "team" if market != "totals" else "outcome_name"
-            by_outcome: dict[str, list[dict]] = {}
-            for r in market_rows:
-                key = (r.get(key_field) or "").strip()
-                if not key:
-                    continue
-                by_outcome.setdefault(key, []).append(r)
-
-            for outcome, outcome_rows in by_outcome.items():
-                target_point = _select_consensus_point(outcome_rows) if market != "h2h" else None
-                best_row = _pick_best_row(outcome_rows, target_point)
-                if not best_row:
-                    continue
-                price = _safe_float(best_row.get("price"))
-                dec = _decimal_from_odds(price)
-                markets[market].append(
+        markets = {"h2h": [], "spreads": [], "totals": []}
+        h2h = consensus.get("h2h") or {}
+        for key in ["home", "away"]:
+            entry = h2h.get(key)
+            if entry and entry.get("price") is not None:
+                markets["h2h"].append(
                     {
-                        "outcome": outcome,
-                        "point": best_row.get("point"),
-                        "price": price,
-                        "decimal_price": dec,
-                        "implied_prob": _implied_prob_from_odds(price),
-                        "bookmaker_key": best_row.get("bookmaker_key"),
-                        "bookmaker_title": best_row.get("bookmaker_title"),
-                        "last_update": best_row.get("last_update"),
+                        "outcome": entry.get("team"),
+                        "point": None,
+                        "price": entry.get("price"),
+                        "implied_prob": entry.get("implied_prob"),
+                        "bookmaker_key": "consensus",
+                        "bookmaker_title": "consensus",
+                        "last_update": None,
                     }
                 )
 
+        spreads = consensus.get("spreads") or {}
+        for key in ["home", "away"]:
+            entry = spreads.get(key)
+            if entry and entry.get("price") is not None:
+                markets["spreads"].append(
+                    {
+                        "outcome": entry.get("team"),
+                        "point": entry.get("point"),
+                        "price": entry.get("price"),
+                        "implied_prob": entry.get("implied_prob"),
+                        "bookmaker_key": "consensus",
+                        "bookmaker_title": "consensus",
+                        "last_update": None,
+                    }
+                )
+
+        totals = consensus.get("totals") or {}
+        for key in ["over", "under"]:
+            entry = totals.get(key)
+            if entry and entry.get("price") is not None:
+                markets["totals"].append(
+                    {
+                        "outcome": entry.get("team"),
+                        "point": totals.get("point"),
+                        "price": entry.get("price"),
+                        "implied_prob": entry.get("implied_prob"),
+                        "bookmaker_key": "consensus",
+                        "bookmaker_title": "consensus",
+                        "last_update": None,
+                    }
+                )
+
+        # latest snapshot age
+        latest_ts_resp = await anyio.to_thread.run_sync(
+            lambda: supabase.table("odds_snapshots")
+            .select("ts")
+            .eq("game_id", game_id)
+            .order("ts", desc=True)
+            .limit(1)
+            .execute()
+        )
+        latest_ts = _parse_iso_datetime((latest_ts_resp.data or [{}])[0].get("ts"))
         snapshot_age_hours = None
         if latest_ts:
             now_dt = datetime.now(latest_ts.tzinfo) if latest_ts.tzinfo else datetime.utcnow()
             snapshot_age_hours = (now_dt - latest_ts).total_seconds() / 3600
 
+        markets["spread"] = markets["spreads"]
         return {
             "game_id": game_id,
             "markets": markets,
+            "consensus": consensus,
             "latest_update": latest_ts.isoformat() if latest_ts else None,
             "snapshot_age_hours": snapshot_age_hours,
         }
@@ -2356,7 +2345,7 @@ async def get_game_odds_movement(game_id: str):
                 lambda: supabase.table("odds_snapshots")
                 .select("ts,market_type,team,outcome_name,point")
                 .eq("game_id", game_id)
-                .in_("market_type", ["spread", "totals"])
+                .in_("market_type", ["spreads", "totals"])
                 .execute()
             )
         except Exception as e:
@@ -2375,10 +2364,10 @@ async def get_game_odds_movement(game_id: str):
         away_team = game.get("away_team")
 
         spread_home = _series_from_snapshot_rows(
-            [r for r in rows if r.get("market_type") == "spread" and (r.get("team") or "") == home_team]
+            [r for r in rows if r.get("market_type") == "spreads" and (r.get("team") or "") == home_team]
         )
         spread_away = _series_from_snapshot_rows(
-            [r for r in rows if r.get("market_type") == "spread" and (r.get("team") or "") == away_team]
+            [r for r in rows if r.get("market_type") == "spreads" and (r.get("team") or "") == away_team]
         )
         totals = _series_from_snapshot_rows(
             [
@@ -2401,6 +2390,55 @@ async def get_game_odds_movement(game_id: str):
     except Exception as e:
         logger.error(f"Error fetching odds movement for {game_id}: {e}")
         raise HTTPException(status_code=500, detail="Failed to fetch odds movement")
+
+
+@app.get("/api/game/{game_id}/consensus")
+async def get_game_consensus(game_id: str, cutoff: str = "now"):
+    """Return consensus lines for a game."""
+    try:
+        supabase = app.state.supabase
+        if not supabase:
+            raise HTTPException(status_code=503, detail="Database not available")
+
+        game_resp = await anyio.to_thread.run_sync(
+            lambda: supabase.table("games")
+            .select("id,home_team,away_team,commence_time")
+            .eq("id", game_id)
+            .single()
+            .execute()
+        )
+        game = game_resp.data
+        if not game:
+            raise HTTPException(status_code=404, detail="Game not found")
+
+        from services.odds_service import get_odds_service
+
+        odds_service = get_odds_service()
+        cutoff_dt = None
+        if cutoff == "closing":
+            cutoff_dt = _parse_iso_datetime(game.get("commence_time"))
+        consensus = odds_service.consensus_for_game(game, cutoff_dt)
+        return {"game_id": game_id, "cutoff": cutoff, "consensus": consensus}
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error fetching consensus for {game_id}: {e}")
+        raise HTTPException(status_code=500, detail="Failed to fetch consensus")
+
+
+@app.get("/api/game/{game_id}/clv")
+async def get_game_clv(game_id: str):
+    """Return CLV comparison for a game."""
+    try:
+        from services.clv_service import get_clv_service
+
+        clv_service = get_clv_service()
+        return await clv_service.get_clv_for_game(game_id)
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error fetching CLV for {game_id}: {e}")
+        raise HTTPException(status_code=500, detail="Failed to fetch CLV")
 
 
 @app.get("/api/team/{team_abbrev}/key-players")
@@ -2445,23 +2483,22 @@ async def get_team_key_players(team_abbrev: str, limit: int = 5):
             if not minutes:
                 continue
             last5 = minutes[:5]
-            prev5 = minutes[5:10]
+            last2 = minutes[:2]
+            first3 = minutes[2:5]
             last5_avg = statistics.mean(last5) if last5 else None
-            prev5_avg = statistics.mean(prev5) if prev5 else None
-            delta = (last5_avg - prev5_avg) if last5_avg is not None and prev5_avg is not None else None
+            prev5_avg = None
+            last2_avg = statistics.mean(last2) if last2 else None
+            first3_avg = statistics.mean(first3) if first3 else None
+            delta = (last2_avg - first3_avg) if last2_avg is not None and first3_avg is not None else None
             trend = _trend_direction(delta, 1.5)
             last_game_minutes = minutes[0] if minutes else None
+            prev_games_minutes = [m for m in minutes[1:5] if m is not None]
 
-            status = "Unknown"
-            if last_game_minutes is not None:
-                if last_game_minutes <= 0.1 and (last5_avg or 0) < 5:
-                    status = "OUT"
-                elif (last5_avg or 0) < 18 and (delta or 0) < -3:
-                    status = "Q"
-                elif (last5_avg or 0) >= 24 and (delta or 0) > 1.5:
-                    status = "Probable"
-                else:
-                    status = "Active"
+            status = "UNKNOWN"
+            if last_game_minutes is not None and last_game_minutes > 0:
+                status = "ACTIVE"
+            elif last_game_minutes is not None and last_game_minutes == 0 and prev_games_minutes:
+                status = "DNP_FLAG"
 
             volatility = statistics.pstdev(minutes) if len(minutes) >= 2 else 0.0
 
@@ -2530,109 +2567,34 @@ async def get_team_value_panel(team_abbrev: str):
         is_home = team_name == home_team
         opponent = away_team if is_home else home_team
 
-        odds_current = await get_game_odds_current(game_id)
-        betting_stats = await _compute_betting_stats(supabase, team_name, max_games=20)
+        from services.value_service import get_value_service
 
-        ats_prob = betting_stats.get("ats_percentage") if betting_stats else None
-        over_prob = betting_stats.get("ou_percentage") if betting_stats else None
+        odds_current = await get_game_odds_current(game_id)
+        value_service = get_value_service()
+        value_board = [
+            row for row in value_service.get_value_board(window_days=2)
+            if row.get("game_id") == game_id
+        ]
 
         value_rows = []
-        for market in ["spread", "totals", "h2h"]:
-            selections = odds_current.get("markets", {}).get(market, [])
-            if market == "spread":
-                team_sel = next((s for s in selections if (s.get("outcome") or "") == team_name), None)
-                if not team_sel:
-                    continue
-                implied = team_sel.get("implied_prob")
-                model_prob = ats_prob if ats_prob is not None else implied
-                dec = team_sel.get("decimal_price")
-                ev = _expected_value(model_prob, dec)
-                edge = (model_prob - implied) if model_prob is not None and implied is not None else None
-                stake = _kelly_half(model_prob, dec)
-                value_rows.append(
-                    {
-                        "market": "spread",
-                        "label": team_sel.get("outcome"),
-                        "line": team_sel.get("point"),
-                        "price": team_sel.get("price"),
-                        "decimal_price": dec,
-                        "implied_prob": implied,
-                        "model_prob": model_prob,
-                        "edge": edge,
-                        "ev": ev,
-                        "stake_fraction": stake,
-                    }
-                )
-            elif market == "totals":
-                over_sel = next((s for s in selections if (s.get("outcome") or "").lower() == "over"), None)
-                under_sel = next((s for s in selections if (s.get("outcome") or "").lower() == "under"), None)
-                for sel, is_over in ((over_sel, True), (under_sel, False)):
-                    if not sel:
-                        continue
-                    implied = sel.get("implied_prob")
-                    model_prob = over_prob if is_over else (1 - over_prob if over_prob is not None else implied)
-                    dec = sel.get("decimal_price")
-                    ev = _expected_value(model_prob, dec)
-                    edge = (model_prob - implied) if model_prob is not None and implied is not None else None
-                    stake = _kelly_half(model_prob, dec)
-                    value_rows.append(
-                        {
-                            "market": "total",
-                            "label": sel.get("outcome"),
-                            "line": sel.get("point"),
-                            "price": sel.get("price"),
-                            "decimal_price": dec,
-                            "implied_prob": implied,
-                            "model_prob": model_prob,
-                            "edge": edge,
-                            "ev": ev,
-                            "stake_fraction": stake,
-                        }
-                    )
-            else:
-                team_sel = next((s for s in selections if (s.get("outcome") or "") == team_name), None)
-                opp_sel = next((s for s in selections if (s.get("outcome") or "") == opponent), None)
-                if not team_sel or not opp_sel:
-                    continue
-                consensus = _compute_no_vig_consensus_probs(
-                    [
-                        {
-                            "team": team_sel.get("outcome"),
-                            "price": team_sel.get("decimal_price"),
-                            "bookmaker_key": "consensus",
-                        },
-                        {
-                            "team": opp_sel.get("outcome"),
-                            "price": opp_sel.get("decimal_price"),
-                            "bookmaker_key": "consensus",
-                        },
-                    ],
-                    home_team,
-                    away_team,
-                )
-                if consensus:
-                    model_prob = consensus[0] if team_name == home_team else consensus[1]
-                else:
-                    model_prob = team_sel.get("implied_prob")
-                implied = team_sel.get("implied_prob")
-                dec = team_sel.get("decimal_price")
-                ev = _expected_value(model_prob, dec)
-                edge = (model_prob - implied) if model_prob is not None and implied is not None else None
-                stake = _kelly_half(model_prob, dec)
-                value_rows.append(
-                    {
-                        "market": "moneyline",
-                        "label": team_sel.get("outcome"),
-                        "line": None,
-                        "price": team_sel.get("price"),
-                        "decimal_price": dec,
-                        "implied_prob": implied,
-                        "model_prob": model_prob,
-                        "edge": edge,
-                        "ev": ev,
-                        "stake_fraction": stake,
-                    }
-                )
+        for row in value_board:
+            if row.get("market_type") == "spreads" and row.get("selection") != team_name:
+                continue
+            if row.get("market_type") == "h2h" and row.get("selection") != team_name:
+                continue
+            value_rows.append(
+                {
+                    "market": row.get("market_type"),
+                    "label": row.get("selection"),
+                    "line": row.get("point"),
+                    "price": row.get("price"),
+                    "implied_prob": row.get("implied_prob"),
+                    "model_prob": row.get("model_prob"),
+                    "edge": row.get("edge_prob"),
+                    "ev": row.get("ev"),
+                    "stake_fraction": row.get("kelly_fraction"),
+                }
+            )
 
         risk_flags = []
         age_hours = odds_current.get("snapshot_age_hours") or 0
@@ -2641,7 +2603,7 @@ async def get_team_value_panel(team_abbrev: str):
 
         try:
             snapshots_resp = await anyio.to_thread.run_sync(
-                lambda: supabase.table("odds_snapshots")
+                lambda: supabase.table("closing_lines")
                 .select("id")
                 .eq("game_id", game_id)
                 .limit(1)
@@ -2650,7 +2612,7 @@ async def get_team_value_panel(team_abbrev: str):
             if not (snapshots_resp.data or []):
                 risk_flags.append("NO_CLOSING_LINE")
         except Exception as e:
-            if "odds_snapshots" in str(e):
+            if "closing_lines" in str(e):
                 risk_flags.append("NO_CLOSING_LINE")
 
         players_resp = await get_team_key_players(team_abbrev, limit=5)
@@ -2806,7 +2768,7 @@ async def get_bulls_analysis():
             away_team = bulls_game.get("away_team")
 
             h2h_rows = [r for r in odds_rows if (r.get("market_type") == "h2h")]
-            spreads_rows = [r for r in odds_rows if (r.get("market_type") == "spread")]
+            spreads_rows = [r for r in odds_rows if (r.get("market_type") in ["spreads", "spread"])]
             totals_rows = [r for r in odds_rows if (r.get("market_type") == "totals")]
 
             home_best = _best_price_for_team(h2h_rows, str(home_team)) if home_team else None

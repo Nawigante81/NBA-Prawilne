@@ -26,6 +26,7 @@ class Settings(BaseSettings):
     ).split(",")
     odds_fetch_interval_hours: int = int(os.getenv("ODDS_FETCH_INTERVAL_HOURS", "12"))
     odds_game_window_days: int = int(os.getenv("ODDS_GAME_WINDOW_DAYS", "2"))
+    odds_snapshot_dedupe_hours: int = int(os.getenv("ODDS_SNAPSHOT_DEDUPE_HOURS", "6"))
     
     # Timezone
     timezone: str = os.getenv("TIMEZONE", "America/Chicago")

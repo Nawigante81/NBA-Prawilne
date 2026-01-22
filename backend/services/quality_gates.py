@@ -7,6 +7,7 @@ from typing import Dict, List, Optional, Any
 from statistics import stdev
 from db import get_db
 from models import QualityGateResult, GateFailureReason
+from services.odds_service import get_odds_service, normalize_market_type
 from settings import settings
 import logging
 
@@ -19,6 +20,7 @@ class QualityGateService:
     def __init__(self):
         self.db = get_db()
         self.settings = settings
+        self.odds_service = get_odds_service()
     
     async def check_odds_availability(self, game_id: str, market_type: str) -> QualityGateResult:
         """
@@ -32,7 +34,7 @@ class QualityGateService:
         details = {}
         
         # Get game commence time
-        game_result = self.db.table("games").select("commence_time").eq("id", game_id).execute()
+        game_result = self.db.table("games").select("id,commence_time,home_team,away_team").eq("id", game_id).execute()
         
         if not game_result.data or len(game_result.data) == 0:
             reasons.append(GateFailureReason.MISSING_COMMENCE_TIME)
@@ -40,34 +42,51 @@ class QualityGateService:
         
         commence_time = datetime.fromisoformat(game_result.data[0]["commence_time"].replace("Z", "+00:00"))
         now = datetime.utcnow()
-        
-        # Check for recent odds
+
         cutoff_time = now - timedelta(hours=self.settings.odds_max_snapshot_age_hours)
-        
-        odds_result = self.db.table("odds_snapshots").select("*").eq("game_id", game_id).eq("market_type", market_type).gte("snapshot_time", cutoff_time.isoformat()).execute()
-        
-        if not odds_result.data or len(odds_result.data) == 0:
-            # No recent odds - check if we have pre-game odds
-            if now < commence_time:
-                reasons.append(GateFailureReason.NO_ODDS_RECENT)
-                details["last_odds_age_hours"] = "N/A"
-            else:
-                # Game already started - need closing line
-                closing_result = self.db.table("odds_snapshots").select("*").eq("game_id", game_id).eq("market_type", market_type).lt("snapshot_time", commence_time.isoformat()).order("snapshot_time", desc=True).limit(1).execute()
-                
-                if not closing_result.data:
-                    reasons.append(GateFailureReason.MISSING_CLOSING_LINE)
-        
+        normalized = normalize_market_type(market_type)
+        market_types = [normalized]
+        if normalized == "spreads":
+            market_types.append("spread")
+        if normalized == "totals":
+            market_types.append("total")
+
+        allowlist = [b.strip() for b in self.settings.odds_bookmakers_allowlist if b.strip()]
+        recent_query = self.db.table("odds_snapshots").select("id").eq("game_id", game_id).in_(
+            "market_type", market_types
+        ).gte("ts", cutoff_time.isoformat()).limit(1)
+        if allowlist:
+            recent_query = recent_query.in_("bookmaker_key", allowlist[:3])
+        has_recent = bool(recent_query.execute().data)
+
+        consensus = self.odds_service.consensus_for_game(
+            game_result.data[0],
+            None,
+        )
+
+        market_sample = 0
+        if normalized == "spreads":
+            market_sample = max(
+                (consensus.get("spreads") or {}).get("home", {}).get("sample_count", 0) or 0,
+                (consensus.get("spreads") or {}).get("away", {}).get("sample_count", 0) or 0,
+            )
+        elif normalized == "totals":
+            market_sample = (consensus.get("totals") or {}).get("sample_count", 0) or 0
         else:
-            # Check data quality
-            latest_snapshot = odds_result.data[0]
-            if latest_snapshot.get("price") is None:
-                reasons.append(GateFailureReason.NO_ODDS_RECENT)
-                details["missing_price"] = True
-            
-            if market_type in ["spreads", "totals"] and latest_snapshot.get("point") is None:
-                reasons.append(GateFailureReason.NO_ODDS_RECENT)
-                details["missing_point"] = True
+            market_sample = max(
+                (consensus.get("h2h") or {}).get("home", {}).get("sample_count", 0) or 0,
+                (consensus.get("h2h") or {}).get("away", {}).get("sample_count", 0) or 0,
+            )
+
+        details["sample_count"] = market_sample
+
+        if not has_recent:
+            reasons.append(GateFailureReason.NO_ODDS_RECENT)
+        if market_sample < 1:
+            reasons.append(GateFailureReason.NO_ODDS_RECENT)
+            reasons.append(GateFailureReason.NO_ODDS)
+        elif market_sample < 2:
+            reasons.append(GateFailureReason.LOW_LIQUIDITY)
         
         passed = len(reasons) == 0
         return QualityGateResult(passed=passed, reasons=reasons, details=details)
@@ -153,7 +172,7 @@ class QualityGateService:
         result = self.db.table("team_game_stats").select("created_at").eq("team_abbreviation", team_abbr).order("created_at", desc=True).limit(1).execute()
         
         if not result.data or len(result.data) == 0:
-            reasons.append(GateFailureReason.STATS_TOO_OLD)
+            reasons.append(GateFailureReason.STATS_STALE)
             details["last_update"] = None
             return QualityGateResult(passed=False, reasons=reasons, details=details)
         
@@ -163,7 +182,7 @@ class QualityGateService:
         details["hours_since_update"] = hours_since_update
         
         if hours_since_update > self.settings.stats_max_age_hours:
-            reasons.append(GateFailureReason.STATS_TOO_OLD)
+            reasons.append(GateFailureReason.STATS_STALE)
         
         passed = len(reasons) == 0
         return QualityGateResult(passed=passed, reasons=reasons, details=details)

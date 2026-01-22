@@ -33,12 +33,15 @@ class PickStatus(str, Enum):
 class GateFailureReason(str, Enum):
     """Quality gate failure reasons."""
     NO_ODDS_RECENT = "NO_ODDS_RECENT"
+    NO_ODDS = "NO_ODDS"
+    LOW_LIQUIDITY = "LOW_LIQUIDITY"
     INSUFFICIENT_SAMPLE = "INSUFFICIENT_SAMPLE"
     EV_TOO_LOW = "EV_TOO_LOW"
     HIGH_JUICE = "HIGH_JUICE"
     MISSING_COMMENCE_TIME = "MISSING_COMMENCE_TIME"
     PLAYER_MINUTES_UNKNOWN = "PLAYER_MINUTES_UNKNOWN"
     STATS_TOO_OLD = "STATS_TOO_OLD"
+    STATS_STALE = "STATS_STALE"
     MISSING_CLOSING_LINE = "MISSING_CLOSING_LINE"
     CONFIDENCE_TOO_LOW = "CONFIDENCE_TOO_LOW"
     EDGE_TOO_SMALL = "EDGE_TOO_SMALL"
@@ -153,8 +156,23 @@ class OddsSnapshot(BaseModel):
     team: Optional[str] = None
     point: Optional[float] = None
     price: Optional[float] = None  # American or Decimal
-    snapshot_time: datetime
+    ts: datetime
     content_hash: Optional[str] = None  # For deduplication
+    created_at: Optional[datetime] = None
+
+
+class ClosingLine(BaseModel):
+    """Consensus closing line for a game/market."""
+    id: Optional[str] = None
+    game_id: str
+    market_type: str
+    team: Optional[str] = None
+    point: Optional[float] = None
+    price: Optional[float] = None
+    ts_cutoff: datetime
+    method: str
+    sample_count: int
+    used_bookmakers: List[str] = Field(default_factory=list)
     created_at: Optional[datetime] = None
 
 

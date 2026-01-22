@@ -37,6 +37,15 @@ TEAM_NAME_NORMALIZATION = {
 }
 
 
+def _normalize_market_key(value: str | None) -> str:
+    val = (value or "").strip().lower()
+    if val in ["spread", "spreads"]:
+        return "spreads"
+    if val in ["total", "totals"]:
+        return "totals"
+    return val
+
+
 def _nba_season_year_for_date(day: Date) -> int:
     """Return Basketball-Reference NBA season year for a given calendar date.
 
@@ -377,7 +386,7 @@ async def process_odds_data(supabase: Client, odds_data: dict):
                 last_update = bookmaker.get("last_update")
 
                 for market in bookmaker.get("markets", []):
-                    market_key = market.get("key")
+                    market_key = _normalize_market_key(market.get("key"))
                     outcomes = market.get("outcomes", [])
 
                     if market_key == "h2h":
@@ -404,14 +413,14 @@ async def process_odds_data(supabase: Client, odds_data: dict):
                                 }
                             )
 
-                    elif market_key == "spread":
+                    elif market_key == "spreads":
                         for outcome in outcomes:
                             record = {
                                 "game_id": game_id,
                                 "bookmaker_key": bookmaker_key,
                                 "bookmaker_title": bookmaker_title,
                                 "last_update": last_update,
-                                "market_type": "spread",
+                                "market_type": "spreads",
                                 "team": outcome.get("name"),
                                 "point": outcome.get("point"),
                                 "price": outcome.get("price"),
@@ -422,7 +431,7 @@ async def process_odds_data(supabase: Client, odds_data: dict):
                                     "game_id": game_id,
                                     "bookmaker_key": bookmaker_key,
                                     "bookmaker_title": bookmaker_title,
-                                    "market_type": "spread",
+                                    "market_type": "spreads",
                                     "team": outcome.get("name"),
                                     "point": outcome.get("point"),
                                     "price": outcome.get("price"),

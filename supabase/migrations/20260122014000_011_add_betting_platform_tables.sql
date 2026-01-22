@@ -44,14 +44,34 @@ CREATE TABLE IF NOT EXISTS public.odds_snapshots (
   team text,
   point numeric,
   price numeric,
-  snapshot_time timestamptz NOT NULL,
+  ts timestamptz NOT NULL,
   content_hash text,
   created_at timestamptz DEFAULT now()
 );
 
+-- Ensure columns exist if odds_snapshots was created earlier with a different schema
+ALTER TABLE public.odds_snapshots
+  ADD COLUMN IF NOT EXISTS ts timestamptz;
+ALTER TABLE public.odds_snapshots
+  ADD COLUMN IF NOT EXISTS content_hash text;
+ALTER TABLE public.odds_snapshots
+  ADD COLUMN IF NOT EXISTS bookmaker_key text;
+ALTER TABLE public.odds_snapshots
+  ADD COLUMN IF NOT EXISTS bookmaker_title text;
+ALTER TABLE public.odds_snapshots
+  ADD COLUMN IF NOT EXISTS market_type text;
+ALTER TABLE public.odds_snapshots
+  ADD COLUMN IF NOT EXISTS outcome_name text;
+ALTER TABLE public.odds_snapshots
+  ADD COLUMN IF NOT EXISTS team text;
+ALTER TABLE public.odds_snapshots
+  ADD COLUMN IF NOT EXISTS point numeric;
+ALTER TABLE public.odds_snapshots
+  ADD COLUMN IF NOT EXISTS price numeric;
+
 CREATE INDEX IF NOT EXISTS idx_odds_snapshots_game_id ON public.odds_snapshots(game_id);
 CREATE INDEX IF NOT EXISTS idx_odds_snapshots_market_type ON public.odds_snapshots(market_type);
-CREATE INDEX IF NOT EXISTS idx_odds_snapshots_snapshot_time ON public.odds_snapshots(snapshot_time);
+CREATE INDEX IF NOT EXISTS idx_odds_snapshots_ts ON public.odds_snapshots(ts);
 CREATE INDEX IF NOT EXISTS idx_odds_snapshots_content_hash ON public.odds_snapshots(content_hash);
 
 -- Picks table
@@ -107,6 +127,18 @@ CREATE TABLE IF NOT EXISTS public.reports (
   generated_at timestamptz NOT NULL,
   created_at timestamptz DEFAULT now()
 );
+
+-- Ensure columns exist if reports was created earlier with a different schema
+ALTER TABLE public.reports
+  ADD COLUMN IF NOT EXISTS report_type text;
+ALTER TABLE public.reports
+  ADD COLUMN IF NOT EXISTS report_date date;
+ALTER TABLE public.reports
+  ADD COLUMN IF NOT EXISTS content jsonb;
+ALTER TABLE public.reports
+  ADD COLUMN IF NOT EXISTS generated_at timestamptz;
+ALTER TABLE public.reports
+  ADD COLUMN IF NOT EXISTS created_at timestamptz;
 
 CREATE INDEX IF NOT EXISTS idx_reports_type_date ON public.reports(report_type, report_date);
 CREATE INDEX IF NOT EXISTS idx_reports_generated_at ON public.reports(generated_at);

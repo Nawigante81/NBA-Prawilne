@@ -69,7 +69,7 @@ Get current odds for a specific game.
 ```json
 {
   "game_id": "game-uuid",
-  "snapshot_time": "2024-01-22T18:00:00Z",
+  "ts": "2024-01-22T18:00:00Z",
   "odds": [
     {
       "bookmaker_key": "draftkings",
@@ -98,7 +98,7 @@ Get line movement timeline for a game.
   "timeline_by_bookmaker": {
     "draftkings": [
       {
-        "snapshot_time": "2024-01-22T12:00:00Z",
+        "ts": "2024-01-22T12:00:00Z",
         "point": -7.5,
         "price": -110
       }

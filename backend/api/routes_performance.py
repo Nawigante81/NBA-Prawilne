@@ -88,6 +88,18 @@ async def get_performance_summary(
         # Calculate P&L and ROI
         total_profit = sum(r.get("profit_loss", 0) for r in results)
         roi = (total_profit / total_stake * 100) if total_stake > 0 else 0
+
+        # Drawdown from cumulative P&L
+        cumulative = 0.0
+        peak = 0.0
+        max_drawdown = 0.0
+        for r in sorted(results, key=lambda x: x.get("settled_at") or ""):
+            cumulative += float(r.get("profit_loss") or 0)
+            if cumulative > peak:
+                peak = cumulative
+            drawdown = peak - cumulative
+            if drawdown > max_drawdown:
+                max_drawdown = drawdown
         
         # Calculate win rate (won / (won + lost))
         won_count = status_counts.get(PickStatus.WON.value, 0)
@@ -132,10 +144,12 @@ async def get_performance_summary(
                     "total_stake_usd": round(total_stake, 2),
                     "total_profit_usd": round(total_profit, 2),
                     "roi_percent": round(roi, 2),
+                    "yield_percent": round(roi, 2),
                     "win_rate_percent": round(win_rate, 2),
                     "average_clv": round(avg_clv, 4),
                     "average_edge": round(avg_edge, 4),
-                    "average_ev": round(avg_ev, 4)
+                    "average_ev": round(avg_ev, 4),
+                    "max_drawdown": round(max_drawdown, 2)
                 },
                 "status_breakdown": status_counts,
                 "market_breakdown": market_breakdown if market_breakdown else None

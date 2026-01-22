@@ -61,6 +61,7 @@ const LineRow: React.FC<{ label: string; points: OddsMovementPoint[] }> = ({ lab
             {delta === null ? '—' : `${delta >= 0 ? '+' : ''}${delta.toFixed(1)}`}
           </span>
         </div>
+        <div className="text-[11px] text-gray-500">open → teraz</div>
       </div>
       {points.length >= 2 ? <Sparkline points={points} /> : <div className="text-xs text-gray-500">Brak ruchu</div>}
     </div>

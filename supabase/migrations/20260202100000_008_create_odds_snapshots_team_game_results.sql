@@ -22,17 +22,65 @@ CREATE INDEX IF NOT EXISTS idx_odds_snapshots_ts ON public.odds_snapshots(ts);
 
 ALTER TABLE public.odds_snapshots ENABLE ROW LEVEL SECURITY;
 
-CREATE POLICY "Enable read access for all users" ON public.odds_snapshots
-  FOR SELECT USING (true);
+DO $$
+BEGIN
+  IF NOT EXISTS (
+    SELECT 1
+    FROM pg_policies
+    WHERE schemaname = 'public'
+      AND tablename = 'odds_snapshots'
+      AND policyname = 'Enable read access for all users'
+  ) THEN
+    CREATE POLICY "Enable read access for all users" ON public.odds_snapshots
+      FOR SELECT USING (true);
+  END IF;
+END;
+$$;
 
-CREATE POLICY "Enable insert for service role only" ON public.odds_snapshots
-  FOR INSERT WITH CHECK (auth.role() = 'service_role');
+DO $$
+BEGIN
+  IF NOT EXISTS (
+    SELECT 1
+    FROM pg_policies
+    WHERE schemaname = 'public'
+      AND tablename = 'odds_snapshots'
+      AND policyname = 'Enable insert for service role only'
+  ) THEN
+    CREATE POLICY "Enable insert for service role only" ON public.odds_snapshots
+      FOR INSERT WITH CHECK (auth.role() = 'service_role');
+  END IF;
+END;
+$$;
 
-CREATE POLICY "Enable update for service role only" ON public.odds_snapshots
-  FOR UPDATE USING (auth.role() = 'service_role');
+DO $$
+BEGIN
+  IF NOT EXISTS (
+    SELECT 1
+    FROM pg_policies
+    WHERE schemaname = 'public'
+      AND tablename = 'odds_snapshots'
+      AND policyname = 'Enable update for service role only'
+  ) THEN
+    CREATE POLICY "Enable update for service role only" ON public.odds_snapshots
+      FOR UPDATE USING (auth.role() = 'service_role');
+  END IF;
+END;
+$$;
 
-CREATE POLICY "Enable delete for service role only" ON public.odds_snapshots
-  FOR DELETE USING (auth.role() = 'service_role');
+DO $$
+BEGIN
+  IF NOT EXISTS (
+    SELECT 1
+    FROM pg_policies
+    WHERE schemaname = 'public'
+      AND tablename = 'odds_snapshots'
+      AND policyname = 'Enable delete for service role only'
+  ) THEN
+    CREATE POLICY "Enable delete for service role only" ON public.odds_snapshots
+      FOR DELETE USING (auth.role() = 'service_role');
+  END IF;
+END;
+$$;
 
 CREATE TABLE IF NOT EXISTS public.team_game_results (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -54,17 +102,65 @@ CREATE INDEX IF NOT EXISTS idx_team_game_results_team_abbrev ON public.team_game
 
 ALTER TABLE public.team_game_results ENABLE ROW LEVEL SECURITY;
 
-CREATE POLICY "Enable read access for all users" ON public.team_game_results
-  FOR SELECT USING (true);
+DO $$
+BEGIN
+  IF NOT EXISTS (
+    SELECT 1
+    FROM pg_policies
+    WHERE schemaname = 'public'
+      AND tablename = 'team_game_results'
+      AND policyname = 'Enable read access for all users'
+  ) THEN
+    CREATE POLICY "Enable read access for all users" ON public.team_game_results
+      FOR SELECT USING (true);
+  END IF;
+END;
+$$;
 
-CREATE POLICY "Enable insert for service role only" ON public.team_game_results
-  FOR INSERT WITH CHECK (auth.role() = 'service_role');
+DO $$
+BEGIN
+  IF NOT EXISTS (
+    SELECT 1
+    FROM pg_policies
+    WHERE schemaname = 'public'
+      AND tablename = 'team_game_results'
+      AND policyname = 'Enable insert for service role only'
+  ) THEN
+    CREATE POLICY "Enable insert for service role only" ON public.team_game_results
+      FOR INSERT WITH CHECK (auth.role() = 'service_role');
+  END IF;
+END;
+$$;
 
-CREATE POLICY "Enable update for service role only" ON public.team_game_results
-  FOR UPDATE USING (auth.role() = 'service_role');
+DO $$
+BEGIN
+  IF NOT EXISTS (
+    SELECT 1
+    FROM pg_policies
+    WHERE schemaname = 'public'
+      AND tablename = 'team_game_results'
+      AND policyname = 'Enable update for service role only'
+  ) THEN
+    CREATE POLICY "Enable update for service role only" ON public.team_game_results
+      FOR UPDATE USING (auth.role() = 'service_role');
+  END IF;
+END;
+$$;
 
-CREATE POLICY "Enable delete for service role only" ON public.team_game_results
-  FOR DELETE USING (auth.role() = 'service_role');
+DO $$
+BEGIN
+  IF NOT EXISTS (
+    SELECT 1
+    FROM pg_policies
+    WHERE schemaname = 'public'
+      AND tablename = 'team_game_results'
+      AND policyname = 'Enable delete for service role only'
+  ) THEN
+    CREATE POLICY "Enable delete for service role only" ON public.team_game_results
+      FOR DELETE USING (auth.role() = 'service_role');
+  END IF;
+END;
+$$;
 
 CREATE OR REPLACE FUNCTION update_team_game_results_updated_at()
 RETURNS TRIGGER AS $$
@@ -74,7 +170,17 @@ BEGIN
 END;
 $$ language 'plpgsql';
 
-CREATE TRIGGER update_team_game_results_updated_at
-  BEFORE UPDATE ON public.team_game_results
-  FOR EACH ROW
-  EXECUTE FUNCTION update_team_game_results_updated_at();
+DO $$
+BEGIN
+  IF NOT EXISTS (
+    SELECT 1
+    FROM pg_trigger
+    WHERE tgname = 'update_team_game_results_updated_at'
+  ) THEN
+    CREATE TRIGGER update_team_game_results_updated_at
+      BEFORE UPDATE ON public.team_game_results
+      FOR EACH ROW
+      EXECUTE FUNCTION update_team_game_results_updated_at();
+  END IF;
+END;
+$$;

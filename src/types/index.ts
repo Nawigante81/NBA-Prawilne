@@ -173,7 +173,7 @@ export interface OddsMovementResponse {
 
 export interface KeyPlayerInfo {
   name: string;
-  status: 'OUT' | 'Q' | 'Probable' | 'Active' | 'Unknown';
+  status: 'OUT' | 'Q' | 'PROBABLE' | 'ACTIVE' | 'UNKNOWN' | 'DNP_FLAG' | 'Probable' | 'Active' | 'Unknown';
   minutes_last5_avg: number | null;
   minutes_prev5_avg: number | null;
   minutes_trend: 'up' | 'down' | 'stable' | null;
@@ -183,7 +183,7 @@ export interface KeyPlayerInfo {
 }
 
 export interface TeamValueRow {
-  market: 'spread' | 'total' | 'moneyline';
+  market: 'spreads' | 'totals' | 'h2h' | 'spread' | 'total' | 'moneyline';
   label: string;
   line: number | null;
   price: number | null;
