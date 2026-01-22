@@ -106,7 +106,30 @@ def calculate_edge(true_prob: float, implied_prob: float) -> float:
 
 
 def calculate_clv(bet_line: float, closing_line: float, market_type: str = "spread") -> float:
-    """Calculate Closing Line Value (CLV)"""
+    """
+    Calculate Closing Line Value (CLV)
+    
+    CLV measures how much better your bet line was compared to the closing line.
+    Positive CLV indicates you got a better price than the market closing price.
+    
+    Args:
+        bet_line: The line/odds at which you placed the bet
+        closing_line: The line/odds at market close (game start)
+        market_type: Type of market ("spread", "totals", or other)
+    
+    Returns:
+        CLV value:
+        - For spread: positive means you got a more favorable spread
+          (e.g., +3.5 vs +3.0 closing = +0.5 CLV)
+        - For totals: absolute difference (any movement from your bet)
+        - For other markets: 0.0 (not applicable)
+    
+    Example:
+        >>> calculate_clv(3.5, 3.0, "spread")  # You got +3.5, closed at +3.0
+        0.5
+        >>> calculate_clv(220.5, 218.5, "totals")  # Line moved 2 points
+        2.0
+    """
     if market_type == "spread":
         return bet_line - closing_line
     elif market_type == "totals":

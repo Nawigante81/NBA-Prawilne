@@ -5,7 +5,7 @@ Handles fetching, storing, and analyzing odds data from The Odds API
 import logging
 import httpx
 from typing import Dict, List, Optional, Any
-from datetime import datetime, timedelta, date
+from datetime import datetime, timedelta, date, timezone
 import statistics
 
 from backend.settings import (
@@ -48,11 +48,11 @@ async def fetch_odds_from_api() -> Dict[str, Any]:
             "data": None
         }
     
-    # Calculate date range: today + tomorrow
+    # Calculate date range: today + tomorrow only
     today = date.today()
     tomorrow = today + timedelta(days=1)
     commence_time_from = today.isoformat() + "T00:00:00Z"
-    commence_time_to = (tomorrow + timedelta(days=1)).isoformat() + "T00:00:00Z"
+    commence_time_to = tomorrow.isoformat() + "T23:59:59Z"
     
     # Build API request
     url = f"https://api.the-odds-api.com/v4/sports/{ODDS_SPORT_KEY}/odds"
@@ -263,7 +263,7 @@ async def get_consensus_line(
         Dict with consensus line details or None if insufficient data
     """
     if cutoff_time is None:
-        cutoff_time = datetime.now()
+        cutoff_time = datetime.now(timezone.utc)
     
     # Build query to get latest snapshot per bookmaker before cutoff
     query = """
@@ -310,16 +310,18 @@ async def get_consensus_line(
     # Calculate median
     if points:
         median_point = statistics.median(points)
+        metric_values = points  # Use points for spread/totals
     else:
         median_point = None
-        points = prices  # For h2h market, use prices as the metric
+        metric_values = prices  # For h2h market, use prices as the metric
     
     median_price = statistics.median(prices)
+    median_metric = median_point if median_point is not None else median_price
     
     # Remove outliers using MAD
-    if len(points) >= 3:
+    if len(metric_values) >= 3:
         # Calculate MAD (Median Absolute Deviation)
-        deviations = [abs(p - median_point if median_point else p - median_price) for p in points]
+        deviations = [abs(val - median_metric) for val in metric_values]
         mad = statistics.median(deviations)
         
         # Threshold: max(0.5, 3*MAD)
@@ -330,9 +332,8 @@ async def get_consensus_line(
         outliers_removed = []
         
         for i, snapshot in enumerate(snapshots):
-            point_val = snapshot["point"] if snapshot["point"] is not None else snapshot["price"]
-            median_val = median_point if median_point is not None else median_price
-            deviation = abs(point_val - median_val)
+            metric_val = snapshot["point"] if snapshot["point"] is not None else snapshot["price"]
+            deviation = abs(metric_val - median_metric)
             
             if deviation <= threshold:
                 filtered_data.append(snapshot)
