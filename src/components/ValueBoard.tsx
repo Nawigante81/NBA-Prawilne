@@ -1,15 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Target, Filter, TrendingUp, Clock, AlertCircle, ChevronDown, ChevronUp } from 'lucide-react';
-import { ValueMetrics, ConfidenceMeter } from './ValueMetrics';
+import { ValueMetrics } from './ValueMetrics';
 import { useI18n } from '../i18n/useI18n';
 import { api } from '../services/api';
 import {
   calculateEV,
-  calculateEdge,
-  decimalToImpliedProbability,
   formatAmericanOdds,
   formatCurrency,
-  formatPercentage,
   getRecommendation,
 } from '../utils/bettingCalculations';
 
@@ -50,7 +47,6 @@ const ValueBoard: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [showFilters, setShowFilters] = useState(false);
-  const [bankroll] = useState(1000);
   
   const [filters, setFilters] = useState<FilterState>({
     minEdge: 0,
@@ -61,21 +57,26 @@ const ValueBoard: React.FC = () => {
     sortDirection: 'desc'
   });
   
-  useEffect(() => {
-    fetchOpportunities();
-  }, []);
-  
-  const fetchOpportunities = async () => {
+  const fetchOpportunities = useCallback(async () => {
     setLoading(true);
     setError(null);
     
     try {
       // In production, this would fetch from /api/value/today
       // For now, we'll adapt the existing betting recommendations
-      const resp = await api.betting.getRecommendations() as any;
+      const resp = (await api.betting.getRecommendations()) as { picks?: Array<{
+        game_id?: string;
+        team?: string;
+        opponent?: string;
+        best_price?: number;
+        best_book?: string;
+        consensus_prob?: number;
+        edge?: number;
+        commence_time?: string;
+      }> };
       
       if (resp?.picks && Array.isArray(resp.picks)) {
-        const transformed: ValueOpportunity[] = resp.picks.map((pick: any) => ({
+        const transformed: ValueOpportunity[] = resp.picks.map((pick) => ({
           game_id: pick.game_id || '',
           market_type: 'h2h' as const,
           selection: pick.team || '',
@@ -99,7 +100,11 @@ const ValueBoard: React.FC = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [t]);
+  
+  useEffect(() => {
+    fetchOpportunities();
+  }, [fetchOpportunities]);
   
   // Apply filters
   const filteredOpportunities = opportunities.filter(opp => {
@@ -247,7 +252,7 @@ const ValueBoard: React.FC = () => {
               <label className="block text-sm text-gray-400 mb-2">Sort By</label>
               <select
                 value={filters.sortBy}
-                onChange={(e) => setFilters({ ...filters, sortBy: e.target.value as any })}
+                onChange={(e) => setFilters({ ...filters, sortBy: e.target.value as FilterState['sortBy'] })}
                 className="w-full bg-gray-800 border border-gray-600 rounded px-3 py-2 text-white"
               >
                 <option value="edge">Edge (Highest)</option>
@@ -326,8 +331,6 @@ const ValueBoard: React.FC = () => {
           </div>
         ) : (
           sortedOpportunities.map((opp, index) => {
-            const impliedProb = decimalToImpliedProbability(opp.odds);
-            const ev = calculateEV(opp.odds, opp.model_prob, 100);
             const confidence = Math.min(0.95, Math.max(0.50, opp.model_prob + opp.edge * 2));
             const recommendation = getRecommendation(opp.edge, confidence);
             const gameTime = new Date(opp.game.commence_time);
