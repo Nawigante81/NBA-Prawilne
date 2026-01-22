@@ -585,7 +585,7 @@ async def sync_player_stats() -> Dict[str, Any]:
                             minutes_decimal = int(mins) + int(secs) / 60.0
                         else:
                             minutes_decimal = float(minutes)
-                    except:
+                    except (ValueError, TypeError):
                         continue
                     
                     # Get or create player
