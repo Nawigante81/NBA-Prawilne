@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Zap, BarChart3, FileText, Users, DollarSign, TrendingUp, Activity, UserCircle } from 'lucide-react';
+import { Zap, BarChart3, FileText, Users, DollarSign, TrendingUp, Activity, UserCircle, Target } from 'lucide-react';
 
 import Dashboard from './components/Dashboard';
 import Sidebar from './components/Sidebar';
@@ -12,6 +12,7 @@ import LiveOdds from './components/LiveOdds';
 import PlayersBrowser from './components/PlayersBrowser';
 import Analytics from './components/Analytics';
 import BullsAnalysis from './components/BullsAnalysis';
+import ValueBoard from './components/ValueBoard';
 import { useI18n } from './i18n/useI18n';
 import { AuthState, clearAuthState, getAuthState, initAuthListener, logout } from './services/auth';
 
@@ -24,7 +25,7 @@ const API_BASE =
           : 'http://localhost:8000'
       ));
 
-type Section = 'dashboard' | 'reports' | 'teams' | 'betting' | 'odds' | 'analytics' | 'players' | 'bulls';
+type Section = 'dashboard' | 'reports' | 'teams' | 'betting' | 'value-board' | 'odds' | 'analytics' | 'players' | 'bulls';
 type HealthResponse = { supabase_connected?: boolean };
 
 function App() {
@@ -36,6 +37,7 @@ function App() {
   
   const sidebarItems = [
     { id: 'dashboard', label: t('nav.dashboard'), icon: BarChart3 },
+    { id: 'value-board', label: 'Value Board', icon: Target },
     { id: 'reports', label: t('nav.reports'), icon: FileText },
     { id: 'teams', label: t('nav.teams'), icon: Users },
     { id: 'betting', label: t('nav.betting'), icon: DollarSign },
@@ -103,6 +105,8 @@ function App() {
     switch (activeSection) {
       case 'dashboard':
         return <Dashboard onViewOdds={(gameId: string) => { setSelectedGameId(gameId); setActiveSection('odds'); }} />;
+      case 'value-board':
+        return <ValueBoard />;
       case 'reports':
         return <ReportsSection />;
       case 'teams':
@@ -198,7 +202,7 @@ function App() {
 
       {/* Backend Status Indicator (real health) */}
       <div className="fixed bottom-4 right-4 z-50">
-        <div className="glass-card px-4 py-2 flex items-center space-x-2">
+        <div className="glass-card px-3 py-1.5 md:px-4 md:py-2 flex items-center space-x-2">
           <div
             className={`w-2 h-2 rounded-full ${
               backendOnline === null
@@ -208,9 +212,9 @@ function App() {
                   : 'bg-red-400'
             }`}
           ></div>
-          <span className="text-sm text-gray-300">{statusText}</span>
+          <span className="text-xs md:text-sm text-gray-300">{statusText}</span>
           {backendCheckedAt && (
-            <span className="text-xs text-gray-500">
+            <span className="hidden md:inline text-xs text-gray-500">
               {t('app.status.checkedAt', { time: backendCheckedAt.toLocaleTimeString('en-US', { timeZone: 'America/Chicago' }) })}
             </span>
           )}

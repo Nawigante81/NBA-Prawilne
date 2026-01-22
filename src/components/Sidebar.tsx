@@ -56,9 +56,9 @@ const Sidebar: React.FC<SidebarProps> = ({ items, activeSection, onSectionChange
   }, [apiHook, locale]);
 
   return (
-    <div className="w-64 bg-gray-900/50 backdrop-blur-sm border-r border-gray-700/50 flex flex-col">
+    <div className="w-64 bg-gray-900/50 backdrop-blur-sm border-r border-gray-700/50 flex flex-col h-full overflow-y-auto">
       {/* Logo */}
-      <div className="p-6 border-b border-gray-700/50">
+      <div className="p-6 border-b border-gray-700/50 flex-shrink-0">
         <div className="flex items-center justify-center">
           <div className="w-40 h-40 flex items-center justify-center">
             <img
@@ -71,7 +71,7 @@ const Sidebar: React.FC<SidebarProps> = ({ items, activeSection, onSectionChange
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 p-4">
+      <nav className="flex-1 p-4 flex-shrink-0">
         <ul className="space-y-2">
           {items.map((item) => {
             const Icon = item.icon;
@@ -100,7 +100,7 @@ const Sidebar: React.FC<SidebarProps> = ({ items, activeSection, onSectionChange
       </nav>
 
       {/* League Status */}
-      <div className="p-4 border-t border-gray-700/50">
+      <div className="p-4 border-t border-gray-700/50 flex-shrink-0">
         <div className="glass-card p-4">
           <div className="flex items-center justify-between mb-2">
             <span className="text-sm font-medium text-gray-300">{t('sidebar.leagueStatus')}</span>
