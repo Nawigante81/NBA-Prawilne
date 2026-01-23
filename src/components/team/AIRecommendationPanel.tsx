@@ -1,9 +1,12 @@
 import React from 'react';
 import { Activity, Sparkles, AlertTriangle } from 'lucide-react';
-import type { AIRecommendationResponse, AIRecommendationRow } from '../../types';
+import type { AIRecommendationResponse, AIRecommendationRow, AIInsightResponse } from '../../types';
 
 interface AIRecommendationPanelProps {
   data: AIRecommendationResponse | null;
+  insight?: AIInsightResponse | null;
+  provider?: 'auto' | 'openai' | 'gemini';
+  onProviderChange?: (provider: 'auto' | 'openai' | 'gemini') => void;
   isLoading?: boolean;
 }
 
@@ -71,7 +74,13 @@ const RecommendationRow: React.FC<{ row: AIRecommendationRow; highlight?: boolea
   );
 };
 
-const AIRecommendationPanel: React.FC<AIRecommendationPanelProps> = ({ data, isLoading }) => {
+const AIRecommendationPanel: React.FC<AIRecommendationPanelProps> = ({
+  data,
+  insight,
+  provider = 'auto',
+  onProviderChange,
+  isLoading,
+}) => {
   if (isLoading) {
     return (
       <div className="glass-card p-4 animate-pulse">
@@ -107,9 +116,22 @@ const AIRecommendationPanel: React.FC<AIRecommendationPanelProps> = ({ data, isL
           <div className="text-sm uppercase tracking-widest text-gray-400">AI Recommendation</div>
           <div className="text-xs text-gray-500">{data.next_game.home_team} vs {data.next_game.away_team}</div>
         </div>
-        <div className="flex items-center gap-2 text-xs text-gray-400">
-          <Activity className="w-4 h-4 text-purple-400" />
-          {data.model_version}
+        <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 text-xs text-gray-400">
+            <Activity className="w-4 h-4 text-purple-400" />
+            {data.model_version}
+          </div>
+          {onProviderChange && (
+            <select
+              value={provider}
+              onChange={(event) => onProviderChange(event.target.value as 'auto' | 'openai' | 'gemini')}
+              className="rounded-md border border-gray-700/60 bg-gray-900/70 px-2 py-1 text-[11px] text-gray-200"
+            >
+              <option value="auto">Auto</option>
+              <option value="openai">OpenAI</option>
+              <option value="gemini">Gemini</option>
+            </select>
+          )}
         </div>
       </div>
 
@@ -147,6 +169,35 @@ const AIRecommendationPanel: React.FC<AIRecommendationPanelProps> = ({ data, isL
               <span key={flag} className="px-2 py-1 rounded-full bg-yellow-500/20">{flag}</span>
             ))}
           </div>
+        </div>
+      )}
+
+      {insight && (
+        <div className="rounded-xl border border-purple-500/30 bg-purple-500/10 p-3 text-xs text-purple-100 space-y-2">
+          <div className="flex items-center justify-between text-[11px] text-purple-200">
+            <span>LLM Insight</span>
+            <span>{insight.provider}{insight.model ? ` • ${insight.model}` : ''}</span>
+          </div>
+          {!insight.available && (
+            <div className="text-purple-200">Brak insight (sprawdź klucz API).</div>
+          )}
+          {insight.summary && (
+            <div className="text-sm text-purple-100">{insight.summary}</div>
+          )}
+          {insight.bullets && insight.bullets.length > 0 && (
+            <div className="space-y-1 text-[12px] text-purple-200">
+              {insight.bullets.map((bullet) => (
+                <div key={bullet}>• {bullet}</div>
+              ))}
+            </div>
+          )}
+          {insight.warnings && insight.warnings.length > 0 && (
+            <div className="flex flex-wrap gap-2 text-[11px] text-purple-200">
+              {insight.warnings.map((warning) => (
+                <span key={warning} className="rounded-full bg-purple-900/40 px-2 py-1">{warning}</span>
+              ))}
+            </div>
+          )}
         </div>
       )}
     </div>

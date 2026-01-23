@@ -203,6 +203,8 @@ export const valueBoardApi = {
 export const aiApi = {
   getTeamRecommendation: (teamAbbrev: string) =>
     apiRequest<UnknownRecord>(`/api/ai/team/${teamAbbrev}/recommendation`),
+  getTeamInsight: (teamAbbrev: string, provider: string = 'auto') =>
+    apiRequest<UnknownRecord>(`/api/ai/team/${teamAbbrev}/insight?provider=${provider}`),
 };
 
 // System API

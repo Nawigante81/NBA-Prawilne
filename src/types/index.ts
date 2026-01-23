@@ -236,6 +236,16 @@ export interface AIRecommendationResponse {
   risk_flags: string[];
 }
 
+export interface AIInsightResponse {
+  provider: 'openai' | 'gemini' | 'none';
+  available: boolean;
+  model: string | null;
+  summary: string | null;
+  bullets: string[];
+  warnings: string[];
+  generated_at: string;
+}
+
 // Component Props
 export interface NavItem {
   id: string;

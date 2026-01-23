@@ -21,6 +21,7 @@ import type {
   OddsMovementResponse,
   KeyPlayerInfo,
   AIRecommendationResponse,
+  AIInsightResponse,
 } from '../types';
 import BettingStatsPanel from './team/BettingStatsPanel';
 import NextGameCard from './team/NextGameCard';
@@ -126,6 +127,9 @@ const AllTeams: React.FC<AllTeamsProps> = ({ onTeamSelect, preselectTeamAbbrev }
   const [nextGame, setNextGame] = useState<NextGameInfo | null>(null);
   const [valuePanel, setValuePanel] = useState<TeamValueResponse | null>(null);
   const [aiRecommendation, setAiRecommendation] = useState<AIRecommendationResponse | null>(null);
+  const [aiInsight, setAiInsight] = useState<AIInsightResponse | null>(null);
+  const [aiInsightLoading, setAiInsightLoading] = useState(false);
+  const [aiProvider, setAiProvider] = useState<'auto' | 'openai' | 'gemini'>('auto');
   const [lineMovement, setLineMovement] = useState<OddsMovementResponse | null>(null);
   const [keyPlayersDetail, setKeyPlayersDetail] = useState<KeyPlayerInfo[] | null>(null);
   const [detailRefresh, setDetailRefresh] = useState(0);
@@ -134,6 +138,7 @@ const AllTeams: React.FC<AllTeamsProps> = ({ onTeamSelect, preselectTeamAbbrev }
     nextGame: false,
     value: false,
     ai: false,
+    aiInsight: false,
     movement: false,
     players: false,
   });
@@ -192,6 +197,9 @@ const AllTeams: React.FC<AllTeamsProps> = ({ onTeamSelect, preselectTeamAbbrev }
       setNextGame(null);
       setValuePanel(null);
       setAiRecommendation(null);
+      setAiInsight(null);
+      setAiInsightLoading(false);
+      setAiProvider('auto');
       setLineMovement(null);
       setKeyPlayersDetail(null);
       setDetailErrors({
@@ -199,6 +207,7 @@ const AllTeams: React.FC<AllTeamsProps> = ({ onTeamSelect, preselectTeamAbbrev }
         nextGame: false,
         value: false,
         ai: false,
+        aiInsight: false,
         movement: false,
         players: false,
       });
@@ -213,6 +222,8 @@ const AllTeams: React.FC<AllTeamsProps> = ({ onTeamSelect, preselectTeamAbbrev }
         setNextGame(null);
         setValuePanel(null);
         setAiRecommendation(null);
+        setAiInsight(null);
+        setAiInsightLoading(true);
         setLineMovement(null);
         setKeyPlayersDetail(null);
         const results = await Promise.allSettled([
@@ -236,6 +247,7 @@ const AllTeams: React.FC<AllTeamsProps> = ({ onTeamSelect, preselectTeamAbbrev }
           nextGame: results[1].status === 'rejected',
           value: results[2].status === 'rejected',
           ai: results[4].status === 'rejected',
+          aiInsight: false,
           movement: false,
           players: results[3].status === 'rejected',
         });
@@ -245,6 +257,22 @@ const AllTeams: React.FC<AllTeamsProps> = ({ onTeamSelect, preselectTeamAbbrev }
         setValuePanel((valueRes as TeamValueResponse) ?? null);
         setKeyPlayersDetail((playersRes as { players?: KeyPlayerInfo[] })?.players ?? []);
         setAiRecommendation((aiRes as AIRecommendationResponse) ?? null);
+
+        try {
+          const insightRes = await api.ai.getTeamInsight(selectedTeam.abbreviation, aiProvider);
+          if (!cancelled) {
+            setAiInsight((insightRes as AIInsightResponse) ?? null);
+          }
+        } catch (insightErr) {
+          if (!cancelled) {
+            setAiInsight(null);
+            setDetailErrors((prev) => ({ ...prev, aiInsight: true }));
+          }
+        } finally {
+          if (!cancelled) {
+            setAiInsightLoading(false);
+          }
+        }
 
         const gameId = (valueRes as TeamValueResponse)?.next_game?.game_id
           || (nextRes as { next_game?: NextGameInfo | null })?.next_game?.game_id;
@@ -280,7 +308,7 @@ const AllTeams: React.FC<AllTeamsProps> = ({ onTeamSelect, preselectTeamAbbrev }
     return () => {
       cancelled = true;
     };
-  }, [selectedTeam, detailRefresh]);
+  }, [selectedTeam, detailRefresh, aiProvider]);
 
   // Filter and sort teams
   const filteredTeams = teams
@@ -756,7 +784,15 @@ const AllTeams: React.FC<AllTeamsProps> = ({ onTeamSelect, preselectTeamAbbrev }
                     {valueReady && <ValuePanel data={valuePanel} isLoading={detailLoading} />}
                     {valueEmpty && emptyCard('Value Panel', 'Brak danych o rynku dla nadchodzącego meczu.')}
 
-                    {aiReady && <AIRecommendationPanel data={aiRecommendation} isLoading={detailLoading} />}
+                    {aiReady && (
+                      <AIRecommendationPanel
+                        data={aiRecommendation}
+                        insight={aiInsight}
+                        provider={aiProvider}
+                        onProviderChange={setAiProvider}
+                        isLoading={detailLoading || aiInsightLoading}
+                      />
+                    )}
                     {aiEmpty && emptyCard('AI Recommendation', 'Brak rekomendacji AI dla nadchodzącego meczu.')}
 
                     {movementReady && <LineMovementMini data={lineMovement} isHome={nextGame?.is_home} isLoading={detailLoading} />}
