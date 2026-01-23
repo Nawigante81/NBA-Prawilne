@@ -211,6 +211,31 @@ export interface TeamValueResponse {
   };
 }
 
+export interface AIRecommendationRow {
+  market: 'spreads' | 'totals' | 'h2h' | 'spread' | 'total' | 'moneyline';
+  selection: string;
+  line: number | null;
+  price: number | null;
+  implied_prob: number | null;
+  model_prob: number | null;
+  edge: number | null;
+  ev: number | null;
+  confidence: number;
+  decision: 'BET' | 'NO_BET';
+  reasons?: string[];
+  why_bullets?: string[];
+}
+
+export interface AIRecommendationResponse {
+  team: string;
+  model_version: string;
+  generated_at: string;
+  next_game: NextGameInfo | null;
+  top_pick?: AIRecommendationRow | null;
+  recommendations: AIRecommendationRow[];
+  risk_flags: string[];
+}
+
 // Component Props
 export interface NavItem {
   id: string;

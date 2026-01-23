@@ -25,6 +25,7 @@ from apscheduler.triggers.interval import IntervalTrigger
 import pytz
 
 from api.routes_value_board import router as value_board_router
+from api.routes_ai import router as ai_router
 from api.routes_picks import router as picks_router
 from api.routes_performance import router as performance_router
 from api.routes_reports import router as reports_router
@@ -1464,6 +1465,7 @@ app.add_middleware(
 
 # API routers (avoid conflicts with in-file endpoints)
 app.include_router(value_board_router)
+app.include_router(ai_router)
 app.include_router(picks_router)
 app.include_router(performance_router)
 app.include_router(reports_router)

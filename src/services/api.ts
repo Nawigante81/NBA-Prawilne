@@ -199,6 +199,12 @@ export const valueBoardApi = {
   },
 };
 
+// AI Recommendation API
+export const aiApi = {
+  getTeamRecommendation: (teamAbbrev: string) =>
+    apiRequest<UnknownRecord>(`/api/ai/team/${teamAbbrev}/recommendation`),
+};
+
 // System API
 export const systemApi = {
   // Health check
@@ -225,6 +231,7 @@ export const api = {
   bulls: bullsApi,
   betting: bettingApi,
   valueBoard: valueBoardApi,
+  ai: aiApi,
   system: systemApi,
 };
 
